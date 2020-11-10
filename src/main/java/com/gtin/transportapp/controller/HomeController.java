@@ -44,6 +44,7 @@ public class HomeController {
 
     }
 
+
     @GetMapping("/view/{userId}")
     public String view(@PathVariable String userId, Model model){
         model.addAttribute("userId", userId);
