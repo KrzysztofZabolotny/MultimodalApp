@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+
+        #container{
+            width: 1000px;
+            margin-right: auto;
+            margin-left: auto;
+            background-color: gray ;
+        }
+        #content{
+
+            float:left;
+        }
+        #content2{
+
+            float:left;
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+<h2 th:text="${client.firstName}">Client Name</h2>
+
+<table>
+
+    <tr th:each="parcel : ${client.parcels}">
+        <h3 th:text="${parcel.content}"></h3>
+
+    </tr>
+</table>
+
+
+
+</body>
+</html>

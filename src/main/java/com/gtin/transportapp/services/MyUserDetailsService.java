@@ -3,7 +3,7 @@
  */
 package com.gtin.transportapp.services;
 
-import com.gtin.transportapp.MyUserDetails;
+import com.gtin.transportapp.models.MyUserDetails;
 import com.gtin.transportapp.models.User;
 import com.gtin.transportapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

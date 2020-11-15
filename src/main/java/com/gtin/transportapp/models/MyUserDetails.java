@@ -1,7 +1,7 @@
 /**
  * Created by Krzysztof Zabolotny, https://github.com/KrzysztofZabolotny
  */
-package com.gtin.transportapp;
+package com.gtin.transportapp.models;
 
 import com.gtin.transportapp.models.User;
 import org.springframework.security.core.GrantedAuthority;

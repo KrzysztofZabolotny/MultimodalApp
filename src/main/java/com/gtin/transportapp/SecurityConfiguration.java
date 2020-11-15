@@ -32,7 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/edit").authenticated()
                 .antMatchers("/*").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/view/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .and().formLogin();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean

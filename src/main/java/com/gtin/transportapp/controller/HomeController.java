@@ -3,12 +3,21 @@
  */
 package com.gtin.transportapp.controller;
 
+import com.gtin.transportapp.models.Client;
+import com.gtin.transportapp.models.Parcel;
 import com.gtin.transportapp.models.User;
+import com.gtin.transportapp.repositories.ClientRepository;
+import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -16,11 +25,43 @@ public class HomeController {
 
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    ParcelRepository parcelRepository;
+    @Autowired
+    ClientRepository clientRepository;
 
     @GetMapping("/")
-    public String home(){
-        return "hello";
+    public String home(Principal principal){
+
+        String loggedInUserName = principal.getName();
+
+        Optional<Client> optionalClient = clientRepository.findByUserName(loggedInUserName);
+        optionalClient.orElseThrow(()-> new RuntimeException(loggedInUserName+" Not found"));
+
+        Client client = optionalClient.get();
+
+
+        Parcel parcel1 = new Parcel(loggedInUserName,"Pomidory");
+        Parcel parcel2= new Parcel(loggedInUserName,"Pomarance");
+        Parcel parcel3 = new Parcel(loggedInUserName,"Banany");
+        Parcel parcel4 = new Parcel(loggedInUserName,"Marchewki");
+
+        List<Parcel> parcels = new ArrayList<>();
+        parcels.add(parcel1);
+        parcels.add(parcel2);
+        parcels.add(parcel3);
+        parcels.add(parcel4);
+
+        client.getParcels().clear();
+        client.getParcels().add(parcel1);
+        client.getParcels().add(parcel2);
+        client.getParcels().add(parcel3);
+        client.getParcels().add(parcel4);
+        clientRepository.save(client);
+
+
+
+        return "index";
     }
 
     @GetMapping("/edit")
@@ -36,6 +77,7 @@ public class HomeController {
         return "register";
     }
 
+
     @PostMapping("/register")
     public String submitUser(@ModelAttribute("user") User user){
 
@@ -44,10 +86,65 @@ public class HomeController {
 
     }
 
+    @GetMapping("/registerclient")
+    public String registerClient(Model model){
 
-    @GetMapping("/view/{userId}")
-    public String view(@PathVariable String userId, Model model){
+        Client client = new Client();
+
+        model.addAttribute(client);
+
+        return "register_client";
+    }
+
+    @PostMapping("/registerclient")
+    public String submitClient(@ModelAttribute("client") Client client){
+
+        User user = new User();
+        user.setUserName(client.getUserName());
+        user.setPassword(client.getPassword());
+        user.setActive(true);
+        user.setRoles("USER");
+        userRepository.save(user);
+        clientRepository.save(client);
+        return "client_register_success";
+    }
+
+    @GetMapping("/addparcel")
+    public String addParcel(Model model,Parcel parcel){
+
+        model.addAttribute("parcel", parcel);
+        return "add_parcel";
+    }
+
+    @PostMapping("/addparcel")
+    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal){
+
+
+        String userName = principal.getName();
+        Optional<Client> clientOptional = clientRepository.findByUserName(userName);
+        clientOptional.orElseThrow(()-> new RuntimeException("Nof found: " + userName ));
+        Client client = clientOptional.get();
+        parcel.setUserName(userName);
+        client.getParcels().add(parcel);
+        clientRepository.save(client);
+        System.out.println(client);
+        return "add_parcel";
+
+    }
+    @GetMapping("/view")
+    public String view(Principal principal, Model model){
+
+        String userId = principal.getName();
+        Optional<Client> clientOptional = clientRepository.findByUserName(userId);
+        clientOptional.orElseThrow(()-> new RuntimeException("Nof found: " + userId ));
+
         model.addAttribute("userId", userId);
+        Client client = clientOptional.get();
+        model.addAttribute("client", client);
+
+        for (Parcel p: client.getParcels()){
+            System.out.println(p);
+        }
         return "profile";
     }
 
