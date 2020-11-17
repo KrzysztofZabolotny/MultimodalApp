@@ -6,6 +6,21 @@
 
     <style>
 
+        table {
+            width: 550px;
+            border-collapse:collapse;
+            margin: auto;
+            background-color: cornflowerblue;
+            border: 2px solid black;
+            padding: 0;
+        }
+        table td {
+            position: relative;
+            text-align: center;
+            border: 2px white;
+            padding: 0;
+            margin: 0;
+        }
         #container{
             width: 1000px;
             margin-right: auto;
@@ -33,7 +48,7 @@
 <table>
 
     <tr th:each="parcel : ${client.parcels}">
-        <h3 th:text="${parcel.content}"></h3>
+        <td th:text="${parcel.content}"></td>
 
     </tr>
 </table>

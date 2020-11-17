@@ -1,7 +1,7 @@
 /**
  * Created by Krzysztof Zabolotny, https://github.com/KrzysztofZabolotny
  */
-package com.gtin.transportapp;
+package com.gtin.transportapp.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,10 +34,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/view/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .and().formLogin();
+                .and().formLogin()
+        .loginPage("/login")
+        .permitAll();
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
+
+
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {

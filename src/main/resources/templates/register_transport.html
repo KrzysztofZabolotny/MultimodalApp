@@ -51,19 +51,13 @@
 </head>
 <body>
     <div align="center">
-        <h1> User registration</h1>
-        <form action="#" th:action="@{/register}" th:object="${user}" method="post">
-            <label>Username:</label>
-            <input type="text" th:field="*{userName}"/> <br/>
-            <label>password:</label>
-            <input type="text" th:field="*{password}"/><br/>
-            <label>Active</label>
-            <input type="text" th:field="*{active}"/><br/>
-            <label>Roles</label>
-            <input type="text" th:field="*{roles}"/><br/>
-
+        <h1> Transport registration</h1>
+        <form action="#" th:action="@{/register_transport}" th:object="${transport}" method="post">
+            <label>Destination:</label>
+            <input type="text" th:field="*{destination}"/> <br/>
+            <label>Departure date:</label>
+            <input type="date" th:field="*{departureDate}"/><br/>
             <br/>
-
             <button type="submit">Register</button>
 
         </form>

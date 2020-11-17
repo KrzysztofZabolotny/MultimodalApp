@@ -1,13 +1,15 @@
 /**
  * Created by Krzysztof Zabolotny, https://github.com/KrzysztofZabolotny
  */
-package com.gtin.transportapp.controller;
+package com.gtin.transportapp.controllers;
 
 import com.gtin.transportapp.models.Client;
 import com.gtin.transportapp.models.Parcel;
+import com.gtin.transportapp.models.Transport;
 import com.gtin.transportapp.models.User;
 import com.gtin.transportapp.repositories.ClientRepository;
 import com.gtin.transportapp.repositories.ParcelRepository;
+import com.gtin.transportapp.repositories.TransportRepository;
 import com.gtin.transportapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,41 +30,19 @@ public class HomeController {
     ParcelRepository parcelRepository;
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    TransportRepository transportRepository;
 
     @GetMapping("/")
     public String home(Principal principal){
 
-        String loggedInUserName = principal.getName();
-
-        Optional<Client> optionalClient = clientRepository.findByUserName(loggedInUserName);
-        optionalClient.orElseThrow(()-> new RuntimeException(loggedInUserName+" Not found"));
-
-        Client client = optionalClient.get();
-
-
-        Parcel parcel1 = new Parcel(loggedInUserName,"Pomidory");
-        Parcel parcel2= new Parcel(loggedInUserName,"Pomarance");
-        Parcel parcel3 = new Parcel(loggedInUserName,"Banany");
-        Parcel parcel4 = new Parcel(loggedInUserName,"Marchewki");
-
-        List<Parcel> parcels = new ArrayList<>();
-        parcels.add(parcel1);
-        parcels.add(parcel2);
-        parcels.add(parcel3);
-        parcels.add(parcel4);
-
-        client.getParcels().clear();
-        client.getParcels().add(parcel1);
-        client.getParcels().add(parcel2);
-        client.getParcels().add(parcel3);
-        client.getParcels().add(parcel4);
-        clientRepository.save(client);
-
-
-
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
     @GetMapping("/edit")
     public String edit(){
         return "edit";
@@ -86,7 +65,26 @@ public class HomeController {
 
     }
 
-    @GetMapping("/registerclient")
+
+
+    @GetMapping("/register_transport")
+    public String registerTransport(Model model,Principal principal){
+         Transport transport = new Transport();
+
+        model.addAttribute("transport", transport);
+        return "register_transport";
+    }
+
+
+    @PostMapping("/register_transport")
+    public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal){
+        transport.setClientId(principal.getName());
+        transportRepository.save(transport);
+        return "register_transport_success";
+    }
+
+
+    @GetMapping("/register_client")
     public String registerClient(Model model){
 
         Client client = new Client();
@@ -96,7 +94,7 @@ public class HomeController {
         return "register_client";
     }
 
-    @PostMapping("/registerclient")
+    @PostMapping("/register_client")
     public String submitClient(@ModelAttribute("client") Client client){
 
         User user = new User();
@@ -113,11 +111,11 @@ public class HomeController {
     public String addParcel(Model model,Parcel parcel){
 
         model.addAttribute("parcel", parcel);
-        return "add_parcel";
+        return "parcel_add";
     }
 
     @PostMapping("/addparcel")
-    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal){
+    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal, Model model){
 
 
         String userName = principal.getName();
@@ -127,8 +125,8 @@ public class HomeController {
         parcel.setUserName(userName);
         client.getParcels().add(parcel);
         clientRepository.save(client);
-        System.out.println(client);
-        return "add_parcel";
+        model.addAttribute("parcel",parcel);
+        return "parcel_add_success";
 
     }
     @GetMapping("/view")
@@ -142,10 +140,23 @@ public class HomeController {
         Client client = clientOptional.get();
         model.addAttribute("client", client);
 
-        for (Parcel p: client.getParcels()){
-            System.out.println(p);
+        return "view";
+    }
+
+    @GetMapping("/all_transports")
+    public String getAllTransports(Model model){
+
+        List<Transport> transports = transportRepository.findAll();
+
+        for (Transport transport: transports){
+
+            System.out.println(transport);
         }
-        return "profile";
+
+        model.addAttribute("transports",transports);
+
+        return "all_transports";
+
     }
 
 
