@@ -3,58 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <style>
-
-        table {
-            width: 550px;
-            border-collapse:collapse;
-            margin: auto;
-            background-color: cornflowerblue;
-            border: 2px solid black;
-            padding: 0;
-        }
-        table td {
-            position: relative;
-            text-align: center;
-            border: 2px white;
-            padding: 0;
-            margin: 0;
-        }
-        #container{
-            width: 1000px;
-            margin-right: auto;
-            margin-left: auto;
-            background-color: gray ;
-        }
-        #content{
-
-            float:left;
-        }
-        #content2{
-
-            float:left;
-        }
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-    </style>
+    <!-- <style>
+
+         table {
+             width: 550px;
+             border-collapse:collapse;
+             margin: auto;
+             background-color: cornflowerblue;
+             border: 2px solid black;
+             padding: 0;
+         }
+         table td {
+             position: relative;
+             text-align: center;
+             border: 2px white;
+             padding: 0;
+             margin: 0;
+         }
+         #container{
+             width: 1000px;
+             margin-right: auto;
+             margin-left: auto;
+             background-color: gray ;
+         }
+         #content{
+
+             float:left;
+         }
+         #content2{
+
+             float:left;
+         }
+
+
+     </style>-->
 
 
 </head>
-<body>
+<div class="jumbotron text-center">
+    <div class="container">
+        <h1 class="display-4">All registered Transports</h1>
+        <p class="lead">This is a list of all available transports to date</p>
+        <p class="lead" th:text="${date}"></p>
+    </div>
+</div>
 
-<table>
-
-
-
+<table class="table">
+    <tr>
+        <th>Destination</th>
+        <th>Departure date</th>
+    </tr>
     <tr th:each="transport : ${transports}">
-        <td th:text="${transport.clientId}"></td>
         <td th:text="${transport.destination}"></td>
         <td th:text="${transport.departureDate}"></td>
     </tr>
 
 </table>
-
+</div>
 
 
 </body>

@@ -35,6 +35,24 @@ public class Transport {
     @JoinColumn(name = "parcel_id")
     List<Parcel> parcels = new ArrayList<>();
 
+    public Transport(){
+
+    }
+    public Transport(int id, LocalDate departureDate, String destination, String clientId, List<Parcel> parcels) {
+        this.id = id;
+        this.departureDate = departureDate;
+        this.destination = destination;
+        this.clientId = clientId;
+        this.parcels = parcels;
+    }
+
+    public Transport(int id, LocalDate departureDate, String destination, String clientId) {
+        this.id = id;
+        this.departureDate = departureDate;
+        this.destination = destination;
+        this.clientId = clientId;
+    }
+
     public List<Parcel> getParcels() {
         return parcels;
     }

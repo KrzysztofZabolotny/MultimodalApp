@@ -17,6 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,22 +39,57 @@ public class HomeController {
     TransportRepository transportRepository;
 
     @GetMapping("/")
-    public String home(Principal principal){
+    public String home() {
+
+
+        List<Parcel> parcels = new ArrayList<>();
+        Parcel parcel1 = new Parcel(1, "Foo", "Tomatoes", "20", "20", "20", "20");
+        Parcel parcel2 = new Parcel(2, "Bar", "Oranges", "20", "20", "20", "20");
+        Parcel parcel3 = new Parcel(3, "Bar", "Apples", "20", "20", "20", "20");
+
+        parcels.add(parcel1);
+        parcels.add(parcel2);
+        parcels.add(parcel3);
+
+        Transport transport1 = new Transport(1, LocalDate.of(2020, 1, 1), "Berlin", "Foo");
+        Transport transport2 = new Transport(2,LocalDate.of(2023,3,1),"Berlin","Bar");
+        Transport transport3 = new Transport(3,LocalDate.of(2026,4,1),"Berlin","Bar");
+
+        transport1.getParcels().clear();
+        transport1.getParcels().add(parcel1);
+        transport1.getParcels().add(parcel2);
+        transport1.getParcels().add(parcel3);
+
+//        transport2.getParcels().clear();
+//        transport2.getParcels().add(parcel1);
+//        transport2.getParcels().add(parcel2);
+//        transport2.getParcels().add(parcel3);
+//
+//        transport3.getParcels().clear();
+//        transport3.getParcels().add(parcel1);
+//        transport3.getParcels().add(parcel2);
+//        transport3.getParcels().add(parcel3);
+
+        transportRepository.save(transport1);
+        transportRepository.save(transport2);
+        transportRepository.save(transport3);
+
 
         return "index";
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
+
     @GetMapping("/edit")
-    public String edit(){
+    public String edit() {
         return "edit";
     }
 
     @GetMapping("/register")
-    public String register(Model model){
+    public String register(Model model) {
         User user = new User();
 
         model.addAttribute("user", user);
@@ -58,7 +98,7 @@ public class HomeController {
 
 
     @PostMapping("/register")
-    public String submitUser(@ModelAttribute("user") User user){
+    public String submitUser(@ModelAttribute("user") User user) {
 
         userRepository.save(user);
         return "register_success";
@@ -66,10 +106,9 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/register_transport")
-    public String registerTransport(Model model,Principal principal){
-         Transport transport = new Transport();
+    public String registerTransport(Model model, Principal principal) {
+        Transport transport = new Transport();
 
         model.addAttribute("transport", transport);
         return "register_transport";
@@ -77,7 +116,7 @@ public class HomeController {
 
 
     @PostMapping("/register_transport")
-    public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal){
+    public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
         transport.setClientId(principal.getName());
         transportRepository.save(transport);
         return "register_transport_success";
@@ -85,7 +124,7 @@ public class HomeController {
 
 
     @GetMapping("/register_client")
-    public String registerClient(Model model){
+    public String registerClient(Model model) {
 
         Client client = new Client();
 
@@ -95,7 +134,7 @@ public class HomeController {
     }
 
     @PostMapping("/register_client")
-    public String submitClient(@ModelAttribute("client") Client client){
+    public String submitClient(@ModelAttribute("client") Client client) {
 
         User user = new User();
         user.setUserName(client.getUserName());
@@ -108,33 +147,34 @@ public class HomeController {
     }
 
     @GetMapping("/addparcel")
-    public String addParcel(Model model,Parcel parcel){
+    public String addParcel(Model model, Parcel parcel) {
 
         model.addAttribute("parcel", parcel);
         return "parcel_add";
     }
 
     @PostMapping("/addparcel")
-    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal, Model model){
+    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal, Model model) {
 
 
         String userName = principal.getName();
         Optional<Client> clientOptional = clientRepository.findByUserName(userName);
-        clientOptional.orElseThrow(()-> new RuntimeException("Nof found: " + userName ));
+        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userName));
         Client client = clientOptional.get();
         parcel.setUserName(userName);
         client.getParcels().add(parcel);
         clientRepository.save(client);
-        model.addAttribute("parcel",parcel);
+        model.addAttribute("parcel", parcel);
         return "parcel_add_success";
 
     }
+
     @GetMapping("/view")
-    public String view(Principal principal, Model model){
+    public String view(Principal principal, Model model) {
 
         String userId = principal.getName();
         Optional<Client> clientOptional = clientRepository.findByUserName(userId);
-        clientOptional.orElseThrow(()-> new RuntimeException("Nof found: " + userId ));
+        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userId));
 
         model.addAttribute("userId", userId);
         Client client = clientOptional.get();
@@ -144,143 +184,24 @@ public class HomeController {
     }
 
     @GetMapping("/all_transports")
-    public String getAllTransports(Model model){
+    public String getAllTransports(Model model) {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
 
         List<Transport> transports = transportRepository.findAll();
+        model.addAttribute("transports", transports);
+        model.addAttribute("date", date);
 
-        for (Transport transport: transports){
-
-            System.out.println(transport);
-        }
-
-        model.addAttribute("transports",transports);
 
         return "all_transports";
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*@Value("#{${listOfCountries}}")
-    private List<String> listOfCountries;
-    @Value("#{${listOfBases}}")
-    private List<String> listOfBases;
-    @Value("#{${listOfDestinations}}")
-    private List<String> listOfDestinations;
-
-
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    DriverRepository driverRepository;
-    @Autowired
-    ParcelRepository parcelRepository;
-
-
-    @GetMapping("/register_parcel")
-    public String showParcelRegistrationForm(Model model) {
-
-        Parcel parcel = new Parcel();
-        model.addAttribute("parcel", parcel);
-        model.addAttribute("listOfBases", listOfBases);
-        model.addAttribute("listOfDestinations", listOfDestinations);
-        return "parcel/register_form_parcel";
-
+    @GetMapping("/style")
+    public String style(){
+        return "test";
     }
-
-
-    @PostMapping("register_parcel")
-    public String registerParcel(@ModelAttribute("parcel") Parcel parcel) {
-        System.out.println(parcel);
-        parcelRepository.save(parcel);
-
-        return "user/user_registration_success_form";
-    }*/
-
-//    @GetMapping("/login")
-//    public String showLoginForm(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//        return "login/login_form";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/login")
-//    public String loginForm(@ModelAttribute("user") User user) {
-//        userRepository.save(new User(user.getEmail(), user.getPassword()));
-//        return "login/login_success";
-//    }
-
-
-//    @GetMapping("/register")
-//    public String showForm(Model model) {
-//        Driver driver = new Driver();
-//        model.addAttribute("driver", driver);
-//        model.addAttribute("countryList", listOfCountries);
-//        return "register_form";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/register")
-//    public String submitForm(@ModelAttribute("driver") Driver driver) {
-//        driverRepository.save(driver);
-//        return "register_success";
-//    }
-//
-//    @GetMapping("/users")
-//    public String showAllTransports(Model model){
-//        model.addAttribute("users",userRepository.findAll());
-//        return "all_users";
-//    }
-//
-//
-//    @GetMapping("/login")
-//    public String showLoginForm(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//        return "login_form";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/login")
-//    public String loginForm(@ModelAttribute("user") User user) {
-//        userRepository.save(new User(user.getEmail(), user.getPassword(),user.getRegistrationDate()));
-//        return "login_success";
-//    }
-//
-//    @GetMapping("/password_reset")
-//    public String forgotPassword(Model model) {
-//        User user = new User();
-//        model.addAttribute("user", user);
-//        return "password_reset_form";
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/password_reset")
-//    public String passwordReset(@ModelAttribute("user") User user) {
-//
-//        return "index";
-//    }
-
 
 }

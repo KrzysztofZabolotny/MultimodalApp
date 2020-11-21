@@ -18,6 +18,18 @@ public class Parcel {
     private String length;
     private String height;
 
+
+
+    public Parcel(int id, String userName, String content, String weight, String width, String length, String height) {
+        this.id = id;
+        this.userName = userName;
+        this.content = content;
+        this.weight = weight;
+        this.width = width;
+        this.length = length;
+        this.height = height;
+    }
+
     public String getWeight() {
         return weight;
     }
