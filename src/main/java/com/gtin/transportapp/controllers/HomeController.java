@@ -12,6 +12,7 @@ import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
 import com.gtin.transportapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +37,10 @@ public class HomeController {
     ClientRepository clientRepository;
     @Autowired
     TransportRepository transportRepository;
+
+    @Value("${listOfProvinces}")
+    private String[] listOfProvinces;
+
 
     @GetMapping("/")
     public String home() {
@@ -83,10 +87,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/edit")
-    public String edit() {
-        return "edit";
-    }
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -127,7 +127,7 @@ public class HomeController {
     public String registerClient(Model model) {
 
         Client client = new Client();
-
+        //model.addAttribute("listOfProvinces", listOfProvinces);
         model.addAttribute(client);
 
         return "register_client";

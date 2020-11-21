@@ -14,11 +14,56 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String userName;
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private String name;
+    private String surname;
+    private String street;
+    private String city;
+    private String zip;
     private String email;
     private String password;
+    private String code;
+    private String phone;
+    private String role;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String postalCode) {
+        this.zip = postalCode;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public String getPassword() {
         return password;
@@ -37,19 +82,19 @@ public class Client {
 
     }
 
-    public Client(String userName, String firstName, String lastName, String phone, String email) {
+    public Client(String userName, String name, String surname, String phone, String email) {
         this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
+        this.surname = surname;
         this.phone = phone;
         this.email = email;
     }
 
-    public Client(int id, String userName, String firstName, String lastName, String phone, String email, List<Parcel> parcels) {
+    public Client(int id, String userName, String name, String surname, String phone, String email, List<Parcel> parcels) {
         this.id = id;
         this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
+        this.surname = surname;
         this.phone = phone;
         this.email = email;
         this.parcels = parcels;
@@ -73,20 +118,20 @@ public class Client {
         this.userName = userName;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String firstName) {
+        this.name = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurname(String lastName) {
+        this.surname = lastName;
     }
 
     public String getPhone() {
@@ -118,8 +163,8 @@ public class Client {
         return "Client{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", firstName='" + name + '\'' +
+                ", lastName='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
