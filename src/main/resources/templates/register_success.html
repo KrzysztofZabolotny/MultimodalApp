@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="ISO-8859-1">
+    <title>Registration Success</title>
+    <style type="text/css">
+        span {
+            display: inline-block;
+            width: 200px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-
-<h1>Register Success</h1>
-<span>Name:</span> <span th:text="${user.userName}"></span><br/>
-<h2>Has been registered in our database</h2>
-<h2>You can login</h2>
-<a href="/login">go to login page</a>
+<div align="center">
+    <h2>Registration Succeeded!</h2>
+    <span>Username:</span><span th:text="${client.email}"></span><br/>
+    <span>Name:</span><span th:text="${client.name}"></span><br/>
+    <span>Surname:</span><span th:text="${client.surname}"></span><br/>
+    <span>Street:</span><span th:text="${client.street}"></span><br/>
+    <span>City:</span><span th:text="${client.city}"></span><br/>
+    <span>Zip code:</span><span th:text="${client.code}"></span><br/>
+    <span>Phone</span><span th:text="${client.phone}"></span><br/>
+    <span>Role:</span><span th:text="${client.role}"></span><br/>
+</div>
 </body>
 </html>

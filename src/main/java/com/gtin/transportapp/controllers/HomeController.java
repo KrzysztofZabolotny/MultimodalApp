@@ -88,23 +88,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/register")
-    public String register(Model model) {
-        User user = new User();
-
-        model.addAttribute("user", user);
-        return "register";
-    }
-
-
-    @PostMapping("/register")
-    public String submitUser(@ModelAttribute("user") User user) {
-
-        userRepository.save(user);
-        return "register_success";
-
-    }
-
 
     @GetMapping("/register_transport")
     public String registerTransport(Model model, Principal principal) {
@@ -123,37 +106,37 @@ public class HomeController {
     }
 
 
-    @GetMapping("/register_client")
+    @GetMapping("/register")
     public String registerClient(Model model) {
 
         Client client = new Client();
-        //model.addAttribute("listOfProvinces", listOfProvinces);
         model.addAttribute(client);
 
-        return "register_client";
+        return "register";
     }
 
-    @PostMapping("/register_client")
+    @PostMapping("/register")
     public String submitClient(@ModelAttribute("client") Client client) {
 
         User user = new User();
-        user.setUserName(client.getUserName());
         user.setPassword(client.getPassword());
+        user.setUserName(client.getEmail());
         user.setActive(true);
         user.setRoles("USER");
+        client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
-        return "client_register_success";
+        return "register_success";
     }
 
-    @GetMapping("/addparcel")
+    @GetMapping("/add_parcel")
     public String addParcel(Model model, Parcel parcel) {
 
         model.addAttribute("parcel", parcel);
         return "parcel_add";
     }
 
-    @PostMapping("/addparcel")
+    @PostMapping("/add_parcel")
     public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal, Model model) {
 
 

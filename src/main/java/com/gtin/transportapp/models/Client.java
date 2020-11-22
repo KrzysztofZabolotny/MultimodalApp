@@ -25,60 +25,13 @@ public class Client {
     private String phone;
     private String role;
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String postalCode) {
-        this.zip = postalCode;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "parcel_id")
     List<Parcel> parcels = new ArrayList<>();
 
-    public Client(){
+    public Client() {
 
     }
 
@@ -99,7 +52,6 @@ public class Client {
         this.email = email;
         this.parcels = parcels;
     }
-
 
 
     public int getId() {
@@ -156,6 +108,54 @@ public class Client {
 
     public void setParcels(List<Parcel> parcels) {
         this.parcels = parcels;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String postalCode) {
+        this.zip = postalCode;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
