@@ -43,40 +43,51 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home() {
+    public String home(Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(RuntimeException::new);
+        Client client = clientOptional.get();
+
+       if(principal==null){
+           return "index";
+       }
+
+       if(client.getRole().equals("Driver")) return "driver_controls";
+       if(client.getRole().equals("Client")) return "client_controls";
 
 
-        List<Parcel> parcels = new ArrayList<>();
-        Parcel parcel1 = new Parcel(1, "Foo", "Tomatoes", "20", "20", "20", "20");
-        Parcel parcel2 = new Parcel(2, "Bar", "Oranges", "20", "20", "20", "20");
-        Parcel parcel3 = new Parcel(3, "Bar", "Apples", "20", "20", "20", "20");
-
-        parcels.add(parcel1);
-        parcels.add(parcel2);
-        parcels.add(parcel3);
-
-        Transport transport1 = new Transport(1, LocalDate.of(2020, 1, 1), "Berlin", "Foo");
-        Transport transport2 = new Transport(2,LocalDate.of(2023,3,1),"Berlin","Bar");
-        Transport transport3 = new Transport(3,LocalDate.of(2026,4,1),"Berlin","Bar");
-
-        transport1.getParcels().clear();
-        transport1.getParcels().add(parcel1);
-        transport1.getParcels().add(parcel2);
-        transport1.getParcels().add(parcel3);
-
-//        transport2.getParcels().clear();
-//        transport2.getParcels().add(parcel1);
-//        transport2.getParcels().add(parcel2);
-//        transport2.getParcels().add(parcel3);
+//        List<Parcel> parcels = new ArrayList<>();
+//        Parcel parcel1 = new Parcel(1, "Foo", "Tomatoes", "20", "20", "20", "20");
+//        Parcel parcel2 = new Parcel(2, "Bar", "Oranges", "20", "20", "20", "20");
+//        Parcel parcel3 = new Parcel(3, "Bar", "Apples", "20", "20", "20", "20");
 //
-//        transport3.getParcels().clear();
-//        transport3.getParcels().add(parcel1);
-//        transport3.getParcels().add(parcel2);
-//        transport3.getParcels().add(parcel3);
-
-        transportRepository.save(transport1);
-        transportRepository.save(transport2);
-        transportRepository.save(transport3);
+//        parcels.add(parcel1);
+//        parcels.add(parcel2);
+//        parcels.add(parcel3);
+//
+//        Transport transport1 = new Transport(1, LocalDate.of(2020, 1, 1), "Berlin", "Foo");
+//        Transport transport2 = new Transport(2,LocalDate.of(2023,3,1),"Berlin","Bar");
+//        Transport transport3 = new Transport(3,LocalDate.of(2026,4,1),"Berlin","Bar");
+//
+//        transport1.getParcels().clear();
+//        transport1.getParcels().add(parcel1);
+//        transport1.getParcels().add(parcel2);
+//        transport1.getParcels().add(parcel3);
+//
+////        transport2.getParcels().clear();
+////        transport2.getParcels().add(parcel1);
+////        transport2.getParcels().add(parcel2);
+////        transport2.getParcels().add(parcel3);
+////
+////        transport3.getParcels().clear();
+////        transport3.getParcels().add(parcel1);
+////        transport3.getParcels().add(parcel2);
+////        transport3.getParcels().add(parcel3);
+//
+//        transportRepository.save(transport1);
+//        transportRepository.save(transport2);
+//        transportRepository.save(transport3);
 
 
         return "index";
