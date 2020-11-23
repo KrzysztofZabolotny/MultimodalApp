@@ -45,16 +45,18 @@ public class HomeController {
     @GetMapping("/")
     public String home(Principal principal) {
 
+        if(principal==null){
+            return "index";
+        }
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(RuntimeException::new);
         Client client = clientOptional.get();
 
-       if(principal==null){
-           return "index";
-       }
 
-       if(client.getRole().equals("Driver")) return "driver_controls";
-       if(client.getRole().equals("Client")) return "client_controls";
+
+
+       if(client.getRole().equals("Driver")) return "driver_main";
+       if(client.getRole().equals("Client")) return "client_main";
 
 
 //        List<Parcel> parcels = new ArrayList<>();

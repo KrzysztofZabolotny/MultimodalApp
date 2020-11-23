@@ -17,17 +17,18 @@
         }
 
         .btn {
-            width: 150px;
+            width: 300px;
             height: 60px;
             background-color: #fc7333;
             margin-right: 20px;
             margin-left: 20px;
+            margin-top: 30px;
             font-weight: bold;
             color: #f5f5f5;
         }
 
         .btn:hover {
-            width: 150px;
+            width: 300px;
             height: 60px;
             background-color: #B2B356;
             margin-right: 20px;
@@ -37,20 +38,13 @@
 
         }
 
-        #container {
-            width: 1000px;
-            height: 260px;
-            margin-left: auto;
-            margin-right: auto;
 
-        }
 
         #button_container {
             width: 400px;
-            align-self: center;
-            margin-left: 290px;
-            margin-top: 70px;
-            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
             justify-content: center;
         }
 
@@ -71,22 +65,26 @@
 
     <div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
         <div class="container">
-            <h1 class="display-4">Transport Automation</h1>
-            <p class="lead">Application to help you organise all your transports</p>
+            <h1 class="display-4" style="justify-content: center">Main menu</h1>
         </div>
 
 
-        <div id="container">
+
             <div id="button_container">
-                <button onclick="window.location.href='/register';" class="btn" style="float: left">
-                    REGISTER
+                <button onclick="window.location.href='/all_transports';" class="btn" style="clear: both" >
+                    Create a new Transport
                 </button>
-                <button onclick="window.location.href='/login';" class="btn" style="float: left">
-                    LOGIN
+                <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
+                    Edit Transports
+                </button>
+                <button onclick="window.location.href='/history_transports';" class="btn" style="clear: both" >
+                    Transports history
+                </button>
+                <button onclick="window.location.href='/driver_stats';" class="btn" style="clear: both" >
+                    Your stats
                 </button>
                 <div style="clear:both;"></div>
             </div>
-        </div>
     </div>
     <div class="footer">
         2020&copy Transport Automation App
