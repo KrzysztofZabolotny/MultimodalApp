@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +19,8 @@ public class Transport {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departureDate;
     private String destination;
-    private String clientId;
+    private String driverId;
+    private String numberOfPackages;
 
     public LocalDate getDepartureDate() {
         return departureDate;
@@ -38,31 +38,39 @@ public class Transport {
     public Transport(){
 
     }
-    public Transport(int id, LocalDate departureDate, String destination, String clientId, List<Parcel> parcels) {
+    public Transport(int id, LocalDate departureDate, String destination, String driverId, List<Parcel> parcels) {
         this.id = id;
         this.departureDate = departureDate;
         this.destination = destination;
-        this.clientId = clientId;
+        this.driverId = driverId;
         this.parcels = parcels;
     }
 
-    public Transport(int id, LocalDate departureDate, String destination, String clientId) {
+    public Transport(int id, LocalDate departureDate, String destination, String driverId) {
         this.id = id;
         this.departureDate = departureDate;
         this.destination = destination;
-        this.clientId = clientId;
+        this.driverId = driverId;
+    }
+
+    public String getNumberOfPackages() {
+        return numberOfPackages;
+    }
+
+    public void setNumberOfPackages(String numberOfPackages) {
+        this.numberOfPackages = numberOfPackages;
     }
 
     public List<Parcel> getParcels() {
         return parcels;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getDriverId() {
+        return driverId;
     }
 
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
+    public void setDriverId(String clientId) {
+        this.driverId = clientId;
     }
 
     public void setParcels(List<Parcel> parcels) {
@@ -92,7 +100,7 @@ public class Transport {
                 "id=" + id +
                 ", departureDate=" + departureDate +
                 ", destination='" + destination + '\'' +
-                ", clientId='" + clientId + '\'' +
+                ", clientId='" + driverId + '\'' +
                 ", parcels=" + parcels +
                 '}';
     }

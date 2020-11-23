@@ -18,10 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +36,8 @@ public class HomeController {
     @Autowired
     TransportRepository transportRepository;
 
-    @Value("${listOfProvinces}")
-    private String[] listOfProvinces;
+    @Value("${listOfDestinations}")
+    private List<String> listOfDestinations;
 
 
     @GetMapping("/")
@@ -51,7 +49,6 @@ public class HomeController {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(RuntimeException::new);
         Client client = clientOptional.get();
-
 
 
 
@@ -105,15 +102,16 @@ public class HomeController {
     @GetMapping("/register_transport")
     public String registerTransport(Model model, Principal principal) {
         Transport transport = new Transport();
-
         model.addAttribute("transport", transport);
+        model.addAttribute("listOfDestinations", listOfDestinations);
         return "register_transport";
     }
 
 
     @PostMapping("/register_transport")
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
-        transport.setClientId(principal.getName());
+        //transport.setDriverId(principal.getName());
+        transport.setNumberOfPackages("0");
         transportRepository.save(transport);
         return "register_transport_success";
     }
@@ -191,7 +189,7 @@ public class HomeController {
         model.addAttribute("date", date);
 
 
-        return "all_transports";
+        return "transports_all";
 
     }
 
