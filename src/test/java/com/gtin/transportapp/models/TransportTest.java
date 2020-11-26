@@ -1,9 +1,11 @@
 /**
  * Created by Krzysztof Zabolotny, https://github.com/KrzysztofZabolotny
  */
-package com.gtin.transportapp;
+package com.gtin.transportapp.models;
 
+import com.gtin.transportapp.MathUtils;
 import com.gtin.transportapp.models.Client;
+import com.gtin.transportapp.models.Transport;
 import com.gtin.transportapp.repositories.ClientRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +15,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class MathUtilTest {
+public class TransportTest {
 
-    @Autowired
-    ClientRepository clientRepository;
     @Test
-    void testAdd(){
-        MathUtils mathUtils = new MathUtils();
-        int expected = 2;
-        int actual = mathUtils.add(1,1);
-        assertEquals(expected,actual, "The method should add two numbers");
+    void increaseParcelCountTest(){
+        Transport transport = new Transport();
+
+        transport.increaseParcelCount();
+        int expected = 1;
+        int actual = Integer.parseInt(transport.getNumberOfParcels());
+        assertEquals(expected,actual, "The method increases the parcel count");
 
     }
 

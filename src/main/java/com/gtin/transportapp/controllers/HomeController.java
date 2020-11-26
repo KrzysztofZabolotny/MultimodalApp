@@ -155,7 +155,7 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
-
+        transport.increaseParcelCount();
         transport.getParcels().add(parcel);
         transportRepository.save(transport);
 

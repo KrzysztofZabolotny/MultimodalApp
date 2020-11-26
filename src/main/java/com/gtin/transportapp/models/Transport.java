@@ -20,7 +20,7 @@ public class Transport {
     private LocalDate departureDate;
     private String destination;
     private String driverId;
-    private String numberOfParcels;
+    private String numberOfParcels = "0";
     private int orderNumber;
 
     public LocalDate getDepartureDate() {
@@ -100,6 +100,11 @@ public class Transport {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+    public void increaseParcelCount(){
+        int numberTmp = Integer.parseInt(numberOfParcels);
+        numberTmp++;
+        numberOfParcels = String.valueOf(numberTmp);
     }
 
     @Override
