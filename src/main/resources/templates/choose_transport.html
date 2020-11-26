@@ -17,22 +17,20 @@
         }
 
         .btn {
-            width: 300px;
-            height: 60px;
+            width: 100px;
+            height: 30px;
+            padding-bottom: 5px;
             background-color: #fc7333;
-            margin-right: 20px;
-            margin-left: 20px;
-            margin-top: 30px;
             font-weight: bold;
+            font-size: 13px;
+            justify-content: center;
             color: #f5f5f5;
         }
 
         .btn:hover {
-            width: 300px;
-            height: 60px;
+            width: 100px;
+            height: 30px;
             background-color: #B2B356;
-            margin-right: 20px;
-            margin-left: 20px;
             font-weight: bold;
             color: #f5f5f5;
 
@@ -46,7 +44,6 @@
             margin-top: 50px;
             justify-content: center;
         }
-
 
         .footer {
             font-size: 10px;
@@ -65,25 +62,31 @@
 
 <div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">Main menu</h1>
+        <h1 class="display-4" style="justify-content: center">Available transports</h1>
     </div>
 
+    <table class="table" style="color: whitesmoke;">
+        <thead>
+        <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">Departure Date</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Driver Name</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transport : ${transports}">
+            <td><span id="transport_number" th:text="${transport.orderNumber}"> Number </span></td>
+            <td><span th:text="${transport.departureDate}"> Departure Date </span></td>
+            <td><span th:text="${transport.destination}"> Destination</span></td>
+            <td><span th:text="${transport.driverId}"> Driver Name </span></td>
+            <td><a th:href="@{'/add_parcel_tmp/' + ${transport.id}}" class="btn" style="float:left;">Add Parcel</a></td>
+        </tr>
 
-    <div id="button_container">
-        <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-            Find transports 🡆
-        </button>
-        <button onclick="window.location.href='/ordered_transports';" class="btn" style="clear: both">
-            Edit ordered Transports
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            History
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            Edit profile
-        </button>
-        <div style="clear:both;"></div>
-    </div>
+        </tbody>
+    </table>
+
 </div>
 <div class="footer">
     2020&copy Transport Automation App

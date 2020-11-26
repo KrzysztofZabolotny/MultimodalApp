@@ -39,6 +39,7 @@
         }
 
 
+
         #button_container {
             width: 400px;
             margin-left: auto;
@@ -47,15 +48,14 @@
             justify-content: center;
         }
 
-
         .footer {
             font-size: 10px;
             text-align: center;
             margin-left: 140px;
             width: 1000px;
             height: 30px;
-            position: absolute;
-            bottom: 0;
+            position:absolute;
+            bottom:0;
         }
 
     </style>
@@ -63,30 +63,31 @@
 </head>
 <body>
 
-<div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
-    <div class="container">
-        <h1 class="display-4" style="justify-content: center">Main menu</h1>
-    </div>
+    <div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
+        <div class="container">
+            <h1 class="display-4" style="justify-content: center"> Edit transports</h1>
+        </div>
 
 
-    <div id="button_container">
-        <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-            Find transports 🡆
-        </button>
-        <button onclick="window.location.href='/ordered_transports';" class="btn" style="clear: both">
-            Edit ordered Transports
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            History
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            Edit profile
-        </button>
-        <div style="clear:both;"></div>
+
+            <div id="button_container">
+                <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both" >
+                    Create a new Transport
+                </button>
+                <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
+                    Edit Transports
+                </button>
+                <button onclick="window.location.href='/history_transports';" class="btn" style="clear: both" >
+                    Transports history
+                </button>
+                <button onclick="window.location.href='/driver_stats';" class="btn" style="clear: both" >
+                    Your stats
+                </button>
+                <div style="clear:both;"></div>
+            </div>
     </div>
-</div>
-<div class="footer">
-    2020&copy Transport Automation App
-</div>
+    <div class="footer">
+        2020&copy Transport Automation App
+    </div>
 </body>
 </html>

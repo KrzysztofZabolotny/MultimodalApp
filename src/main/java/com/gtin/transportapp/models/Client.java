@@ -4,7 +4,9 @@
 package com.gtin.transportapp.models;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,7 @@ public class Client {
     private String code;
     private String phone;
     private String role;
+    private Date creationDate;
 
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -32,7 +35,7 @@ public class Client {
     List<Parcel> parcels = new ArrayList<>();
 
     public Client() {
-
+        setCreationDate();
     }
 
     public Client(String userName, String name, String surname, String phone, String email) {
@@ -52,6 +55,7 @@ public class Client {
         this.email = email;
         this.parcels = parcels;
     }
+
 
 
     public int getId() {
@@ -156,6 +160,9 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public  void setCreationDate(){
+        creationDate = new Date(System.currentTimeMillis());
     }
 
     @Override

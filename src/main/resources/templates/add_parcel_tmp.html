@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <title>SpringBootThymeleaf Form</title>
+    <style type="text/css">
+        body {
+            background-color: #303030;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+        #container {
+            width: 800px;
+            height: 240px;
+            margin-left: auto;
+            margin-right: auto;
+
+            /*border-style: solid;*/
+            /*border-color: whitesmoke;*/
+
+        }
+
+        .btn {
+            background-color: #fc7333;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+        }
+
+        .btn:hover {
+            background-color: #B2B356;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+
+        }
+        .custom-radio{
+            margin-left: 100px;
+
+        }
+        .jumbotron text-center{
+
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="jumbotron text-center" style="background-color: #303030; align-content: center; height: 100px; margin-top: -30px">
+    <h1 class="display-4">Add your parcel</h1>
+
+</div>
+
+<div id="container">
+
+        <form action="#" th:action="@{/add_parcel_tmp}" th:object="${parcel}" method="post" >
+        <div class="form-group">
+            <label for="content">Content</label>
+            <input th:field="*{content}" type="text" class="form-control" id="content" placeholder="Toys, food, clothes, etc.">
+        </div>
+        <div class="form-group">
+            <label for="weight">Weight in kg</label>
+            <input th:field="*{weight}" type="text" class="form-control" id="weight" placeholder="3">
+        </div>
+        <div class="form-group">
+            <label for="length">Length in cm</label>
+            <input th:field="*{length}" type="text" class="form-control" id="length" placeholder="40">
+        </div>
+        <div class="form-group">
+            <label for="width">Width in cm</label>
+            <input th:field="*{width}" type="text" class="form-control" id="width" placeholder="50">
+        </div>
+        <div class="form-group">
+            <label for="height">Height in cm</label>
+            <input th:field="*{height}" type="text" class="form-control" id="height" placeholder="60">
+        </div>
+
+
+        <div class="form-group">
+            <label for="additionalComments">Additional comments</label>
+            <textarea th:field="*{additionalComments}" class="form-control" id="additionalComments" placeholder="Preferred delivery time, no lift, top flor etc." rows="3"></textarea>
+        </div>
+
+        <button class="btn btn-large btn-block btn-primary" type="submit">Add</button>
+    </form>
+
+
+
+</div>
+</body>
+</html>

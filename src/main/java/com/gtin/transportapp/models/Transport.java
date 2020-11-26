@@ -20,7 +20,8 @@ public class Transport {
     private LocalDate departureDate;
     private String destination;
     private String driverId;
-    private String numberOfPackages;
+    private String numberOfParcels;
+    private int orderNumber;
 
     public LocalDate getDepartureDate() {
         return departureDate;
@@ -53,12 +54,12 @@ public class Transport {
         this.driverId = driverId;
     }
 
-    public String getNumberOfPackages() {
-        return numberOfPackages;
+    public String getNumberOfParcels() {
+        return numberOfParcels;
     }
 
-    public void setNumberOfPackages(String numberOfPackages) {
-        this.numberOfPackages = numberOfPackages;
+    public void setNumberOfParcels(String numberOfPackages) {
+        this.numberOfParcels = numberOfPackages;
     }
 
     public List<Parcel> getParcels() {
@@ -85,6 +86,13 @@ public class Transport {
         this.id = id;
     }
 
+    public int getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(int rowNumber) {
+        this.orderNumber = rowNumber;
+    }
 
     public String getDestination() {
         return destination;

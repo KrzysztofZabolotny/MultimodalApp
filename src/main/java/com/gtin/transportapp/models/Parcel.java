@@ -11,14 +11,22 @@ public class Parcel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private int inTransportNumber;
     private String userName;
     private String content;
     private String weight;
     private String width;
     private String length;
     private String height;
+    private String additionalComments;
 
+    public int getInTransportNumber() {
+        return inTransportNumber;
+    }
 
+    public void setInTransportNumber(int inTransportNumber) {
+        this.inTransportNumber = inTransportNumber;
+    }
 
     public Parcel(int id, String userName, String content, String weight, String width, String length, String height) {
         this.id = id;
@@ -28,6 +36,14 @@ public class Parcel {
         this.width = width;
         this.length = length;
         this.height = height;
+    }
+
+    public String getAdditionalComments() {
+        return additionalComments;
+    }
+
+    public void setAdditionalComments(String additionalComments) {
+        this.additionalComments = additionalComments;
     }
 
     public String getWeight() {
@@ -105,8 +121,14 @@ public class Parcel {
     public String toString() {
         return "Parcel{" +
                 "id=" + id +
+                ", inTransportNumber=" + inTransportNumber +
                 ", userName='" + userName + '\'' +
                 ", content='" + content + '\'' +
+                ", weight='" + weight + '\'' +
+                ", width='" + width + '\'' +
+                ", length='" + length + '\'' +
+                ", height='" + height + '\'' +
+                ", additionalComments='" + additionalComments + '\'' +
                 '}';
     }
 }

@@ -3,10 +3,7 @@
  */
 package com.gtin.transportapp.controllers;
 
-import com.gtin.transportapp.models.Client;
-import com.gtin.transportapp.models.Parcel;
-import com.gtin.transportapp.models.Transport;
-import com.gtin.transportapp.models.User;
+import com.gtin.transportapp.models.*;
 import com.gtin.transportapp.repositories.ClientRepository;
 import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
@@ -15,17 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class HomeController {
 
+    static int transportNumber;
 
     @Autowired
     UserRepository userRepository;
@@ -43,52 +41,17 @@ public class HomeController {
     @GetMapping("/")
     public String home(Principal principal) {
 
-        if(principal==null){
+        if (principal == null) {
             return "index";
         }
+
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(RuntimeException::new);
         Client client = clientOptional.get();
 
 
-
-       if(client.getRole().equals("Driver")) return "driver_main";
-       if(client.getRole().equals("Client")) return "client_main";
-
-
-//        List<Parcel> parcels = new ArrayList<>();
-//        Parcel parcel1 = new Parcel(1, "Foo", "Tomatoes", "20", "20", "20", "20");
-//        Parcel parcel2 = new Parcel(2, "Bar", "Oranges", "20", "20", "20", "20");
-//        Parcel parcel3 = new Parcel(3, "Bar", "Apples", "20", "20", "20", "20");
-//
-//        parcels.add(parcel1);
-//        parcels.add(parcel2);
-//        parcels.add(parcel3);
-//
-//        Transport transport1 = new Transport(1, LocalDate.of(2020, 1, 1), "Berlin", "Foo");
-//        Transport transport2 = new Transport(2,LocalDate.of(2023,3,1),"Berlin","Bar");
-//        Transport transport3 = new Transport(3,LocalDate.of(2026,4,1),"Berlin","Bar");
-//
-//        transport1.getParcels().clear();
-//        transport1.getParcels().add(parcel1);
-//        transport1.getParcels().add(parcel2);
-//        transport1.getParcels().add(parcel3);
-//
-////        transport2.getParcels().clear();
-////        transport2.getParcels().add(parcel1);
-////        transport2.getParcels().add(parcel2);
-////        transport2.getParcels().add(parcel3);
-////
-////        transport3.getParcels().clear();
-////        transport3.getParcels().add(parcel1);
-////        transport3.getParcels().add(parcel2);
-////        transport3.getParcels().add(parcel3);
-//
-//        transportRepository.save(transport1);
-//        transportRepository.save(transport2);
-//        transportRepository.save(transport3);
-
-
+        if (client.getRole().equals("Driver")) return "driver_main";
+        if (client.getRole().equals("Client")) return "client_main";
         return "index";
     }
 
@@ -97,23 +60,15 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("show_all_transports")
+    public String showZoo(Model model){
 
+        List<Transport> transports = transportRepository.findAll();
 
-    @GetMapping("/register_transport")
-    public String registerTransport(Model model, Principal principal) {
-        Transport transport = new Transport();
-        model.addAttribute("transport", transport);
-        model.addAttribute("listOfDestinations", listOfDestinations);
-        return "register_transport";
-    }
+        model.addAttribute("transports", transports);
 
+        return "show_all_transports";
 
-    @PostMapping("/register_transport")
-    public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
-        //transport.setDriverId(principal.getName());
-        transport.setNumberOfPackages("0");
-        transportRepository.save(transport);
-        return "register_transport_success";
     }
 
 
@@ -140,62 +95,118 @@ public class HomeController {
         return "register_success";
     }
 
-    @GetMapping("/add_parcel")
-    public String addParcel(Model model, Parcel parcel) {
 
-        model.addAttribute("parcel", parcel);
-        return "parcel_add";
+    @GetMapping("/register_transport")
+    public String registerTransport(Model model) {
+        Transport transport = new Transport();
+        model.addAttribute("transport", transport);
+        model.addAttribute("listOfDestinations", listOfDestinations);
+        return "register_transport";
     }
 
-    @PostMapping("/add_parcel")
-    public String submitParcel(@ModelAttribute("parcel") Parcel parcel, Principal principal, Model model) {
 
-
-        String userName = principal.getName();
-        Optional<Client> clientOptional = clientRepository.findByUserName(userName);
-        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userName));
-        Client client = clientOptional.get();
-        parcel.setUserName(userName);
-        client.getParcels().add(parcel);
-        clientRepository.save(client);
-        model.addAttribute("parcel", parcel);
-        return "parcel_add_success";
-
+    @PostMapping("/register_transport")
+    public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
+        //transport.setDriverId(principal.getName());
+        transport.setNumberOfParcels("0");
+        transport.setOrderNumber(0);
+        transport.setDriverId(principal.getName());
+        transportRepository.save(transport);
+        return "register_transport_success";
     }
 
-    @GetMapping("/view")
-    public String view(Principal principal, Model model) {
+    @GetMapping("/choose_transport")
+    public String showAvailableTransports(Model model, Parcel parcel, Principal principal) {
 
-        String userId = principal.getName();
-        Optional<Client> clientOptional = clientRepository.findByUserName(userId);
-        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userId));
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
 
-        model.addAttribute("userId", userId);
         Client client = clientOptional.get();
+        List<Transport> transports = transportRepository.findAll();
+        Collections.sort(transports, Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
+        int orderNumber = 1;
+        for (Transport t : transports) {
+            t.setOrderNumber(orderNumber);
+            orderNumber++;
+        }
+        model.addAttribute("transports", transports);
+        model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
 
-        return "view";
+        return "choose_transport";
     }
 
-    @GetMapping("/all_transports")
-    public String getAllTransports(Model model) {
+    @GetMapping("/add_parcel_tmp/{id}")
+    public String addParcelTmp(@PathVariable("id") Integer id, Model model, Transport transport) {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        String date = dtf.format(now);
+        Parcel parcel = new Parcel();
+        System.out.println("adding parcel form shown");
+        transportNumber = id;
 
-        List<Transport> transports = transportRepository.findAll();
-        model.addAttribute("transports", transports);
-        model.addAttribute("date", date);
-
-
-        return "transports_all";
+        model.addAttribute("parcel", parcel);
+        return "add_parcel_tmp";
 
     }
 
-    @GetMapping("/style")
-    public String style(){
-        return "test";
+    @PostMapping("/add_parcel_tmp")
+    public String postParcelTmp(@ModelAttribute("parcel") Parcel parcel, Principal principal) {
+        parcel.setUserName(principal.getName());
+        Optional<Transport> transportOptional = transportRepository.findById(transportNumber);
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+        transport.getParcels().add(parcel);
+        transportRepository.save(transport);
+
+
+        return "index";
+
     }
+
+//    @GetMapping("/view")
+//    public String view(Principal principal, Model model) {
+//
+//        String userId = principal.getName();
+//        Optional<Client> clientOptional = clientRepository.findByUserName(userId);
+//        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userId));
+//
+//        model.addAttribute("userId", userId);
+//        Client client = clientOptional.get();
+//        model.addAttribute("client", client);
+//
+//        return "view";
+//    }
+
+//    @GetMapping("/all_transports")
+//    public String getAllTransports(Model model) {
+//
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        String date = dtf.format(now);
+//
+//        List<Transport> transports = transportRepository.findAll();
+//        model.addAttribute("transports", transports);
+//        model.addAttribute("date", date);
+//
+//
+//        return "transports_all";
+//
+//    }
+//    @GetMapping("/show_one_transport/{id}")
+//    public String showOneTransport(@PathVariable("id") Integer id, Model model, Parcel parcel){
+//        Optional<Transport> optionalTransport = transportRepository.findById(id);
+//        optionalTransport.orElseThrow(()-> new RuntimeException("No transport with id: "+id));
+//
+//        Transport transport = optionalTransport.get();
+//
+//
+//        model.addAttribute("transport", transport);
+//        System.out.println(transport);
+//
+//        return "show_one_transport";
+//    }
+
+
 
 }
