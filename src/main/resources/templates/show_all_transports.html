@@ -91,29 +91,30 @@
     List<Parcel> parcels = new ArrayList<>();-->
 
         <table class="table" style="color: whitesmoke;">
-        <tbody>
-        <tr th:each="transport : ${transports}">
-            <td><span th:text="${transport.departureDate}"> </span></td>
-            <td><span th:text="${transport.destination}"> </span></td>
-            <td><span th:text="${transport.driverId}"> </span></td>
-            <td><span th:text="${transport.numberOfParcels}"> </span></td>
-            <td><span th:text="${transport.orderNumber}"> </span></td>
+            <tbody>
+            <tr th:each="transport : ${transports}">
+                <td><span th:text="${transport.departureDate}"> </span></td>
+                <td><span th:text="${transport.destination}"> </span></td>
+                <td><span th:text="${transport.driverId}"> </span></td>
+                <td><span th:text="${transport.numberOfParcels}"> </span></td>
+                <td><span th:text="${transport.orderNumber}"> </span></td>
 
-                <table class="table" style="color: whitesmoke;">
-                    <tbody>
-                        <tr th:each="parcel : ${transport.parcels}">
-                            <td><span th:text="${parcel.id}"></span></td>
-                            <td><span th:text="${parcel.inTransportNumber}"></span></td>
-                            <td><span th:text="${parcel.userName}"></span></td>
-                            <td><span th:text="${parcel.content}"></span></td>
-                            <td><span th:text="${parcel.weight}"></span></td>
-                            <td><span th:text="${parcel.length}"></span></td>
-                            <td><span th:text="${parcel.height}"></span></td>
-                            <td><span th:text="${parcel.additionalComments}"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-        </tbody>
+                    <table class="table" style="color: whitesmoke;">
+                        <tbody>
+                            <tr th:each="parcel : ${transport.parcels}">
+                                <td><span th:text="${parcel.id}"></span></td>
+                                <td><span th:text="${parcel.inTransportNumber}"></span></td>
+                                <td><span th:text="${parcel.userName}"></span></td>
+                                <td><span th:text="${parcel.content}"></span></td>
+                                <td><span th:text="${parcel.weight}"></span></td>
+                                <td><span th:text="${parcel.length}"></span></td>
+                                <td><span th:text="${parcel.height}"></span></td>
+                                <td><span th:text="${parcel.additionalComments}"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </tr>
+            </tbody>
     </table>
 
 <!--    <div th:each="zoo : ${zoos}">-->

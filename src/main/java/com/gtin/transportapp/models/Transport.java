@@ -22,6 +22,10 @@ public class Transport {
     private String driverId;
     private String numberOfParcels = "0";
     private int orderNumber;
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "parcel_id")
+    List<Parcel> parcels = new ArrayList<>();
 
     public LocalDate getDepartureDate() {
         return departureDate;
@@ -31,14 +35,11 @@ public class Transport {
         this.departureDate = departureDate;
     }
 
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JoinColumn(name = "parcel_id")
-    List<Parcel> parcels = new ArrayList<>();
 
-    public Transport(){
+    public Transport() {
 
     }
+
     public Transport(int id, LocalDate departureDate, String destination, String driverId, List<Parcel> parcels) {
         this.id = id;
         this.departureDate = departureDate;
@@ -101,7 +102,8 @@ public class Transport {
     public void setDestination(String destination) {
         this.destination = destination;
     }
-    public void increaseParcelCount(){
+
+    public void increaseParcelCount() {
         int numberTmp = Integer.parseInt(numberOfParcels);
         numberTmp++;
         numberOfParcels = String.valueOf(numberTmp);

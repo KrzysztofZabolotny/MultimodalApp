@@ -60,6 +60,8 @@ public class HomeController {
         return "login";
     }
 
+
+
     @GetMapping("show_all_transports")
     public String showZoo(Model model){
 
@@ -82,7 +84,7 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String submitClient(@ModelAttribute("client") Client client) {
+    public String submitClient(@ModelAttribute("client") Client client) throws Exception {
 
         User user = new User();
         user.setPassword(client.getPassword());
@@ -92,6 +94,8 @@ public class HomeController {
         client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
+        //SEND THIS IN A NEW THREAD!!!!
+        /*SendMail.sendMail("s19073@pjwstk.edu.pl","tytul","Content");*/
         return "register_success";
     }
 
