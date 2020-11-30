@@ -96,7 +96,7 @@ public class HomeController {
         userRepository.save(user);
         clientRepository.save(client);
         Thread sendConfirmation = new Thread(new MailSender(client.getEmail(),MailSender.timeStamp()));
-        sendConfirmation.run();
+        sendConfirmation.start();
         return "register_success";
     }
 
