@@ -8,6 +8,7 @@ import com.gtin.transportapp.repositories.ClientRepository;
 import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
 import com.gtin.transportapp.repositories.UserRepository;
+import com.gtin.transportapp.services.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -94,8 +95,8 @@ public class HomeController {
         client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
-        //SEND THIS IN A NEW THREAD
-        /*SendMail.sendMail("s19073@pjwstk.edu.pl","tytul","Content");*/
+        Thread sendConfirmation = new Thread(new MailSender(client.getEmail(),MailSender.timeStamp()));
+        sendConfirmation.run();
         return "register_success";
     }
 
