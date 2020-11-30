@@ -94,7 +94,7 @@ public class HomeController {
         client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
-        //SEND THIS IN A NEW THREAD!!!!
+        //SEND THIS IN A NEW THREAD
         /*SendMail.sendMail("s19073@pjwstk.edu.pl","tytul","Content");*/
         return "register_success";
     }
