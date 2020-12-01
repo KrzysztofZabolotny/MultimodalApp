@@ -10,86 +10,93 @@
 
     <style>
         body {
-            background-color: #303030;
+            background-color: #03859b;
             color: whitesmoke;
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
         }
+        #container
+        {
+            width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+           /* border-color: white;
+            border-style: solid;*/
+        }
+
+        .square
+        {
+            width: 50%;
+            float: left;
+           /* border-color: red;
+            border-style: solid;*/
+        }
 
         .btn {
-            width: 150px;
+            width: 300px;
             height: 60px;
-            background-color: #fc7333;
-            margin-right: 20px;
-            margin-left: 20px;
+            background-color: #00203f;
             font-weight: bold;
             color: #f5f5f5;
         }
 
         .btn:hover {
-            width: 150px;
+            width: 300px;
             height: 60px;
-            background-color: #B2B356;
-            margin-right: 20px;
-            margin-left: 20px;
+            background-color: #EA4F45;
             font-weight: bold;
             color: #f5f5f5;
-
+        }
+        .tile-top
+        {
+            width: 500px;
+            height: 70px;
+        }
+        .tile-bottom
+        {
+            width: 500px;
+            height: 70px;
         }
 
-        #container {
-            width: 1000px;
-            height: 260px;
-            margin-left: auto;
-            margin-right: auto;
 
-        }
 
-        #button_container {
-            width: 400px;
-            align-self: center;
-            margin-left: 290px;
-            margin-top: 70px;
-            display: flex;
-            justify-content: center;
-        }
 
-        .footer {
-            font-size: 10px;
-            text-align: center;
-            margin-left: 140px;
-            width: 1000px;
-            height: 30px;
-            position:absolute;
-            bottom:0;
-        }
+
 
     </style>
 
 </head>
 <body>
 
-    <div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
+    <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
         <div class="container">
             <h1 class="display-4">Transport Automation</h1>
             <p class="lead">Application to help you organise all your transports</p>
         </div>
 
-
         <div id="container">
-            <div id="button_container">
-                <button onclick="window.location.href='/register';" class="btn" style="float: left">
-                    REGISTER
-                </button>
-                <button onclick="window.location.href='/login';" class="btn" style="float: left">
-                    LOGIN
-                </button>
-                <div style="clear:both;"></div>
+
+            <div class="square">
+                <img src="../static/img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}" style=" max-width: fit-content;"/>
             </div>
+            <div class="square" style="margin-top: 100px">
+                <div class="tile-top">
+                    <button onclick="window.location.href='/register';" class="btn">
+                        REGISTER
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 20px">
+                    <button onclick="window.location.href='/login';" class="btn">
+                        LOGIN
+                    </button>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
         </div>
     </div>
-    <div class="footer">
-        2020&copy Transport Automation App
-    </div>
+    <footer class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+    </footer>
 </body>
+
 </html>

@@ -62,9 +62,8 @@ public class HomeController {
     }
 
 
-
     @GetMapping("show_all_transports")
-    public String showZoo(Model model){
+    public String showZoo(Model model) {
 
         List<Transport> transports = transportRepository.findAll();
 
@@ -95,7 +94,7 @@ public class HomeController {
         client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
-        Thread sendConfirmation = new Thread(new MailSender(client.getEmail(),MailSender.timeStamp()));
+        Thread sendConfirmation = new Thread(new MailSender(client.getEmail(), MailSender.timeStamp()));
         sendConfirmation.start();
         return "register_success";
     }
@@ -165,7 +164,7 @@ public class HomeController {
         transportRepository.save(transport);
 
 
-        return "index";
+        return "client_main";
 
     }
 
@@ -211,7 +210,6 @@ public class HomeController {
 //
 //        return "show_one_transport";
 //    }
-
 
 
 }
