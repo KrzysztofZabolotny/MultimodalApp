@@ -119,7 +119,7 @@ public class HomeController {
         return "register_transport_success";
     }
 
-    @GetMapping("/choose_transport")
+    @GetMapping("/choose_transportTEST")
     public String showAvailableTransports(Model model, Parcel parcel, Principal principal) {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
@@ -137,7 +137,7 @@ public class HomeController {
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
 
-        return "choose_transport";
+        return "choose_transportTEST";
     }
 
     @GetMapping("/add_parcel_tmp/{id}")

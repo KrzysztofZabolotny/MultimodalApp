@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         body {
@@ -20,7 +22,7 @@
             width: 100px;
             height: 30px;
             padding-bottom: 5px;
-            background-color: #fc7333;
+            background-color: #00203f;
             font-weight: bold;
             font-size: 13px;
             justify-content: center;
@@ -30,29 +32,16 @@
         .btn:hover {
             width: 100px;
             height: 30px;
-            background-color: #B2B356;
+            background-color: #EA4F45;
             font-weight: bold;
             color: #f5f5f5;
 
         }
 
 
-        #button_container {
-            width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            justify-content: center;
-        }
-
-        .footer {
-            font-size: 10px;
-            text-align: center;
-            margin-left: 140px;
-            width: 1000px;
-            height: 30px;
-            position: absolute;
-            bottom: 0;
+        .col-sm-3{
+            color: #00203f;
+            float: left;
         }
 
     </style>
@@ -65,28 +54,21 @@
         <h1 class="display-4" style="justify-content: center">Available transports</h1>
     </div>
 
-    <table class="table" style="color: whitesmoke;">
-        <thead>
-        <tr>
-            <th scope="col">Nr</th>
-            <th scope="col">Departure Date</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Driver Name</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="transport : ${transports}">
-            <td><span id="transport_number" th:text="${transport.orderNumber}"> Number </span></td>
-            <td><span th:text="${transport.departureDate}"> Departure Date </span></td>
-            <td><span th:text="${transport.destination}"> Destination</span></td>
-            <td><span th:text="${transport.driverId}"> Driver Name </span></td>
-            <td><a th:href="@{'/add_parcel_tmp/' + ${transport.id}}" class="btn" style="float:left;">Add Parcel</a></td>
-        </tr>
-
-        </tbody>
-    </table>
-
+        <div class="row">
+            <div th:each="transport : ${transports}">
+                <div class="col-sm-3">
+                    <div class="card" style="float: left">
+                        <div class="card-body" style="float: left">
+                            <img src="../static/img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"  class="card-img-top" alt="...">
+                            <h5 class="card-title" th:text="${transport.destination}"  >Special title treatment</h5>
+                            <p class="card-text" th:text="${transport.driverId}">With supporting .</p>
+                            <p class="card-text" th:text="${transport.departureDate}">With supporting .</p>
+                            <a th:href="@{'/add_parcel_tmp/' + ${transport.id}}" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>

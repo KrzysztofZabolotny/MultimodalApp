@@ -54,42 +54,54 @@
             position: absolute;
             bottom: 0;
         }
+        .col-sm-3{
+            width: 210px;
+            height: 300px;
+            border-style: solid;
+            border-color: white;
+        }
 
     </style>
 
 </head>
 <body>
 
-<div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
-    <div class="container">
-        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
     </div>
-
-    <table class="table" style="color: whitesmoke;">
-        <thead>
-        <tr>
-            <th scope="col">Nr</th>
-            <th scope="col">Departure Date</th>
-            <th scope="col">Destination</th>
-            <th scope="col">Driver Name</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="transport : ${transports}">
-            <td><span id="transport_number" th:text="${transport.orderNumber}"> Number </span></td>
-            <td><span th:text="${transport.departureDate}"> Departure Date </span></td>
-            <td><span th:text="${transport.destination}"> Destination</span></td>
-            <td><span th:text="${transport.driverId}"> Driver Name </span></td>
-            <td><a th:href="@{'/add_parcel_tmp/' + ${transport.id}}" class="btn" style="float:left;">Add Parcel</a></td>
-        </tr>
-
-        </tbody>
-    </table>
-
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting </p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
 </div>
-<footer class="page-footer font-small blue">
-    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
-</footer>
 </body>
 </html>
