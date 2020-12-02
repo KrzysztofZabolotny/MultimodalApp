@@ -10,7 +10,7 @@
 
     <style>
         body {
-            background-color: #303030;
+            background-color: #03859b;
             color: whitesmoke;
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
@@ -19,7 +19,7 @@
         .btn {
             width: 300px;
             height: 60px;
-            background-color: #fc7333;
+            background-color: #00203f;
             margin-right: 20px;
             margin-left: 20px;
             margin-top: 30px;
@@ -30,7 +30,7 @@
         .btn:hover {
             width: 300px;
             height: 60px;
-            background-color: #B2B356;
+            background-color: #EA4F45;
             margin-right: 20px;
             margin-left: 20px;
             font-weight: bold;
@@ -45,6 +45,10 @@
             margin-right: auto;
             margin-top: 50px;
             justify-content: center;
+        }
+        .square {
+            width: 50%;
+            float: left;
         }
 
 
@@ -63,30 +67,34 @@
 </head>
 <body>
 
-<div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
         <h1 class="display-4" style="justify-content: center">Main menu</h1>
     </div>
-
-
-    <div id="button_container">
-        <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-            Find transports 🡆
-        </button>
-        <button onclick="window.location.href='/ordered_transports';" class="btn" style="clear: both">
-            Edit ordered Transports
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            History
-        </button>
-        <button onclick="window.location.href='/login';" class="btn" style="clear: both">
-            Edit profile
-        </button>
-        <div style="clear:both;"></div>
+    <div class="square">
+        <img src="thymeleafDesignPatterns/modes_of_transportation.png"
+             style=" max-width: fit-content; margin-top: 100px; margin-left: 90px"/>
+    </div>
+    <div class="square">
+        <div id="button_container">
+            <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
+                Check available transports
+            </button>
+            <button onclick="window.location.href='/ordered_transports';" class="btn" style="clear: both">
+                Edit ordered Transports
+            </button>
+            <button onclick="window.location.href='/login';" class="btn" style="clear: both">
+                History
+            </button>
+            <button onclick="window.location.href='/login';" class="btn" style="clear: both">
+                Edit profile
+            </button>
+            <div style="clear:both;"></div>
+        </div>
     </div>
 </div>
-<div class="footer">
-    2020&copy Transport Automation App
-</div>
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
 </body>
 </html>

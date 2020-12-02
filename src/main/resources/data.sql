@@ -9,7 +9,7 @@ insert into client(id, user_name, name, surname, street, city, zip, email, passw
 values (1, 'kz', 'Krzysztof', 'Zabolotny', 'Konows Gate 1E', 'Oslo', '0192', 'kz',
         'kz', '+47', '82010437', 'Client'),
        (2, 'st', 'Stefan', 'Serafin', 'Birken Gate 1E', 'Tromso', '0992', 'st',
-        'st', '+47', '92010437', 'Client');
+        'st', '+47', '92010437', 'Driver');
 
 insert into transport (id, departure_date, destination, driver_id, number_of_parcels, order_number)
 values ( 1, '2020-01-01', 'Oslo' , 'krzysztof@gmail.com', '0', '0' ),

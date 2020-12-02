@@ -12,7 +12,7 @@
 
     <style>
         body {
-            background-color: #303030;
+            background-color: #03859b;
             color: whitesmoke;
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
@@ -54,7 +54,7 @@
 </head>
 <body>
 
-<div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
         <h1 class="display-4" style="justify-content: center">Available transports</h1>
     </div>
@@ -70,7 +70,7 @@
                     <p class="card-text" th:text="${transport.driverId}"></p>
                     <p class="card-text" th:text="${transport.departureDate}"></p>
                     <p class="card-text"><small class="text-muted">Time till departure</small></p>
-                    <a class="btn text-white" th:href="@{'/add_parcel_tmp/' + ${transport.id}}">Choose</a>
+                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Choose</a>
                 </div>
             </div>
         </div>

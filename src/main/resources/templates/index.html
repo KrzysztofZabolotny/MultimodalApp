@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <style>
         body {
             background-color: #03859b;
@@ -15,21 +14,16 @@
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
         }
-        #container
-        {
+
+        #container {
             width: 1000px;
             margin-left: auto;
             margin-right: auto;
-           /* border-color: white;
-            border-style: solid;*/
         }
 
-        .square
-        {
+        .square {
             width: 50%;
             float: left;
-           /* border-color: red;
-            border-style: solid;*/
         }
 
         .btn {
@@ -47,20 +41,16 @@
             font-weight: bold;
             color: #f5f5f5;
         }
-        .tile-top
-        {
-            width: 500px;
-            height: 70px;
-        }
-        .tile-bottom
-        {
+
+        .tile-top {
             width: 500px;
             height: 70px;
         }
 
-
-
-
+        .tile-bottom {
+            width: 500px;
+            height: 70px;
+        }
 
 
     </style>
@@ -68,35 +58,37 @@
 </head>
 <body>
 
-    <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
-        <div class="container">
-            <h1 class="display-4">Transport Automation</h1>
-            <p class="lead">Application to help you organise all your transports</p>
-        </div>
-
-        <div id="container">
-
-            <div class="square">
-                <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}" style=" max-width: fit-content;"/>
-            </div>
-            <div class="square" style="margin-top: 100px">
-                <div class="tile-top">
-                    <button onclick="window.location.href='/register';" class="btn">
-                        REGISTER
-                    </button>
-                </div>
-                <div class="tile-bottom" style="margin-top: 20px">
-                    <button onclick="window.location.href='/login';" class="btn">
-                        LOGIN
-                    </button>
-                </div>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
+    <div class="container">
+        <h1 class="display-4">Transport Automation</h1>
+        <p class="lead">Application to help you organise all your transports</p>
     </div>
-    <footer class="page-footer font-small blue">
-        <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
-    </footer>
+
+    <div id="container">
+
+        <div class="square" style="margin-top: 50px;">
+            <img src="thymeleafDesignPatterns/modes_of_transportation.png"
+                 style=" max-width: fit-content;"/>
+        </div>
+        <div class="square" style="margin-top: 100px">
+            <div class="tile-top">
+                <button onclick="window.location.href='/login';" class="btn">
+                    LOGIN
+                </button>
+            </div>
+            <div class="tile-bottom" style="margin-top: 20px">
+                <button onclick="window.location.href='/register';" class="btn">
+                    REGISTER
+                </button>
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
 </body>
 
 </html>

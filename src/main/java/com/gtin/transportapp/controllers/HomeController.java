@@ -140,7 +140,7 @@ public class HomeController {
         return "choose_transport";
     }
 
-    @GetMapping("/add_parcel_tmp/{id}")
+    @GetMapping("/add_parcel/{id}")
     public String addParcelTmp(@PathVariable("id") Integer id, Model model, Transport transport) {
 
         Parcel parcel = new Parcel();
@@ -148,11 +148,11 @@ public class HomeController {
         transportNumber = id;
 
         model.addAttribute("parcel", parcel);
-        return "add_parcel_tmp";
+        return "add_parcel";
 
     }
 
-    @PostMapping("/add_parcel_tmp")
+    @PostMapping("/add_parcel")
     public String postParcelTmp(@ModelAttribute("parcel") Parcel parcel, Principal principal) {
         parcel.setUserName(principal.getName());
         Optional<Transport> transportOptional = transportRepository.findById(transportNumber);
