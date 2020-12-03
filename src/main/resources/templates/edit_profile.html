@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <title>SpringBootThymeleaf Form</title>
+    <style type="text/css">
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+        #container {
+            width: 800px;
+            height: 240px;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .btn {
+            background-color: #fc7333;
+            height: 50px;
+            width: 300px;
+            margin-left: 235px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+
+        .btn:hover {
+            background-color: #B2B356;
+            margin-left: 185px;
+            font-weight: bold;
+            color: #f5f5f5;
+
+        }
+
+
+        .jumbotron text-center {
+
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div class="jumbotron text-center"
+     style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
+    <h1 class="display-4">Registration form</h1>
+
+</div>
+
+<div id="container">
+
+    <form action="#" th:action="@{/edit_profile}" th:object="${client}" method="post">
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Name</label>
+                <input type="text" class="form-control" id="inputName" placeholder="John" th:field="*{name}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputSurname">Surname</label>
+                <input type="text" class="form-control" id="inputSurname" placeholder="Doe" th:field="*{surname}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Wojska Polskeigo 10/4"
+                   th:field="*{street}">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="Oslo" th:field="*{city}">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="0192" th:field="*{zip}">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="inputCode">Code</label>
+                <input type="text" class="form-control" id="inputCode" placeholder="+47..." th:field="*{code}">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputPhoneNumber">Phone number</label>
+                <input type="text" class="form-control" id="inputPhoneNumber" placeholder="91010123"
+                       th:field="*{phone}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+</div>
+</body>
+</html>

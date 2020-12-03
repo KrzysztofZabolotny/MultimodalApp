@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Utilities {
 
-    static int generateRegistrationCode(){
+    public static int generateRegistrationCode(){
 
         int bound = 900_000;
         int fill = 1_000_000;

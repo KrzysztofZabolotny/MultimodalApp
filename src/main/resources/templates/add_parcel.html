@@ -8,7 +8,7 @@
 
 
     <title>SpringBootThymeleaf Form</title>
-    <style type="text/css">
+    <style>
         body {
             background-color: #03859b;
             color: whitesmoke;
@@ -48,6 +48,10 @@
         .jumbotron text-center{
 
         }
+        .square {
+            width: 50%;
+            float: left;
+        }
 
     </style>
 
@@ -55,46 +59,61 @@
 </head>
 <body>
 
-<div class="jumbotron text-center" style="background-color: #303030; align-content: center; height: 100px; margin-top: -30px">
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
     <h1 class="display-4">Add your parcel</h1>
 
 </div>
 
-<div id="container">
 
-        <form action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post" >
-        <div class="form-group">
-            <label for="content">Content</label>
-            <input th:field="*{content}" type="text" class="form-control" id="content" placeholder="Toys, food, clothes, etc.">
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="square" style="margin-top: 50px;">
+                <img src="img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
+                     style=" max-width: fit-content;"/>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="weight">Weight in kg</label>
-            <input th:field="*{weight}" type="text" class="form-control" id="weight" placeholder="3">
+        <div class="col-6">
+            <form action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post" >
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <input th:field="*{content}" type="text" class="form-control" id="content" placeholder="Toys, food, clothes, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight in kg</label>
+                    <input th:field="*{weight}" type="text" class="form-control" id="weight" placeholder="3">
+                </div>
+                <div class="form-group">
+                    <label for="length">Length in cm</label>
+                    <input th:field="*{length}" type="text" class="form-control" id="length" placeholder="40">
+                </div>
+                <div class="form-group">
+                    <label for="width">Width in cm</label>
+                    <input th:field="*{width}" type="text" class="form-control" id="width" placeholder="50">
+                </div>
+                <div class="form-group">
+                    <label for="height">Height in cm</label>
+                    <input th:field="*{height}" type="text" class="form-control" id="height" placeholder="60">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="additionalComments">Additional comments</label>
+                    <textarea th:field="*{additionalComments}" class="form-control" id="additionalComments" placeholder="Preferred delivery time, no lift, top flor etc." rows="3"></textarea>
+                </div>
+
+                <button class="btn btn-large btn-block btn-primary" type="submit">Add</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="length">Length in cm</label>
-            <input th:field="*{length}" type="text" class="form-control" id="length" placeholder="40">
-        </div>
-        <div class="form-group">
-            <label for="width">Width in cm</label>
-            <input th:field="*{width}" type="text" class="form-control" id="width" placeholder="50">
-        </div>
-        <div class="form-group">
-            <label for="height">Height in cm</label>
-            <input th:field="*{height}" type="text" class="form-control" id="height" placeholder="60">
-        </div>
-
-
-        <div class="form-group">
-            <label for="additionalComments">Additional comments</label>
-            <textarea th:field="*{additionalComments}" class="form-control" id="additionalComments" placeholder="Preferred delivery time, no lift, top flor etc." rows="3"></textarea>
-        </div>
-
-        <button class="btn btn-large btn-block btn-primary" type="submit">Add</button>
-    </form>
-
-
-
+    </div>
 </div>
+
+<!--    <div id="col">-->
+
+
+<!--    </div>-->
+
+
+
 </body>
 </html>

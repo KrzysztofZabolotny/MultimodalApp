@@ -3,7 +3,10 @@
  */
 package com.gtin.transportapp.controllers;
 
-import com.gtin.transportapp.models.*;
+import com.gtin.transportapp.models.Client;
+import com.gtin.transportapp.models.Parcel;
+import com.gtin.transportapp.models.Transport;
+import com.gtin.transportapp.models.User;
 import com.gtin.transportapp.repositories.ClientRepository;
 import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -37,6 +42,16 @@ public class HomeController {
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
+
+
+
+
+
+
+    /*INDEX*/
+
+
+
 
 
     @GetMapping("/")
@@ -62,16 +77,14 @@ public class HomeController {
     }
 
 
-    @GetMapping("show_all_transports")
-    public String showZoo(Model model) {
 
-        List<Transport> transports = transportRepository.findAll();
 
-        model.addAttribute("transports", transports);
 
-        return "show_all_transports";
+    /* USER REGISTRATION*/
 
-    }
+
+
+
 
 
     @GetMapping("/register")
@@ -84,20 +97,27 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String submitClient(@ModelAttribute("client") Client client) throws Exception {
+    public String submitClient(@ModelAttribute("client") Client client) {
 
         User user = new User();
         user.setPassword(client.getPassword());
         user.setUserName(client.getEmail());
-        user.setActive(true);
-        user.setRoles("USER");
         client.setUserName(client.getEmail());
         userRepository.save(user);
         clientRepository.save(client);
-        Thread sendConfirmation = new Thread(new MailSender(client.getEmail(), MailSender.timeStamp()));
-        sendConfirmation.start();
+        Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), MailSender.timeStamp()));
+        sendConfirmationCode.start();
         return "register_success";
     }
+
+
+
+
+
+    /* TRANSPORT REGISTRATION*/
+
+
+
 
 
     @GetMapping("/register_transport")
@@ -119,6 +139,17 @@ public class HomeController {
         return "register_transport_success";
     }
 
+
+
+
+
+    /*CHOOSING EXISTING TRANSPORT*/
+
+
+
+
+
+
     @GetMapping("/choose_transport")
     public String showAvailableTransports(Model model, Parcel parcel, Principal principal) {
 
@@ -127,7 +158,7 @@ public class HomeController {
 
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
-        Collections.sort(transports, Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
+        transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
         int orderNumber = 1;
         for (Transport t : transports) {
             t.setOrderNumber(orderNumber);
@@ -139,6 +170,16 @@ public class HomeController {
 
         return "choose_transport";
     }
+
+
+
+
+
+    /* ADDING PARCEL*/
+
+
+
+
 
     @GetMapping("/add_parcel/{id}")
     public String addParcelTmp(@PathVariable("id") Integer id, Model model, Transport transport) {
@@ -168,48 +209,35 @@ public class HomeController {
 
     }
 
-//    @GetMapping("/view")
-//    public String view(Principal principal, Model model) {
-//
-//        String userId = principal.getName();
-//        Optional<Client> clientOptional = clientRepository.findByUserName(userId);
-//        clientOptional.orElseThrow(() -> new RuntimeException("Nof found: " + userId));
-//
-//        model.addAttribute("userId", userId);
-//        Client client = clientOptional.get();
-//        model.addAttribute("client", client);
-//
-//        return "view";
-//    }
 
-//    @GetMapping("/all_transports")
-//    public String getAllTransports(Model model) {
-//
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-//        LocalDateTime now = LocalDateTime.now();
-//        String date = dtf.format(now);
-//
-//        List<Transport> transports = transportRepository.findAll();
-//        model.addAttribute("transports", transports);
-//        model.addAttribute("date", date);
-//
-//
-//        return "transports_all";
-//
-//    }
-//    @GetMapping("/show_one_transport/{id}")
-//    public String showOneTransport(@PathVariable("id") Integer id, Model model, Parcel parcel){
-//        Optional<Transport> optionalTransport = transportRepository.findById(id);
-//        optionalTransport.orElseThrow(()-> new RuntimeException("No transport with id: "+id));
-//
-//        Transport transport = optionalTransport.get();
-//
-//
-//        model.addAttribute("transport", transport);
-//        System.out.println(transport);
-//
-//        return "show_one_transport";
-//    }
+
+
+    /*EDIT PROFILE*/
+
+
+
+    @GetMapping("/edit_profile")
+    public String editProfile(Model model, Principal principal){
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()-> new RuntimeException("Something went wrong"));
+
+        Client client = clientOptional.get();
+        clientRepository.delete(client);
+        model.addAttribute("client", client);
+
+        return "edit_profile";
+
+    }
+
+    @PostMapping("/edit_profile")
+    public String saveEditProfile(@ModelAttribute("client") Client client){
+
+
+        clientRepository.save(client);
+
+        return "success";
+    }
 
 
 }

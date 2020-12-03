@@ -29,6 +29,7 @@ public class Client {
     private Date creationDate;
 
 
+
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "parcel_id")

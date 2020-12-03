@@ -13,8 +13,8 @@ public class User {
     private int id;
     private String userName;
     private String password;
-    private boolean active;
-    private String roles;
+    private boolean active = true;
+    private String roles = "USER";
 
     public int getId() {
         return id;
