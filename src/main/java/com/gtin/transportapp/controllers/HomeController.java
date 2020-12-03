@@ -223,7 +223,6 @@ public class HomeController {
         clientOptional.orElseThrow(()-> new RuntimeException("Something went wrong"));
 
         Client client = clientOptional.get();
-        clientRepository.delete(client);
         model.addAttribute("client", client);
 
         return "edit_profile";
@@ -231,10 +230,27 @@ public class HomeController {
     }
 
     @PostMapping("/edit_profile")
-    public String saveEditProfile(@ModelAttribute("client") Client client){
+    public String saveEditProfile(@ModelAttribute("client") Client client, Principal principal){
 
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()->new RuntimeException("Something went wrong"));
+
+
+        Client clientFromDatabase = clientOptional.get();
+        client.setId(clientFromDatabase.getId());
+        client.setEmail(clientFromDatabase.getEmail());
+        client.setPassword(clientFromDatabase.getPassword());
+        client.setRole(clientFromDatabase.getRole());
+        client.setUserName(clientFromDatabase.getUserName());
+    //        updatedClient.setName(client.getName());
+    //        updatedClient.setSurname(client.getSurname());
+    //        updatedClient.setStreet(client.getStreet());
+    //        updatedClient.setCity(client.getCity());
+    //        updatedClient.setCode(client.getCode());
+    //        updatedClient.setPhone(client.getPhone());
 
         clientRepository.save(client);
+
 
         return "success";
     }
