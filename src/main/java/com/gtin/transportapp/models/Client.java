@@ -166,6 +166,8 @@ public class Client {
         creationDate = new Date(System.currentTimeMillis());
     }
 
+
+
     @Override
     public String toString() {
         return "Client{" +

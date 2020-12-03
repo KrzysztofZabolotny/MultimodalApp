@@ -12,6 +12,7 @@ import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
 import com.gtin.transportapp.repositories.UserRepository;
 import com.gtin.transportapp.services.MailSender;
+import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -210,6 +211,22 @@ public class HomeController {
     }
 
 
+    /*CLIENT DETAILS*/
+
+
+
+    @GetMapping("/client_details")
+    public String showClientDetails(Model model, Principal principal){
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()-> new RuntimeException("No client found"));
+
+        Client client = clientOptional.get();
+
+        model.addAttribute("client", client);
+
+        return "client_details";
+    }
+
 
 
     /*EDIT PROFILE*/
@@ -230,26 +247,14 @@ public class HomeController {
     }
 
     @PostMapping("/edit_profile")
-    public String saveEditProfile(@ModelAttribute("client") Client client, Principal principal){
+    public String saveEditProfile(@ModelAttribute("client") Client updatedClient, Principal principal){
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(()->new RuntimeException("Something went wrong"));
 
-
-        Client clientFromDatabase = clientOptional.get();
-        client.setId(clientFromDatabase.getId());
-        client.setEmail(clientFromDatabase.getEmail());
-        client.setPassword(clientFromDatabase.getPassword());
-        client.setRole(clientFromDatabase.getRole());
-        client.setUserName(clientFromDatabase.getUserName());
-    //        updatedClient.setName(client.getName());
-    //        updatedClient.setSurname(client.getSurname());
-    //        updatedClient.setStreet(client.getStreet());
-    //        updatedClient.setCity(client.getCity());
-    //        updatedClient.setCode(client.getCode());
-    //        updatedClient.setPhone(client.getPhone());
-
-        clientRepository.save(client);
+        Client oldClient = clientOptional.get();
+        Utilities.updateClientDetails(oldClient, updatedClient);
+        clientRepository.save(updatedClient);
 
 
         return "success";
