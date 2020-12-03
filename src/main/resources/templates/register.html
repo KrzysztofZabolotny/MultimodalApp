@@ -87,22 +87,11 @@
             <label for="inputAddress">Street</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Wojska Polskeigo 10/4" th:field="*{street}">
         </div>
-<!--        <div class="form-group">-->
-<!--            <label for="inputAddress2">Address 2</label>-->
-<!--            <input type="text" class="form-control" id="inputAddress2" placeholder="Staircase, floor, apartment">-->
-<!--        </div>-->
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputCity">City</label>
                 <input type="text" class="form-control" id="inputCity" placeholder="Oslo" th:field="*{city}">
             </div>
-            <!--        <div class="form-group col-md-4">-->
-            <!--            <label for="inputState">State</label>-->
-            <!--            <select id="inputState" class="form-control">-->
-            <!--                <option selected>Choose...</option>-->
-            <!--                <option>...</option>-->
-            <!--            </select>-->
-            <!--        </div>-->
             <div class="form-group col-md-2">
                 <label for="inputZip">Zip</label>
                 <input type="text" class="form-control" id="inputZip" placeholder="0192" th:field="*{zip}">
@@ -111,13 +100,7 @@
                 <label for="inputCode">Code</label>
                 <input type="text" class="form-control" id="inputCode" placeholder="+47..." th:field="*{code}">
             </div>
-<!--                    <div class="form-group col-md-1">-->
-<!--                        <label for="inputState">Code</label>-->
-<!--                        <select id="inputState" class="form-control">-->
-<!--                            <option selected>+47..</option>-->
-<!--                            <option>...</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
+
             <div class="form-group col-md-3">
                 <label for="inputPhoneNumber">Phone number</label>
                 <input type="text" class="form-control" id="inputPhoneNumber" placeholder="91010123" th:field="*{phone}">
@@ -127,12 +110,7 @@
         <input class="custom-radio" type="radio" th:field="*{role}" value="Client"  re/>Client
         <input class="custom-radio" type="radio" th:field="*{role}" value="Driver" />Driver<br/>
         <div class="form-group">
-            <!--        <div class="form-check">-->
-            <!--            <input class="form-check-input" type="checkbox" id="gridCheck">-->
-            <!--            <label class="form-check-label" for="gridCheck">-->
-            <!--                Check me out-->
-            <!--            </label>-->
-            <!--        </div>-->
+
         </div>
         <div class="form-check" style="float: left; font-size: 15px;">
             <input class="form-check-input" type="checkbox" id="gridCheck" required>
@@ -144,26 +122,8 @@
     </form>
 
 </div>
-<!--    <div align="center">-->
-<!--        <h1> Client registration</h1>-->
-<!--        <form action="#" th:action="@{/register_client}" th:object="${client}" method="post">-->
-<!--            <label>Username:</label>-->
-<!--            <input type="text" th:field="*{userName}"/> <br/>-->
-<!--            <label>Username:</label>-->
-<!--            <input type="password" th:field="*{password}"/> <br/>-->
-<!--            <label>First Name:</label>-->
-<!--            <input type="text" th:field="*{firstName}"/><br/>-->
-<!--            <label>Last Name</label>-->
-<!--            <input type="text" th:field="*{lastName}"/><br/>-->
-<!--            <label>Phone</label>-->
-<!--            <input type="text" th:field="*{phone}"/><br/>-->
-<!--            <label>Email</label>-->
-<!--            <input type="text" th:field="*{email}"/><br/>-->
-
-
-<!--            <button type="submit">Register</button>-->
-
-<!--        </form>-->
-<!--    </div>-->
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
 </body>
 </html>

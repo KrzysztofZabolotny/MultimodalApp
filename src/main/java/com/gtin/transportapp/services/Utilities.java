@@ -5,6 +5,8 @@ package com.gtin.transportapp.services;
 
 import com.gtin.transportapp.models.Client;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public final class Utilities {
@@ -27,5 +29,11 @@ public final class Utilities {
 
         return updatedClientDetails;
 
+    }
+
+    public static String timeStamp(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
 }

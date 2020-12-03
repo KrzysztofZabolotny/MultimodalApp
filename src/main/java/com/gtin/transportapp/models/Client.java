@@ -5,9 +5,13 @@ package com.gtin.transportapp.models;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.gtin.transportapp.services.Utilities.timeStamp;
 
 @Entity
 @Table
@@ -26,7 +30,7 @@ public class Client {
     private String code;
     private String phone;
     private String role;
-    private Date creationDate;
+    private String creationDate;
 
 
 
@@ -163,7 +167,7 @@ public class Client {
         this.password = password;
     }
     public  void setCreationDate(){
-        creationDate = new Date(System.currentTimeMillis());
+        creationDate = timeStamp();
     }
 
 

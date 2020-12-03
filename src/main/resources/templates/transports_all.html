@@ -51,27 +51,29 @@
 
 
 </head>
-<div class="jumbotron text-center">
-    <div class="container">
-        <h1 class="display-4">All registered Transports</h1>
-        <p class="lead">This is a list of all available transports to date</p>
-        <p class="lead" th:text="${date}"></p>
+<body>
+    <div class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-4">All registered Transports</h1>
+            <p class="lead">This is a list of all available transports to date</p>
+            <p class="lead" th:text="${date}"></p>
+        </div>
     </div>
-</div>
 
-<table class="table">
-    <tr>
-        <th>Destination</th>
-        <th>Departure date</th>
-    </tr>
-    <tr th:each="transport : ${transports}">
-        <td th:text="${transport.destination}"></td>
-        <td th:text="${transport.departureDate}"></td>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>Destination</th>
+            <th>Departure date</th>
+        </tr>
+        <tr th:each="transport : ${transports}">
+            <td th:text="${transport.destination}"></td>
+            <td th:text="${transport.departureDate}"></td>
+        </tr>
 
-</table>
-</div>
+    </table>
 
-
+    <footer class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+    </footer>
 </body>
 </html>

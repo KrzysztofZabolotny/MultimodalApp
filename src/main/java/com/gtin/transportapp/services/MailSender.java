@@ -58,9 +58,4 @@ public class MailSender implements Runnable {
         message.setText(content);
         return message;
     }
-    public static String timeStamp(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        return "User created "+dtf.format(now);
-    }
 }

@@ -1,9 +1,6 @@
 insert into user (id, user_name, password, active, roles)
-values (1, 'foo', 'foo', 'true', 'USER'),
-       (2, 'bar', 'bar', 'true', 'USER'),
-       (3, 'root', 'root', 'true', 'USER'),
-       (4, 'kz', 'kz', 'true', 'USER'),
-       (5, 'st', 'st', 'true', 'USER');
+values (1, 'kz', 'kz', 'true', 'USER'),
+       (2, 'st', 'st', 'true', 'USER');
 
 insert into client(id, user_name, name, surname, street, city, zip, email, password, code, phone, role)
 values (1, 'kz', 'Krzysztof', 'Zabolotny', 'Konows Gate 1E', 'Oslo', '0192', 'kz',
