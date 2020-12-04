@@ -20,8 +20,7 @@ public class Transport {
     private LocalDate departureDate;
     private String destination;
     private String driverId;
-    private String numberOfParcels = "0";
-    private int orderNumber;
+
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JoinColumn(name = "parcel_id")
@@ -55,13 +54,6 @@ public class Transport {
         this.driverId = driverId;
     }
 
-    public String getNumberOfParcels() {
-        return numberOfParcels;
-    }
-
-    public void setNumberOfParcels(String numberOfPackages) {
-        this.numberOfParcels = numberOfPackages;
-    }
 
     public List<Parcel> getParcels() {
         return parcels;
@@ -87,13 +79,6 @@ public class Transport {
         this.id = id;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int rowNumber) {
-        this.orderNumber = rowNumber;
-    }
 
     public String getDestination() {
         return destination;
@@ -103,11 +88,6 @@ public class Transport {
         this.destination = destination;
     }
 
-    public void increaseParcelCount() {
-        int numberTmp = Integer.parseInt(numberOfParcels);
-        numberTmp++;
-        numberOfParcels = String.valueOf(numberTmp);
-    }
 
     @Override
     public String toString() {

@@ -33,6 +33,25 @@
             font-weight: bold;
 
         }
+        .btn-logout{
+            width: 100px;
+            height: 40px;
+            background-color: #ee0938;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+        .btn-logout:hover{
+            width: 100px;
+            height: 40px;
+            background-color: #07ac30;
+            margin-right: 20px;
+            margin-left: 20px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
 
 
         .container {
@@ -45,6 +64,11 @@
 
 </head>
 <body>
+<div class="col-12 text-right">
+    <button onclick="window.location.href='/logout';" class="btn-logout" style="clear: both">
+        Logout
+    </button>
+</div>
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">

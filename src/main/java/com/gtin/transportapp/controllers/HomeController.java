@@ -132,10 +132,12 @@ public class HomeController {
 
     @PostMapping("/register_transport")
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
-        //transport.setDriverId(principal.getName());
-        transport.setNumberOfParcels("0");
-        transport.setOrderNumber(0);
-        transport.setDriverId(principal.getName());
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()-> new RuntimeException("User not fount with the name: "+principal.getName()));
+
+        Client client = clientOptional.get();
+        //transport.setDriverId(principal.getName()
+        transport.setDriverId(client.getEmail());
         transportRepository.save(transport);
         return "register_transport_success";
     }
@@ -160,11 +162,6 @@ public class HomeController {
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
         transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
-        int orderNumber = 1;
-        for (Transport t : transports) {
-            t.setOrderNumber(orderNumber);
-            orderNumber++;
-        }
         model.addAttribute("transports", transports);
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
@@ -183,7 +180,7 @@ public class HomeController {
 
 
     @GetMapping("/add_parcel/{id}")
-    public String addParcelTmp(@PathVariable("id") Integer id, Model model, Transport transport) {
+    public String addParcelTmp(@PathVariable("id") Integer id, Model model) {
 
         Parcel parcel = new Parcel();
         System.out.println("adding parcel form shown");
@@ -201,7 +198,6 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
-        transport.increaseParcelCount();
         transport.getParcels().add(parcel);
         transportRepository.save(transport);
 

@@ -10,14 +10,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TransportTest {
 
-    @Test
-    void increaseParcelCountTest(){
-        Transport transport = new Transport();
 
-        transport.increaseParcelCount();
-        int expected = 1;
-        int actual = Integer.parseInt(transport.getNumberOfParcels());
-        assertEquals(expected,actual, "The method increases the parcel count");
-
-    }
 }
