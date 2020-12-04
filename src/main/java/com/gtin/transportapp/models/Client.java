@@ -31,6 +31,7 @@ public class Client {
     private String phone;
     private String role;
     private String creationDate;
+    private int oneTimeCode;
 
 
 
@@ -62,6 +63,14 @@ public class Client {
     }
 
 
+
+    public int getOneTimeCode() {
+        return oneTimeCode;
+    }
+
+    public void setOneTimeCode(int oneTimeCode) {
+        this.oneTimeCode = oneTimeCode;
+    }
 
     public int getId() {
         return id;

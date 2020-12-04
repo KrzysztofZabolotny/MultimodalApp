@@ -29,6 +29,23 @@ public final class Utilities {
 
         return updatedClientDetails;
 
+    }public static Client updateGlobalClientDetails(Client client, Client globalClient){
+
+        globalClient.setCity(client.getCity());
+        globalClient.setCode(client.getCode());
+        globalClient.setEmail(client.getEmail());
+        globalClient.setPassword(client.getPassword());
+        globalClient.setName(client.getName());
+        globalClient.setPassword(client.getPassword());
+        globalClient.setPhone(client.getPhone());
+        globalClient.setRole(client.getRole());
+        globalClient.setStreet(client.getStreet());
+        globalClient.setSurname(client.getSurname());
+        globalClient.setZip(client.getZip());
+        globalClient.setUserName(client.getEmail());
+
+        return globalClient;
+
     }
 
     public static User updateUserDetails(Client client ,User user){

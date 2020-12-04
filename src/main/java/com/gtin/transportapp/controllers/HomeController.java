@@ -29,6 +29,10 @@ public class HomeController {
 
     static int transportNumber;
 
+    public static User globalUser;
+    public static Client globalClient;
+    public static int oneTimeCode;
+
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -94,18 +98,37 @@ public class HomeController {
         return "register";
     }
 
+
     @PostMapping("/register")
     public String submitClient(@ModelAttribute("client") Client client) {
 
-        User user = new User();
-        user.setPassword(client.getPassword());
-        user.setUserName(client.getEmail());
-        client.setUserName(client.getEmail());
-        userRepository.save(user);
-        clientRepository.save(client);
-        Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), Utilities.timeStamp()));
+
+        globalUser = new User();
+        globalUser.setPassword(client.getPassword());
+        globalUser.setUserName(client.getEmail());
+        oneTimeCode = Utilities.generateRegistrationCode();
+
+        globalClient = new Client();
+        globalClient.setOneTimeCode(oneTimeCode);
+        Utilities.updateGlobalClientDetails(client,globalClient);
+
+
+        Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Your one time code required for registration: "+oneTimeCode));
         sendConfirmationCode.start();
-        return "register_success";
+        return "register_confirmation_code";
+    }
+
+    @PostMapping("/register_confirmation_code")
+    public String registrationCodeValidation(@ModelAttribute("client") Client client){
+
+        client = globalClient;
+
+        if(client.getOneTimeCode() == oneTimeCode){
+            userRepository.save(globalUser);
+            clientRepository.save(globalClient);
+            return "register_success";
+        }else throw new RuntimeException("Code does not match");
+
     }
 
 
@@ -248,8 +271,6 @@ public class HomeController {
         userOptional.orElseThrow(()-> new RuntimeException("user not found"));
 
 
-
-
         User user = userOptional.get();
         Client oldClient = clientOptional.get();
         Utilities.updateUserDetails(updatedClient,user);
@@ -260,6 +281,11 @@ public class HomeController {
 
         return "success";
     }
+
+
+
+
+    /*EDIT TRANSPORTS*/
 
 
 }

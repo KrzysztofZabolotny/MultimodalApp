@@ -17,46 +17,48 @@
         }
 
         .btn {
-            width: 300px;
-            height: 60px;
-            background-color: #fc7333;
+            width: 100px;
+            height: 30px;
+            padding-bottom: 5px;
+            background-color: #00203f;
+            font-weight: bold;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            width: 100px;
+            height: 30px;
+            background-color: #EA4F45;
+            font-weight: bold;
+
+        }
+        .btn-logout{
+            width: 100px;
+            height: 40px;
+            background-color: #ee0938;
             margin-right: 20px;
             margin-left: 20px;
             margin-top: 30px;
             font-weight: bold;
             color: #f5f5f5;
         }
-
-        .btn:hover {
-            width: 300px;
-            height: 60px;
-            background-color: #B2B356;
+        .btn-logout:hover{
+            width: 100px;
+            height: 40px;
+            background-color: #07ac30;
             margin-right: 20px;
             margin-left: 20px;
             font-weight: bold;
             color: #f5f5f5;
-
         }
 
 
+        .container {
 
-        #button_container {
-            width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            justify-content: center;
+            margin-bottom: 40px;
         }
 
-        .footer {
-            font-size: 10px;
-            text-align: center;
-            margin-left: 140px;
-            width: 1000px;
-            height: 30px;
-            position:absolute;
-            bottom:0;
-        }
 
     </style>
 
@@ -68,31 +70,32 @@
     </button>
 </div>
 
-    <div class="jumbotron text-center" style="background-color: #303030; align-content: center;">
-        <div class="container">
-            <h1 class="display-4" style="justify-content: center"> Edit transports</h1>
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
+    <div class="container">
+        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div th:each=" transport : ${transports}">
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
+            <figure>
+                <img class="card-img-top"
+                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${transport.destination}"></h5>
+                    <p class="card-text" th:text="${transport.driverId}"></p>
+                    <p class="card-text" th:text="${transport.departureDate}"></p>
+                    <p class="card-text"><small class="text-muted">Time till departure</small></p>
+                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Choose</a>
+                </div>
+            </figure>
         </div>
 
-
-
-            <div id="button_container">
-                <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both" >
-                    Create a new Transport
-                </button>
-                <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
-                    Edit Transports
-                </button>
-                <button onclick="window.location.href='/history_transports';" class="btn" style="clear: both" >
-                    Transports history
-                </button>
-                <button onclick="window.location.href='/driver_stats';" class="btn" style="clear: both" >
-                    Your stats
-                </button>
-                <div style="clear:both;"></div>
-            </div>
     </div>
-    <footer class="page-footer font-small blue">
-        <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
-    </footer>
+</div>
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Multimodal Transport Application</div>
+</footer>
 </body>
 </html>
