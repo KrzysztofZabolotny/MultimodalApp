@@ -3,10 +3,7 @@
  */
 package com.gtin.transportapp.controllers;
 
-import com.gtin.transportapp.models.Client;
-import com.gtin.transportapp.models.Parcel;
-import com.gtin.transportapp.models.Transport;
-import com.gtin.transportapp.models.User;
+import com.gtin.transportapp.models.*;
 import com.gtin.transportapp.repositories.ClientRepository;
 import com.gtin.transportapp.repositories.ParcelRepository;
 import com.gtin.transportapp.repositories.TransportRepository;
@@ -247,10 +244,18 @@ public class HomeController {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(()->new RuntimeException("Something went wrong"));
+        Optional<User> userOptional = userRepository.findByUserName(principal.getName());
+        userOptional.orElseThrow(()-> new RuntimeException("user not found"));
 
+
+
+
+        User user = userOptional.get();
         Client oldClient = clientOptional.get();
+        Utilities.updateUserDetails(updatedClient,user);
         Utilities.updateClientDetails(oldClient, updatedClient);
         clientRepository.save(updatedClient);
+        userRepository.save(user);
 
 
         return "success";

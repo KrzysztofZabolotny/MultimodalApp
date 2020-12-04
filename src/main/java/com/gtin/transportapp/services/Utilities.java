@@ -4,6 +4,7 @@
 package com.gtin.transportapp.services;
 
 import com.gtin.transportapp.models.Client;
+import com.gtin.transportapp.models.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,12 +24,18 @@ public final class Utilities {
 
         updatedClientDetails.setId(previousClientDetails.getId());
         updatedClientDetails.setEmail(previousClientDetails.getEmail());
-        updatedClientDetails.setPassword(previousClientDetails.getPassword());
         updatedClientDetails.setRole(previousClientDetails.getRole());
         updatedClientDetails.setUserName(previousClientDetails.getUserName());
 
         return updatedClientDetails;
 
+    }
+
+    public static User updateUserDetails(Client client ,User user){
+
+        user.setPassword(client.getPassword());
+
+        return user;
     }
 
     public static String timeStamp(){
