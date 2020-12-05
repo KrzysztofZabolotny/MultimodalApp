@@ -179,19 +179,16 @@ public class Client {
         creationDate = timeStamp();
     }
 
-
-
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", firstName='" + name + '\'' +
-                ", lastName='" + surname + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", parcels=" + parcels +
-                '}';
+
+        return "Username: "+userName+"\n"
+                +"Name: "+name+"\n"
+                +"Surname: "+surname+"\n"
+                +"City: "+city+"\n"
+                +"Street: "+street+"\n"
+                +"Zip: "+zip+"\n"
+                +"Phone number: "+code+phone+"\n";
+
     }
 }

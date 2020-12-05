@@ -102,7 +102,6 @@ public class HomeController {
     @PostMapping("/register")
     public String submitClient(@ModelAttribute("client") Client client) {
 
-
         globalUser = new User();
         globalUser.setPassword(client.getPassword());
         globalUser.setUserName(client.getEmail());
@@ -128,6 +127,10 @@ public class HomeController {
         if(client.getOneTimeCode() == oneTimeCode){
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
+
+            System.out.println(globalClient);
+            Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
+            sendRegistrationDetails.start();
             return "register_success";
         }else return "wrong_code_error_404";
 
