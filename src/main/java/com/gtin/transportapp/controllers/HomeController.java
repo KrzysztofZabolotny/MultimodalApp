@@ -121,13 +121,15 @@ public class HomeController {
     @PostMapping("/register_confirmation_code")
     public String registrationCodeValidation(@ModelAttribute("client") Client client){
 
-        client = globalClient;
+
+        System.out.println("inserted code: "+client.getOneTimeCode());
+        System.out.println("generated code: "+oneTimeCode);
 
         if(client.getOneTimeCode() == oneTimeCode){
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
             return "register_success";
-        }else throw new RuntimeException("Code does not match");
+        }else return "wrong_code_error_404";
 
     }
 
