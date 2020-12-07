@@ -11,6 +11,8 @@ import javax.mail.internet.InternetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Utilities {
 
@@ -50,11 +52,8 @@ public final class Utilities {
 
     }
 
-    public static User updateUserDetails(Client client ,User user){
-
+    public static void updateUserPassword(Client client , User user){
         user.setPassword(client.getPassword());
-
-        return user;
     }
 
     public static String timeStamp(){
@@ -63,10 +62,18 @@ public final class Utilities {
         return dtf.format(now);
     }
 
-    public static boolean isNotValidEmailAddress(String email) {
+    public static boolean isValidEmailAddress(String email) {
         String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(emailPattern);
-        java.util.regex.Matcher matcher = pattern.matcher(email);
-        return !matcher.matches();
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+
+        String patterns = ("^\\d{5}$"+"|^\\d{6}$"+"|^\\d{7}$"+"|^\\d{8}$"+"|^\\d{9}$"+"|^\\d{10}$"+"|^\\d{11}$"+"|^\\d{12}$");
+        Pattern pattern = Pattern.compile(patterns);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 }

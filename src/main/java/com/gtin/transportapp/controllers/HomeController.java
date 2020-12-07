@@ -53,9 +53,6 @@ public class HomeController {
     /*INDEX*/
 
 
-
-
-
     @GetMapping("/")
     public String home(Principal principal) {
 
@@ -85,10 +82,6 @@ public class HomeController {
     /* USER REGISTRATION*/
 
 
-
-
-
-
     @GetMapping("/register")
     public String registerClient(Model model) {
 
@@ -105,9 +98,15 @@ public class HomeController {
 
         client.setUserName(client.getEmail());
         //validation process
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(client.getUserName());
+
         {
-            if (Utilities.isNotValidEmailAddress(client.getEmail())) return "wrong_code_error_404";
+            if (clientOptional.isPresent()) return "error_user_already_exists";
+            if (!Utilities.isValidEmailAddress(client.getEmail())) return "error_incorrect_email";
+            if (!Utilities.isValidPhoneNumber(client.getPhone())) return "error_incorrect_phone_number";
         }
+
 
         globalUser = new User();
         globalUser.setPassword(client.getPassword());
@@ -116,7 +115,7 @@ public class HomeController {
 
         globalClient = new Client();
         globalClient.setOneTimeCode(oneTimeCode);
-        Utilities.updateGlobalClientDetails(client,globalClient);
+        Utilities.updateGlobalClientDetails(client, globalClient);
 
 
         /*Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Your one time code required for registration: "+oneTimeCode));
@@ -127,22 +126,22 @@ public class HomeController {
     }
 
     @PostMapping("/register_confirmation_code")
-    public String registrationCodeValidation(@ModelAttribute("client") Client client){
+    public String registrationCodeValidation(@ModelAttribute("client") Client client) {
 
 
-        System.out.println("inserted code: "+client.getOneTimeCode());
-        System.out.println("generated code: "+oneTimeCode);
+        System.out.println("inserted code: " + client.getOneTimeCode());
+        System.out.println("generated code: " + oneTimeCode);
 
-        if(client.getOneTimeCode() == oneTimeCode){
+        if (client.getOneTimeCode() == oneTimeCode) {
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
             System.out.println(globalClient);
-            /*new Thread(()-> new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString())).start();
-            Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
-            sendRegistrationDetails.start();*/
+            new Thread(() -> new MailSender(globalClient.getEmail(), "Your details: \n" + globalClient.toString())).start();
+//            Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
+//            sendRegistrationDetails.start();
             return "register_success";
-        }else return "wrong_code_error_404";
+        } else return "registration_error";
 
     }
 
@@ -151,9 +150,6 @@ public class HomeController {
 
 
     /* TRANSPORT REGISTRATION*/
-
-
-
 
 
     @GetMapping("/register_transport")
@@ -168,7 +164,7 @@ public class HomeController {
     @PostMapping("/register_transport")
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()-> new RuntimeException("User not fount with the name: "+principal.getName()));
+        clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
         Client client = clientOptional.get();
         //transport.setDriverId(principal.getName()
@@ -182,10 +178,6 @@ public class HomeController {
 
 
     /*CHOOSING EXISTING TRANSPORT*/
-
-
-
-
 
 
     @GetMapping("/choose_transport")
@@ -209,9 +201,6 @@ public class HomeController {
 
 
     /* ADDING PARCEL*/
-
-
-
 
 
     @GetMapping("/add_parcel/{id}")
@@ -245,11 +234,10 @@ public class HomeController {
     /*CLIENT DETAILS*/
 
 
-
     @GetMapping("/client_details")
-    public String showClientDetails(Model model, Principal principal){
+    public String showClientDetails(Model model, Principal principal) {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()-> new RuntimeException("No client found"));
+        clientOptional.orElseThrow(() -> new RuntimeException("No client found"));
 
         Client client = clientOptional.get();
 
@@ -263,12 +251,11 @@ public class HomeController {
     /*EDIT PROFILE*/
 
 
-
     @GetMapping("/edit_profile")
-    public String editProfile(Model model, Principal principal){
+    public String editProfile(Model model, Principal principal) {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()-> new RuntimeException("Something went wrong"));
+        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
 
         Client client = clientOptional.get();
         model.addAttribute("client", client);
@@ -278,17 +265,17 @@ public class HomeController {
     }
 
     @PostMapping("/edit_profile")
-    public String saveEditProfile(@ModelAttribute("client") Client updatedClient, Principal principal){
+    public String saveEditProfile(@ModelAttribute("client") Client updatedClient, Principal principal) {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()->new RuntimeException("Something went wrong"));
+        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
         Optional<User> userOptional = userRepository.findByUserName(principal.getName());
-        userOptional.orElseThrow(()-> new RuntimeException("user not found"));
+        userOptional.orElseThrow(() -> new RuntimeException("user not found"));
 
 
         User user = userOptional.get();
         Client oldClient = clientOptional.get();
-        Utilities.updateUserDetails(updatedClient,user);
+        Utilities.updateUserPassword(updatedClient, user);
         Utilities.updateClientDetails(oldClient, updatedClient);
         clientRepository.save(updatedClient);
         userRepository.save(user);
