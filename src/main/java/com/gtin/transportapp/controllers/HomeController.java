@@ -67,9 +67,9 @@ public class HomeController {
         clientOptional.orElseThrow(RuntimeException::new);
         Client client = clientOptional.get();
 
-
-        if (client.getRole().equals("Driver")) return "driver_main";
         if (client.getRole().equals("Client")) return "client_main";
+        if (client.getRole().equals("Driver")) return "driver_main";
+
         return "index";
     }
 
@@ -102,6 +102,13 @@ public class HomeController {
     @PostMapping("/register")
     public String submitClient(@ModelAttribute("client") Client client) {
 
+
+        client.setUserName(client.getEmail());
+        //validation process
+        {
+            if (Utilities.isNotValidEmailAddress(client.getEmail())) return "wrong_code_error_404";
+        }
+
         globalUser = new User();
         globalUser.setPassword(client.getPassword());
         globalUser.setUserName(client.getEmail());
@@ -112,8 +119,10 @@ public class HomeController {
         Utilities.updateGlobalClientDetails(client,globalClient);
 
 
-        Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Your one time code required for registration: "+oneTimeCode));
-        sendConfirmationCode.start();
+        /*Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Your one time code required for registration: "+oneTimeCode));
+        sendConfirmationCode.start();*/
+
+        System.out.println(oneTimeCode);
         return "register_confirmation_code";
     }
 
@@ -129,8 +138,9 @@ public class HomeController {
             clientRepository.save(globalClient);
 
             System.out.println(globalClient);
+            /*new Thread(()-> new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString())).start();
             Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
-            sendRegistrationDetails.start();
+            sendRegistrationDetails.start();*/
             return "register_success";
         }else return "wrong_code_error_404";
 

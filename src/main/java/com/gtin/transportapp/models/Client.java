@@ -19,6 +19,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    //@Column(unique = true)
     private String userName;
     private String name;
     private String surname;
@@ -31,6 +32,7 @@ public class Client {
     private String phone;
     private String role;
     private String creationDate;
+    @Transient
     private int oneTimeCode;
 
 

@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <title>Registration Success</title>
     <style type="text/css">
 
@@ -11,25 +15,30 @@
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
         }
+        .btn {
+            background-color: #fc7333;
+            height: 40px;
+            width: 150px;
+            margin-top: 50px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
 
-        span {
-            display: inline-block;
-            width: 200px;
-            text-align: left;
+        .btn:hover {
+            background-color: #B2B356;
+            font-weight: bold;
+            color: #f5f5f5;
+
         }
     </style>
 </head>
 <body>
-<div align="center">
-    <h2>Registration Succeeded!</h2>
-    <span>Username:</span><span th:text="${client.email}"></span><br/>
-    <span>Name:</span><span th:text="${client.name}"></span><br/>
-    <span>Surname:</span><span th:text="${client.surname}"></span><br/>
-    <span>Street:</span><span th:text="${client.street}"></span><br/>
-    <span>City:</span><span th:text="${client.city}"></span><br/>
-    <span>Zip code:</span><span th:text="${client.code}"></span><br/>
-    <span>Phone</span><span th:text="${client.phone}"></span><br/>
-    <span>Role:</span><span th:text="${client.role}"></span><br/>
+<div class="col text-center" style="margin-top: 300px">
+    <h2>Your registration was successful</h2>
+    <p>You can proceed to login</p>
+    <div class="col text-center">
+        <button onclick="window.location.href='/login';"  class="btn">Login</button>
+    </div>
 </div>
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>

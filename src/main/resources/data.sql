@@ -2,11 +2,11 @@ insert into user (id, user_name, password, active, roles)
 values (1, 'kz', 'kz', 'true', 'USER'),
        (2, 'st', 'st', 'true', 'USER');
 
-insert into client(id, user_name, name, surname, street, city, zip, email, password, code, phone, role, one_time_code)
+insert into client(id, user_name, name, surname, street, city, zip, email, password, code, phone, role)
 values (1, 'kz', 'Krzysztof', 'Zabolotny', 'Konows Gate 1E', 'Oslo', '0192', 'kz',
-        'kz', '+47', '82010437', 'Client',0),
+        'kz', '+47', '82010437', 'Client'),
        (2, 'st', 'Stefan', 'Serafin', 'Birken Gate 1E', 'Tromso', '0992', 'st',
-        'st', '+47', '92010437', 'Driver',0);
+        'st', '+47', '92010437', 'Driver');
 
 insert into transport (id, departure_date, destination, driver_id)
 values ( 1, '2020-01-01', 'Oslo' , 'krzysztof@gmail.com' ),
