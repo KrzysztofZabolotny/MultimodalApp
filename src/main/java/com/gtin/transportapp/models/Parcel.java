@@ -4,6 +4,7 @@
 package com.gtin.transportapp.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -18,7 +19,10 @@ public class Parcel {
     private String width;
     private String length;
     private String height;
+    private String destination;
+    private String status;
     private String additionalComments;
+    private LocalDate departureDate;
 
     public int getInTransportNumber() {
         return inTransportNumber;
@@ -36,6 +40,30 @@ public class Parcel {
         this.width = width;
         this.length = length;
         this.height = height;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getAdditionalComments() {

@@ -58,13 +58,6 @@
 
             margin-bottom: 40px;
         }
-        .card{
-            overflow: hidden;
-        }
-
-        .card-text{
-            word-wrap: break-word;
-        }
 
 
     </style>
@@ -87,23 +80,15 @@
 
 <div class="row">
     <div th:each=" parcel : ${parcels}">
-
-        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary" style="background-color: wheat">
-            <figure>
-                <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
-                    <h5 class="card-title text-primary font-weight-bolder" th:text="${parcel.destination}">Destination</h5>
-                    <h6 class="card-text"><small class="text-dark font-italic">Content</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.content}">Content</small></p>
-                    <h6 class="card-text"><small class="text-dark font-italic">Additional comments</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.additionalComments}">Additional Comments</small></p>
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.departureDate}">Departure date</small></p>
-                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${parcel.id}}">Details</a>
-                </div>
-            </figure>
+    <span th:switch="${parcel.status}">
+        <p th:case="'delivered'"> <img th:case="t'" class="card-img-top" src="/img/delivered.png"
+                                       th:src="@{/img/delivered.png}" alt="Card image cap"/></p>
+        <p th:case="'transit'"><img th:case="t'" class="card-img-top" src="/img/intransit.png"
+                                    th:src="@{/img/intransit.png}" alt="Card image cap"/></p></br>
+    </span>
         </div>
     </div>
+
 </div>
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Multimodal Transport Application</div>

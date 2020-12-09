@@ -12,6 +12,8 @@ import com.gtin.transportapp.services.MailSender;
 import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@EnableScheduling
 @Controller
 public class HomeController {
 
@@ -218,11 +220,14 @@ public class HomeController {
 
     @PostMapping("/add_parcel")
     public String postParcelTmp(@ModelAttribute("parcel") Parcel parcel, Principal principal) {
-        parcel.setUserName(principal.getName());
+
         Optional<Transport> transportOptional = transportRepository.findById(transportNumber);
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
+        parcel.setUserName(principal.getName());;
+        parcel.setDestination(transport.getDestination());
+        parcel.setDepartureDate(transport.getDepartureDate());
         transport.getParcels().add(parcel);
         transportRepository.save(transport);
 
@@ -318,5 +323,16 @@ public class HomeController {
 
     /*EDIT TRANSPORTS*/
 
+
+
+    /*SCHEDUlED TASKS*/
+
+//    @Scheduled(fixedDelay = 1000)
+//    public static void runner(){
+//        System.out.println(Utilities.timeStamp());
+//        System.out.println(Thread.activeCount());
+//        Thread sendRegistrationDetails = new Thread(new MailSender("krzysztof.zabolotny@gmail.com", Utilities.timeStamp()));
+//        sendRegistrationDetails.start();
+//    }
 
 }
