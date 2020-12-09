@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -207,7 +209,6 @@ public class HomeController {
     public String addParcelTmp(@PathVariable("id") Integer id, Model model) {
 
         Parcel parcel = new Parcel();
-        System.out.println("adding parcel form shown");
         transportNumber = id;
 
         model.addAttribute("parcel", parcel);
@@ -228,6 +229,34 @@ public class HomeController {
 
         return "client_main";
 
+    }
+
+
+
+    /*SHOWING PARCELS*/
+
+
+
+
+
+    @GetMapping("/client_parcels")
+    public String showClientParcels(Model model, Principal principal){
+
+
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()-> new RuntimeException("Client not found"));
+
+        Client client = clientOptional.get();
+
+        List<Parcel> parcels = parcelRepository.findAll();
+
+        List<Parcel> clientParcels = parcels.stream().filter(p -> p.getUserName().equals(client.getUserName())).collect(Collectors.toList());
+
+
+        model.addAttribute("parcels", clientParcels);
+
+        return "client_parcels";
     }
 
 
