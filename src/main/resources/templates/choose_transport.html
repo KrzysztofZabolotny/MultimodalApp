@@ -80,12 +80,24 @@
     <div th:each=" transport : ${transports}">
         <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
             <figure>
-                <img class="card-img-top"
-                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">
+                <!--<img class="card-img-top"
+                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
+
+
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${transport.destination}"></h5>
-                    <p class="card-text" th:text="${transport.driverId}"></p>
-                    <p class="card-text" th:text="${transport.departureDate}"></p>
+                    <h6 class="card-text"><small class="text-dark font-italic">Company name</small></h6>
+                    <h3 class="card-text" th:text="${transport.companyName}">Company Name</h3>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+                    <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Contact info</small></h6>
+                    <p class="card-text" th:text="${transport.driverId}">Contact info</p>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Time till departure</small></h6>
                     <p class="card-text"><small class="text-muted">Time till departure</small></p>
                     <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Choose</a>
                 </div>

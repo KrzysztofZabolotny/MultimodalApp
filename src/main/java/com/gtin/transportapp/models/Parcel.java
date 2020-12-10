@@ -12,7 +12,6 @@ public class Parcel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int inTransportNumber;
     private String userName;
     private String content;
     private String weight;
@@ -24,13 +23,6 @@ public class Parcel {
     private String additionalComments;
     private LocalDate departureDate;
 
-    public int getInTransportNumber() {
-        return inTransportNumber;
-    }
-
-    public void setInTransportNumber(int inTransportNumber) {
-        this.inTransportNumber = inTransportNumber;
-    }
 
     public Parcel(int id, String userName, String content, String weight, String width, String length, String height) {
         this.id = id;
@@ -149,7 +141,6 @@ public class Parcel {
     public String toString() {
         return "Parcel{" +
                 "id=" + id +
-                ", inTransportNumber=" + inTransportNumber +
                 ", userName='" + userName + '\'' +
                 ", content='" + content + '\'' +
                 ", weight='" + weight + '\'' +
