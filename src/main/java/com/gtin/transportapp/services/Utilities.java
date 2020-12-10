@@ -47,6 +47,7 @@ public final class Utilities {
         globalClient.setSurname(client.getSurname());
         globalClient.setZip(client.getZip());
         globalClient.setUserName(client.getEmail());
+        globalClient.setCompanyName(client.getCompanyName());
 
         return globalClient;
 

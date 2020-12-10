@@ -21,6 +21,7 @@ public class Client {
     private int id;
     //@Column(unique = true)
     private String userName;
+    private String companyName;
     private String name;
     private String surname;
     private String street;
@@ -65,6 +66,13 @@ public class Client {
     }
 
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public int getOneTimeCode() {
         return oneTimeCode;

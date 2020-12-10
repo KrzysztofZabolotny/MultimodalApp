@@ -106,15 +106,16 @@ public class HomeController {
         Optional<Client> clientOptional = clientRepository.findByUserName(client.getUserName());
 
         {
-            if (clientOptional.isPresent()) return "error_user_already_exists";
-            if (!Utilities.isValidEmailAddress(client.getEmail())) return "error_incorrect_email";
-            if (!Utilities.isValidPhoneNumber(client.getPhone())) return "error_incorrect_phone_number";
+            if (clientOptional.isPresent()) return "errors/error_user_already_exists";
+            if (!Utilities.isValidEmailAddress(client.getEmail())) return "errors/error_incorrect_email";
+            if (!Utilities.isValidPhoneNumber(client.getPhone())) return "errors/error_incorrect_phone_number";
         }
 
 
         globalUser = new User();
         globalUser.setPassword(client.getPassword());
         globalUser.setUserName(client.getEmail());
+
         oneTimeCode = Utilities.generateRegistrationCode();
 
         globalClient = new Client();
