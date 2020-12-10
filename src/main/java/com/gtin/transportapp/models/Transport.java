@@ -20,6 +20,7 @@ public class Transport {
     private LocalDate departureDate;
     private String destination;
     private String driverId;
+    private String companyName;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -54,6 +55,13 @@ public class Transport {
         this.driverId = driverId;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public List<Parcel> getParcels() {
         return parcels;

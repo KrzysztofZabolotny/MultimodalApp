@@ -174,6 +174,7 @@ public class HomeController {
         Client client = clientOptional.get();
         //transport.setDriverId(principal.getName()
         transport.setDriverId(client.getEmail());
+        transport.setCompanyName(client.getCompanyName());
         transportRepository.save(transport);
         return "register_transport_success";
     }
