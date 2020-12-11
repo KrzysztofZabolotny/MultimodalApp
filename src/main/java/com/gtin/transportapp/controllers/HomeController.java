@@ -202,6 +202,26 @@ public class HomeController {
         return "choose_transport";
     }
 
+    @GetMapping("/driver_transports")
+    public String showDriverTransports(Model model, Parcel parcel, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
+
+        Client client = clientOptional.get();
+        List<Transport> transports = transportRepository.findAll();
+        List<Transport> driverTransports = transports.stream().filter(t -> t.getDriverId().equals(client.getUserName())).collect(Collectors.toList());
+
+        for (Transport t: driverTransports){
+            System.out.println(t);
+        }
+        model.addAttribute("transports", driverTransports);
+        model.addAttribute("parcel", parcel);
+        model.addAttribute("client", client);
+
+        return "driver_transports";
+    }
+
 
 
 
@@ -231,6 +251,7 @@ public class HomeController {
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
         transport.getParcels().add(parcel);
+        //set number of parcels by parcels.list
         transportRepository.save(transport);
 
 

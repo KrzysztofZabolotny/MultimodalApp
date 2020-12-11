@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport Application</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 30px;
+            padding-bottom: 5px;
+            background-color: #00203f;
+            font-weight: bold;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            width: 100px;
+            height: 30px;
+            background-color: #EA4F45;
+            font-weight: bold;
+
+        }
+        .btn-logout{
+            width: 100px;
+            height: 40px;
+            background-color: #ee0938;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+        .btn-logout:hover{
+            width: 100px;
+            height: 40px;
+            background-color: #07ac30;
+            margin-right: 20px;
+            margin-left: 20px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+
+
+        .container {
+
+            margin-bottom: 40px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="col-12 text-right">
+    <button onclick="window.location.href='/logout';" class="btn-logout" style="clear: both">
+        Logout
+    </button>
+</div>
+
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
+    <div class="container">
+        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div th:each=" transport : ${transports}">
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
+            <figure>
+                <!--<img class="card-img-top"
+                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
+
+
+                <div class="card-body">
+                    <h6 class="card-text"><small class="text-dark font-italic">Number of ordered parcels</small>
+                        <h3>
+                        <span class="badge badge-primary" th:text="${transport.numberOfParcels}">9</span>
+                        </h3>
+                    </h6>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+                    <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Time till departure</small></h6>
+                    <p class="card-text"><small class="text-muted">Time till departure</small></p>
+                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Choose</a>
+                </div>
+            </figure>
+        </div>
+
+    </div>
+</div>
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Multimodal Transport Application</div>
+</footer>
+</body>
+</html>

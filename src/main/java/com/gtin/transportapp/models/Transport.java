@@ -21,6 +21,7 @@ public class Transport {
     private String destination;
     private String driverId;
     private String companyName;
+    private String numberOfParcels;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -53,6 +54,14 @@ public class Transport {
         this.departureDate = departureDate;
         this.destination = destination;
         this.driverId = driverId;
+    }
+
+    public String getNumberOfParcels() {
+        return numberOfParcels;
+    }
+
+    public void setNumberOfParcels(String numberOfParcels) {
+        this.numberOfParcels = numberOfParcels;
     }
 
     public String getCompanyName() {

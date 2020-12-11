@@ -63,32 +63,41 @@
 
 
 <div class="container">
-    <div class="col-6">
-
-    </div>
-    <div class="col-6 mt-4">
-        <div class="card">
-            <div class="card-body text-dark">
-                <h5 class="card-title text-center">User profile</h5>
-                <h6>Name:</h6>
-                <p class="card-text" th:text="${client.name}">Name</p>
-                <h6>Surname:</h6>
-                <p class="card-text" th:text="${client.surname}">Surname</p>
-                <h6>Street:</h6>
-                <p class="card-text" th:text="${client.street}">Street</p>
-                <h6>City:</h6>
-                <p class="card-text" th:text="${client.city}">City</p>
-                <h6>Zip:</h6>
-                <p class="card-text" th:text="${client.zip}">Zip</p>
-                <h6>Phone number:</h6>
-                <p class="card-text" th:text="${client.code} +' '+ ${client.phone}">Phone</p>
-            </div>
-            <div class="col text-center">
-                <button onclick="window.location.href='/edit_profile';" class="btn" style="clear: both">
-                    Edit profile
-                </button>
+    <div class="row">
+        <div class="col-6 mt-4">
+            <div class="col-6 text-center" style="margin-top: 150px">
+                <img src="../static/img/profile-edit.png" th:src="@{../img/profile-edit.png}"
+                     style=" max-width: fit-content;"/>
             </div>
         </div>
+
+
+
+        <div class="col-6 mt-4">
+            <div class="card">
+                <div class="card-body text-dark">
+                    <h5 class="card-title text-center">User profile</h5>
+                    <h6>Name:</h6>
+                    <p class="card-text" th:text="${client.name}">Name</p>
+                    <h6>Surname:</h6>
+                    <p class="card-text" th:text="${client.surname}">Surname</p>
+                    <h6>Street:</h6>
+                    <p class="card-text" th:text="${client.street}">Street</p>
+                    <h6>City:</h6>
+                    <p class="card-text" th:text="${client.city}">City</p>
+                    <h6>Zip:</h6>
+                    <p class="card-text" th:text="${client.zip}">Zip</p>
+                    <h6>Phone number:</h6>
+                    <p class="card-text" th:text="${client.code} +' '+ ${client.phone}">Phone</p>
+                </div>
+                <div class="col text-center">
+                    <button onclick="window.location.href='/edit_profile';" class="btn" style="clear: both">
+                        Edit profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </div>
 </div>
