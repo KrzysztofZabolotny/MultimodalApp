@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+
+
     <style>
         body {
             background-color: #03859b;
@@ -17,9 +19,8 @@
         }
 
         .btn {
-            width: 100px;
-            height: 30px;
-            padding-bottom: 5px;
+
+            width: 100%;
             background-color: #00203f;
             font-weight: bold;
             font-size: 13px;
@@ -27,8 +28,7 @@
         }
 
         .btn:hover {
-            width: 100px;
-            height: 30px;
+
             background-color: #EA4F45;
             font-weight: bold;
 
@@ -77,29 +77,77 @@
 </div>
 
 <div class="row">
-    <div th:each=" transport : ${transports}">
-        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
+    <div th:each=" transport, iterStat : ${transports}">
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary" style="background: #F8F9FA">
             <figure>
                 <!--<img class="card-img-top"
                      th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
 
 
                 <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Company name</small></h6>
+
+                    <!--<h6 class="card-text"><small class="text-dark font-italic">Company name</small></h6>-->
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                            <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
+                    </div>
                     <h3 class="card-text" th:text="${transport.companyName}">Company Name</h3>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
+                    </div>
                     <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Contact info</small></h6>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/email.png" th:src="@{../img/email.png}" alt="Card image cap">
+                    </div>
                     <p class="card-text" th:text="${transport.driverId}">Contact info</p>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}" alt="Card image cap">
+                    </div>
                     <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Time till departure</small></h6>
-                    <p class="card-text"><small class="text-muted">Time till departure</small></p>
-                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Choose</a>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/timer.png" th:src="@{../img/timer.png}" alt="Card image cap">
+                    </div>
+                    <p  class="card-text text-danger" th:id="'timer-' + ${iterStat.index}"><small class="text-danger" id="timer">Time till departure</small></p>
+
+
+                    <script th:inline="javascript">
+
+
+
+
+                        var x = setInterval(function () {
+                            var countDownDate = new Date(/*[[${transport.departureDate}]]*/).getTime();
+                            var index = [[${iterStat.index}]];
+
+                            console.log(index);
+
+                            var now = new Date().getTime();
+
+                            var distance = countDownDate - now;
+
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            if(hours<10) hours = "0"+hours;
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            if(minutes<10) minutes = "0"+minutes;
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            if(seconds<10) seconds = "0"+seconds;
+
+                            document.getElementById('timer-'+index).innerHTML = days + "d " + hours + "h "
+                                + minutes + "m " + seconds + "s ";
+                            if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById('timer-'+index).innerHTML = "EXPIRED";
+                            }
+                        }, 1000);
+                    </script>
+
+                    <a class="btn btn-lg text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Select</a>
                 </div>
             </figure>
         </div>
@@ -109,5 +157,7 @@
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Multimodal Transport Application</div>
 </footer>
+
+
 </body>
 </html>

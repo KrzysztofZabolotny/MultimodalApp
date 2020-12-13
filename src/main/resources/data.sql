@@ -9,10 +9,10 @@ values (1, 'kz', 'Krzysztof', 'Zabolotny', 'Konows Gate 1E', 'Oslo', '0192', 'kz
         'st', '+47', '92010437', 'Driver', 'Speedy Transport');
 
 insert into transport (id, departure_date, destination, driver_id, company_name, number_of_parcels)
-values ( 1, '2020-02-02', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','9'),
-       ( 2, '2020-03-02', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport' ,'9'),
-       ( 3, '2020-01-04', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','3'),
-       ( 4, '2020-05-14', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport','8');
+values ( 1, '2021-02-02', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','9'),
+       ( 2, '2021-03-02', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport' ,'9'),
+       ( 3, '2021-01-04', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','3'),
+       ( 4, '2021-05-14', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport','8');
 
 
 insert into parcel (id, user_name, content, weight, width, length, height, additional_comments, status, destination, departure_date)

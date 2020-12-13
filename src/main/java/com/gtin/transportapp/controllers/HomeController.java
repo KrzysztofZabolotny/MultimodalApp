@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -194,10 +195,14 @@ public class HomeController {
 
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
+
+        int listSize = transports.size();
         transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
         model.addAttribute("transports", transports);
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
+        model.addAttribute("size", listSize);
+
 
         return "choose_transport";
     }
@@ -257,6 +262,17 @@ public class HomeController {
 
         return "client_main";
 
+    }
+
+    @GetMapping("/timer")
+    public String showTime(Model model){
+
+        List<Transport> transports = transportRepository.findAll();
+
+
+        model.addAttribute("transports", transports);
+
+        return "timer";
     }
 
 
