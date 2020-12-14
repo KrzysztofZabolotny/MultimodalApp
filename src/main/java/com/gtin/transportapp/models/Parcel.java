@@ -137,7 +137,25 @@ public class Parcel {
         this.content = content;
     }
 
+    public static int calculateValueEnhanced(int weight) {
 
+        int group = 0;
+
+        if (weight <= 10) group = -1;
+        if (weight > 10 && weight <= 20) group = 0;
+        if (weight > 20) group = 1;
+
+        int value = switch (group) {
+
+            case -1 -> 500;
+            case 0 -> 700;
+            case 1 -> 1000;
+
+            default -> throw new IllegalStateException("Unexpected value:" + group);
+        };
+
+        return value;
+    }
 
     @Override
     public String toString() {
