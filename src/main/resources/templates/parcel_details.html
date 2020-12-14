@@ -77,33 +77,38 @@
 </div>
 
 <div class="row">
-    <div th:each=" transport : ${transports}">
+    <div th:each=" parcel : ${parcels}">
         <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
             <figure>
-                <!--<img class="card-img-top"
-                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
-
-
                 <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Number of ordered parcels</small>
+
+
+                    <!--private String userName;
+                        private String content;
+                        private String weight;
+                        private String width;
+                        private String length;
+                        private String height;-->
+                    <h6 class="card-text"><small class="text-dark font-italic">Owner</small>
                         <h3>
-                        <span class="badge badge-primary" th:text="${transport.numberOfParcels}">size</span>
+                            <span class="badge badge-primary" th:text="${parcel.userName}">size</span>
                         </h3>
                     </h6>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
-                    <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Content</small></h6>
+                    <h5 class="card-title" th:text="${parcel.content}"> Destination</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
-                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+                    <h6 class="card-text"><small class="text-dark font-italic">Weight</small></h6>
+                    <p class="card-text" th:text="${parcel.weight}">Departure date</p>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Time till departure</small></h6>
-                    <p class="card-text"><small class="text-muted">Time till departure</small></p>
-                    <a class="btn text-white" th:href="@{'/parcel_details/' + ${transport.id}}">Choose</a>
+                    <h6 class="card-text"><small class="text-dark font-italic">Width</small></h6>
+                    <p class="card-text" th:text="${parcel.width}">Width</p>
+
+                    <h6 class="card-text"><small class="text-dark font-italic">Length</small></h6>
+                    <p class="card-text" th:text="${parcel.length}">Length</p>
                 </div>
             </figure>
         </div>
-
     </div>
 </div>
 <footer class="page-footer font-small blue">

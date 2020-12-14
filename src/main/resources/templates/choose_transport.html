@@ -87,16 +87,18 @@
                 <div class="card-body">
 
                     <!--<h6 class="card-text"><small class="text-dark font-italic">Company name</small></h6>-->
-                    <div class="card-img-top d-flex justify-content-center bg-light">
-                            <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
-                    </div>
-                    <h3 class="card-text" th:text="${transport.companyName}">Company Name</h3>
-
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
                     </div>
-                    <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
+                    <h3 class="card-title" th:text="${transport.destination}"> Destination</h3>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
+                    </div>
+                    <h5 class="card-text" th:text="${transport.companyName}">Company Name</h5>
+
+
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/email.png" th:src="@{../img/email.png}" alt="Card image cap">
@@ -147,7 +149,7 @@
                         }, 1000);
                     </script>
 
-                    <a class="btn btn-lg text-white" th:href="@{'/add_parcel/' + ${transport.id}}">Select</a>
+                    <a class="btn btn-lg text-white" th:href="@{'/add_parcel/' + ${transport.id}}">+ Add parcel</a>
                 </div>
             </figure>
         </div>

@@ -13,7 +13,6 @@ import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -173,7 +170,6 @@ public class HomeController {
         clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
         Client client = clientOptional.get();
-        //transport.setDriverId(principal.getName()
         transport.setDriverId(client.getEmail());
         transport.setCompanyName(client.getCompanyName());
         transportRepository.save(transport);
@@ -196,12 +192,12 @@ public class HomeController {
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
 
-        int listSize = transports.size();
+
         transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
         model.addAttribute("transports", transports);
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
-        model.addAttribute("size", listSize);
+
 
 
         return "choose_transport";
@@ -216,10 +212,6 @@ public class HomeController {
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
         List<Transport> driverTransports = transports.stream().filter(t -> t.getDriverId().equals(client.getUserName())).collect(Collectors.toList());
-
-        for (Transport t: driverTransports){
-            System.out.println(t);
-        }
         model.addAttribute("transports", driverTransports);
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
@@ -256,7 +248,7 @@ public class HomeController {
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
         transport.getParcels().add(parcel);
-        //set number of parcels by parcels.list
+        transport.increaseParcelCount();
         transportRepository.save(transport);
 
 
@@ -264,16 +256,7 @@ public class HomeController {
 
     }
 
-    @GetMapping("/timer")
-    public String showTime(Model model){
 
-        List<Transport> transports = transportRepository.findAll();
-
-
-        model.addAttribute("transports", transports);
-
-        return "timer";
-    }
 
 
 
@@ -355,6 +338,22 @@ public class HomeController {
 
 
         return "success";
+    }
+
+
+
+    @GetMapping("/parcel_details/{id}")
+    public String showParcelDetails(@PathVariable("id") Integer id, Model model) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        Transport transport = transportOptional.get();
+
+        List<Parcel> parcels = transport.getParcels();
+
+        model.addAttribute("parcels", parcels);
+        return "parcel_details";
+
     }
 
 

@@ -8,10 +8,11 @@ values (1, 'kz', 'Krzysztof', 'Zabolotny', 'Konows Gate 1E', 'Oslo', '0192', 'kz
        (2, 'st', 'Stefan', 'Serafin', 'Birken Gate 1E', 'Tromso', '0992', 'st',
         'st', '+47', '92010437', 'Driver', 'Speedy Transport');
 
+/*
 insert into transport (id, departure_date, destination, driver_id, company_name, number_of_parcels)
-values ( 1, '2021-02-02', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','9'),
-       ( 2, '2021-03-02', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport' ,'9'),
-       ( 3, '2021-01-04', 'Tromso' , 'stefan@gmail.com', 'Speedy Transport','3'),
+values ( 1, '2021-02-02', 'Tromso' , 'st', 'Speedy Transport','9'),
+       ( 2, '2021-03-02', 'Oslo' , 'kalamaga@gmail.com', 'Kalamaga Przewozy' ,'9'),
+       ( 3, '2021-01-04', 'Tromso' , 'st', 'Speedy Transport','3'),
        ( 4, '2021-05-14', 'Oslo' , 'stefan@gmail.com', 'Speedy Transport','8');
 
 
@@ -20,3 +21,4 @@ values  (1, 'kz','Ubrania',10,20,30,40,'Uzywane ubrania','delivered','Oslo','202
         (2, 'kz','Zabawki',10,20,30,40,'Uzywane zabawki','delivered','Drammen','2020-12-31'),
         (3, 'kz','Jedzenie',10,20,30,40,'Szynki, kielbasy','delivered','Ystad','2020-12-21'),
         (4, 'kz','Ksiazki',10,20,30,40,'Ksiazki dla biblioteki','transit','Stavanger','2020-12-04');
+*/

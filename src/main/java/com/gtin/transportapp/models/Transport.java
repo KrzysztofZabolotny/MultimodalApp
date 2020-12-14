@@ -21,7 +21,7 @@ public class Transport {
     private String destination;
     private String driverId;
     private String companyName;
-    private String numberOfParcels;
+    private String numberOfParcels = "0";
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -96,13 +96,18 @@ public class Transport {
         this.id = id;
     }
 
-
     public String getDestination() {
         return destination;
     }
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public void increaseParcelCount(){
+        int numberOfParcels = Integer.parseInt(this.getNumberOfParcels());
+        numberOfParcels++;
+        this.setNumberOfParcels(String.valueOf(numberOfParcels));
     }
 
 
