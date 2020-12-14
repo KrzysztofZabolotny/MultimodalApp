@@ -78,34 +78,32 @@
 
 <div class="row">
     <div th:each=" parcel : ${parcels}">
-        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary" style="background: #F8F9FA">
             <figure>
                 <div class="card-body">
 
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/owner.png" th:src="@{../img/owner.png}" alt="Card image cap">
+                    </div>
+                    <h5 class="card-title" th:text="${parcel.userName}">Owner</h5>
 
-                    <!--private String userName;
-                        private String content;
-                        private String weight;
-                        private String width;
-                        private String length;
-                        private String height;-->
-                    <h6 class="card-text"><small class="text-dark font-italic">Owner</small>
-                        <h3>
-                            <span class="badge badge-primary" th:text="${parcel.userName}">size</span>
-                        </h3>
-                    </h6>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}" alt="Card image cap">
+                    </div>
+                    <h5 class="card-title" th:text="${parcel.content}">Content</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Content</small></h6>
-                    <h5 class="card-title" th:text="${parcel.content}"> Destination</h5>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/dimensions.png" th:src="@{../img/dimensions.png}" alt="Card image cap">
+                    </div>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Weight</small></h6>
-                    <p class="card-text" th:text="${parcel.weight}">Departure date</p>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.length}">Length</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.width}">Width</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.height}">Height</small></h6>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Width</small></h6>
-                    <p class="card-text" th:text="${parcel.width}">Width</p>
-
-                    <h6 class="card-text"><small class="text-dark font-italic">Length</small></h6>
-                    <p class="card-text" th:text="${parcel.length}">Length</p>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="${parcel.value}">Value</p>
                 </div>
             </figure>
         </div>

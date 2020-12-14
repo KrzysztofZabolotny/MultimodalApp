@@ -13,6 +13,7 @@ import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,8 @@ public class HomeController {
     ClientRepository clientRepository;
     @Autowired
     TransportRepository transportRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
@@ -136,6 +139,7 @@ public class HomeController {
         System.out.println("generated code: " + oneTimeCode);
 
         if (client.getOneTimeCode() == oneTimeCode) {
+            globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
