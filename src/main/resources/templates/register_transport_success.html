@@ -15,6 +15,20 @@
 <body>
 
 <h1>New Transport Success</h1>
+
+<div class="col-12 text-right">
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
+</div>
 <span>Destination:</span> <span th:text="${transport.destination}"></span><br/>
 <span>Departure Date:</span> <span th:text="${transport.departureDate}"></span><br/>
 <h2>Has been registered in our database</h2>

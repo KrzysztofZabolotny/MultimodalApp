@@ -72,9 +72,17 @@
 </head>
 <body>
 <div class="col-12 text-right">
-    <button onclick="window.location.href='/logout';" class="btn-logout" style="clear: both">
-        Logout
-    </button>
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
 </div>
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
@@ -91,15 +99,24 @@
         <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
             <figure>
                 <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
+                    </div>
                     <h5 class="card-title text-primary font-weight-bolder" th:text="${parcel.destination}">Destination</h5>
-                    <h6 class="card-text"><small class="text-dark font-italic">Content</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}" alt="Card image cap">
+                    </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.content}">Content</small></p>
                     <h6 class="card-text"><small class="text-dark font-italic">Additional comments</small></h6>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.additionalComments}">Additional Comments</small></p>
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}" alt="Card image cap">
+                    </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.departureDate}">Departure date</small></p>
-                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${parcel.id}}">Details</a>
+
+                    <a class="btn text-white" th:href="@{'/parcel_details_precise/' + ${parcel.id}}">Details</a>
                 </div>
             </figure>
         </div>

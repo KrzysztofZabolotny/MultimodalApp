@@ -16,15 +16,15 @@ import java.util.regex.Pattern;
 
 public final class Utilities {
 
-    public static int generateRegistrationCode(){
+    public static int generateRegistrationCode() {
 
         int bound = 900_000;
         int fill = 100_000;
 
-        return new Random().nextInt(bound)+fill;
+        return new Random().nextInt(bound) + fill;
     }
 
-    public static Client updateClientDetails(Client previousClientDetails, Client updatedClientDetails){
+    public static Client updateClientDetails(Client previousClientDetails, Client updatedClientDetails) {
 
         updatedClientDetails.setId(previousClientDetails.getId());
         updatedClientDetails.setEmail(previousClientDetails.getEmail());
@@ -33,7 +33,9 @@ public final class Utilities {
 
         return updatedClientDetails;
 
-    }public static Client updateGlobalClientDetails(Client client, Client globalClient){
+    }
+
+    public static Client updateGlobalClientDetails(Client client, Client globalClient) {
 
         globalClient.setCity(client.getCity());
         globalClient.setCode(client.getCode());
@@ -53,11 +55,11 @@ public final class Utilities {
 
     }
 
-    public static void updateUserPassword(Client client , User user){
+    public static void updateUserPassword(Client client, User user) {
         user.setPassword(client.getPassword());
     }
 
-    public static String timeStamp(){
+    public static String timeStamp() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         return dtf.format(now);
@@ -72,9 +74,29 @@ public final class Utilities {
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
 
-        String patterns = ("^\\d{5}$"+"|^\\d{6}$"+"|^\\d{7}$"+"|^\\d{8}$"+"|^\\d{9}$"+"|^\\d{10}$"+"|^\\d{11}$"+"|^\\d{12}$");
+        String patterns = ("^\\d{5}$" + "|^\\d{6}$" + "|^\\d{7}$" + "|^\\d{8}$" + "|^\\d{9}$" + "|^\\d{10}$" + "|^\\d{11}$" + "|^\\d{12}$");
         Pattern pattern = Pattern.compile(patterns);
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();
+    }
+
+    public static int calculateValue(int weight) {
+
+        int group = 0;
+
+        if (weight <= 10) group = -1;
+        if (weight > 10 && weight <= 20) group = 0;
+        if (weight > 20) group = 1;
+
+        int value = switch (group) {
+
+            case -1 -> 500;
+            case 0 -> 700;
+            case 1 -> 1000;
+
+            default -> throw new IllegalStateException("Unexpected value:" + group);
+        };
+
+        return value;
     }
 }

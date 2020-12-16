@@ -44,8 +44,8 @@ public class HomeController {
     ClientRepository clientRepository;
     @Autowired
     TransportRepository transportRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    /*@Autowired
+    private PasswordEncoder passwordEncoder;*/
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
@@ -139,7 +139,7 @@ public class HomeController {
         System.out.println("generated code: " + oneTimeCode);
 
         if (client.getOneTimeCode() == oneTimeCode) {
-            globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));
+        /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
@@ -251,12 +251,42 @@ public class HomeController {
         parcel.setUserName(principal.getName());;
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
+        parcel.setValue(Utilities.calculateValue(Integer.parseInt(parcel.getWeight())));
+        parcel.setInTransportNumber(transportNumber);
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
         transportRepository.save(transport);
 
 
         return "client_main";
+
+    }
+
+    @GetMapping("/parcel_details_precise/{id}")
+    public String parcelDetails(@PathVariable("id") int id, Model model){
+
+        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
+        parcelOptional.orElseThrow(()-> new RuntimeException("Not found"));
+
+        Parcel parcel = parcelOptional.get();
+
+        Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(transport.getDriverId());
+
+        clientOptional.orElseThrow(()-> new RuntimeException("Driver not found"));
+
+        Client client = clientOptional.get();
+
+
+        model.addAttribute("parcel", parcel);
+        model.addAttribute("client", client);
+        model.addAttribute("transport", transport);
+
+        return "parcel_details_precise";
 
     }
 
@@ -283,7 +313,6 @@ public class HomeController {
         List<Parcel> parcels = parcelRepository.findAll();
 
         List<Parcel> clientParcels = parcels.stream().filter(p -> p.getUserName().equals(client.getUserName())).collect(Collectors.toList());
-
 
         model.addAttribute("parcels", clientParcels);
 
@@ -357,6 +386,17 @@ public class HomeController {
 
         model.addAttribute("parcels", parcels);
         return "parcel_details";
+
+    }
+
+    @GetMapping("/delete_parcel/{id}")
+    public String deleteParcel(@PathVariable("id") Integer id) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        Transport transport = transportOptional.get();
+        transportRepository.delete(transport);//delete transport
+        return "driver_transports";
 
     }
 

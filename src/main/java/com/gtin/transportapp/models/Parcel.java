@@ -19,8 +19,10 @@ public class Parcel {
     private String length;
     private String height;
     private String destination;
-    private String status;
+    private String status = "REGISTERED";
     private String additionalComments;
+    private int inTransportNumber;
+    private int value;
     private LocalDate departureDate;
 
 
@@ -32,6 +34,22 @@ public class Parcel {
         this.width = width;
         this.length = length;
         this.height = height;
+    }
+
+    public int getInTransportNumber() {
+        return inTransportNumber;
+    }
+
+    public void setInTransportNumber(int inTransportNumber) {
+        this.inTransportNumber = inTransportNumber;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public LocalDate getDepartureDate() {
@@ -137,25 +155,7 @@ public class Parcel {
         this.content = content;
     }
 
-    public static int calculateValueEnhanced(int weight) {
 
-        int group = 0;
-
-        if (weight <= 10) group = -1;
-        if (weight > 10 && weight <= 20) group = 0;
-        if (weight > 20) group = 1;
-
-        int value = switch (group) {
-
-            case -1 -> 500;
-            case 0 -> 700;
-            case 1 -> 1000;
-
-            default -> throw new IllegalStateException("Unexpected value:" + group);
-        };
-
-        return value;
-    }
 
     @Override
     public String toString() {

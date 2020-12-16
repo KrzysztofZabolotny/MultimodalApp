@@ -65,9 +65,16 @@
 </head>
 <body>
 <div class="col-12 text-right">
-    <button onclick="window.location.href='/logout';" class="btn-logout" style="clear: both">
-        Logout
-    </button>
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
 </div>
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
@@ -93,17 +100,24 @@
                     <h5 class="card-title" th:text="${parcel.content}">Content</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/weight.png" th:src="@{../img/weight.png}" alt="Card image cap">
+                    </div>
+
+
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.weight} + 'kg'">Weight</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/dimensions.png" th:src="@{../img/dimensions.png}" alt="Card image cap">
                     </div>
 
-                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.length}">Length</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.width}">Width</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-italic" th:text="${parcel.height}">Height</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="'length '+${parcel.length}+ 'cm'">Length</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="'width '+${parcel.width}+ 'cm'">Width</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="'height '+${parcel.height}+ 'cm'">Height</small></h6>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}" alt="Card image cap">
                     </div>
-                    <p class="card-text" th:text="${parcel.value}">Value</p>
+                    <p class="card-text" th:text="${parcel.value}+' Nok'">0</p>
                 </div>
             </figure>
         </div>

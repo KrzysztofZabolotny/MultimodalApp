@@ -73,9 +73,17 @@
 </head>
 <body>
 <div class="col-12 text-right">
-    <button onclick="window.location.href='/logout';" class="btn-logout" style="clear: both">
-        Logout
-    </button>
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
 </div>
 
 <div class="jumbotron text-center"
