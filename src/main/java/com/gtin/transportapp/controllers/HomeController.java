@@ -251,7 +251,7 @@ public class HomeController {
         parcel.setUserName(principal.getName());;
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
-        parcel.setValue(Utilities.calculateValue(Integer.parseInt(parcel.getWeight())));
+        parcel.setValue(Utilities.calculateValue(parcel.getWeight()));
         parcel.setInTransportNumber(transportNumber);
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
@@ -386,6 +386,36 @@ public class HomeController {
 
         model.addAttribute("parcels", parcels);
         return "parcel_details";
+
+    }
+    @GetMapping("/transport_details/{id}")
+    public String showTransportDetails(@PathVariable("id") Integer id, Model model) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        Transport transport = transportOptional.get();
+
+        List<Parcel> parcels = transport.getParcels();
+
+        int transportValue = 0;
+        int transportVolume = 0;
+        int transportWeight = Utilities.calculateWeight(parcels);
+
+        for (Parcel p: parcels){
+            transportValue+=p.getValue();
+            transportVolume+=Utilities.calculateVolume(p);
+        }
+
+        double invoice = Utilities.calculateInvoice(transportValue);
+        System.out.println("Transport value: "+transportValue);
+        System.out.println("invoice: "+invoice);
+
+        model.addAttribute("parcels", parcels);
+        model.addAttribute("transportValue", transportValue);
+        model.addAttribute("transportVolume", transportVolume);
+        model.addAttribute("transportWeight", transportWeight);
+        model.addAttribute("invoice", invoice);
+        return "transport_details";
 
     }
 

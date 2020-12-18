@@ -79,7 +79,38 @@
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+        <h1 class="display-3" style="justify-content: center">Registered parcels</h1>
+        <h6 class="display-4" style="justify-content: center">Overview</h6>
+
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary" style="background: #F8F9FA; width: 400px; height: 350px;">
+            <figure>
+                <div class="card-body">
+
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/weight.png" th:src="@{../img/weight.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="'Total weight: '+${transportWeight}+' kg'">0</p>
+
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/dimensions.png" th:src="@{../img/dimensions.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="'Total volume: '+${transportVolume}+' cm²'">0</p>
+
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="'Total value: '+${transportValue}+' nok'">0</p>
+
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/invoice-small.png" th:src="@{../img/invoice-small.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="'Invoice to Transport Hub: '+${invoice}+' nok'">0</p>
+                </div>
+            </figure>
+        </div>
+
+
+
 
     </div>
 </div>

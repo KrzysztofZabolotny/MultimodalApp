@@ -108,15 +108,23 @@
     </div>
     <div class="square">
         <div id="button_container">
+
+                <img style="margin-top: 30px" src="../static/img/truck.png" th:src="@{../img/truck.png}">
+
             <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-                AVAILABLE TRANSPORTS
+                FIND A TRANSPORT
             </button>
+
+            <img style="margin-top: 30px" src="../static/img/parcels.png" th:src="@{../img/parcels.png}">
+
             <button onclick="window.location.href='/client_parcels';" class="btn" style="clear: both">
                 YOUR PARCELS
             </button>
-            <button onclick="window.location.href='/client_order_history';" class="btn" style="clear: both">
+            <!--<button onclick="window.location.href='/client_order_history';" class="btn" style="clear: both">
                 HISTORY
-            </button>
+            </button>-->
+            <img style="margin-top: 30px" src="../static/img/profile.png" th:src="@{../img/profile.png}">
+
             <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
                 PROFILE
             </button>

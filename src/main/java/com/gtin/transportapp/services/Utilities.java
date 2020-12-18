@@ -4,12 +4,14 @@
 package com.gtin.transportapp.services;
 
 import com.gtin.transportapp.models.Client;
+import com.gtin.transportapp.models.Parcel;
 import com.gtin.transportapp.models.User;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -98,5 +100,33 @@ public final class Utilities {
         };
 
         return value;
+    }
+
+    public static int calculateVolume(Parcel parcel){
+
+        int width = parcel.getWidth();
+        int length = parcel.getLength();
+        int height = parcel.getHeight();
+
+        return width*length*height;
+    }
+
+    public static int calculateWeight(List<Parcel> parcels){
+
+        int totalWeight = 0;
+
+        for(Parcel p: parcels){
+            totalWeight+=p.getWeight();
+        }
+
+        return totalWeight;
+    }
+
+    public static double calculateInvoice(int value){
+
+        double interestRate = 0.05;
+
+
+        return value*interestRate;
     }
 }

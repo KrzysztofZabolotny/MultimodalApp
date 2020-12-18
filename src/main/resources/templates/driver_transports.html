@@ -17,7 +17,7 @@
         }
 
         .btn {
-            width: 100px;
+            width: 160px;
             height: 30px;
             padding-bottom: 5px;
             background-color: #00203f;
@@ -28,13 +28,14 @@
 
 
         .btn:hover {
-            width: 100px;
+            width: 160px;
             height: 30px;
             background-color: #EA4F45;
             font-weight: bold;
 
         }
-        .btn-logout{
+
+        .btn-logout {
             width: 30px;
             height: 30px;
             background-color: #ee0938;
@@ -44,7 +45,8 @@
             font-weight: bold;
             color: #f5f5f5;
         }
-        .btn-logout:hover{
+
+        .btn-logout:hover {
             width: 30px;
             height: 30px;
             background-color: #07ac30;
@@ -54,6 +56,11 @@
             color: #f5f5f5;
         }
 
+        .square {
+            width: 50%;
+            float: left;
+            align-content: center;
+        }
 
         .container {
 
@@ -100,53 +107,72 @@
                         </h3>
                     </h6>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
-                        <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
-                    </div>
-                    <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+                        <div class="card-img-top d-flex justify-content-center bg-light">
+                            <img class="img-fluid" src="../static/img/destination.png"
+                                 th:src="@{../img/destination.png}" alt="Card image cap">
+                        </div>
+                        <h5 class="card-title" th:text="${transport.destination}"> Destination</h5>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
-                        <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}" alt="Card image cap">
-                    </div>
-                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+                            <div class="card-img-top d-flex justify-content-center bg-light">
+                                <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}"
+                                     alt="Card image cap">
+                            </div>
+                            <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
-                        <img class="img-fluid" src="../static/img/timer.png" th:src="@{../img/timer.png}" alt="Card image cap">
-                    </div>
-                        <p class="card-text text-danger" th:id="'timer-' + ${iterStat.index}"><small class="text-danger" id="timer">Time till departure</small></p>
-                    <script th:inline="javascript">
+                            <div class="card-img-top d-flex justify-content-center bg-light">
+                                <img class="img-fluid" src="../static/img/timer.png" th:src="@{../img/timer.png}"
+                                     alt="Card image cap">
+                            </div>
+                            <h6 class="card-text"><small class="text-dark font-italic">Should leave in</small>
+                            <p class="card-text text-danger" th:id="'timer-' + ${iterStat.index}"><small
+                                    class="text-danger" id="timer">Time till departure</small></p>
+                            <script th:inline="javascript">
 
 
+                                var x = setInterval(function () {
+                                    var countDownDate = new Date(/*[[${transport.departureDate}]]*/).getTime();
+                                    var index = [[${iterStat.index}]];
 
+                                    console.log(index);
 
-                        var x = setInterval(function () {
-                            var countDownDate = new Date(/*[[${transport.departureDate}]]*/).getTime();
-                            var index = [[${iterStat.index}]];
+                                    var now = new Date().getTime();
 
-                            console.log(index);
+                                    var distance = countDownDate - now;
 
-                            var now = new Date().getTime();
+                                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    if (hours < 10) hours = "0" + hours;
+                                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    if (minutes < 10) minutes = "0" + minutes;
+                                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                                    if (seconds < 10) seconds = "0" + seconds;
 
-                            var distance = countDownDate - now;
+                                    document.getElementById('timer-' + index).innerHTML = days + "d " + hours + "h "
+                                        + minutes + "m " + seconds + "s ";
+                                    if (distance < 0) {
+                                        clearInterval(x);
+                                        document.getElementById('timer-' + index).innerHTML = "EXPIRED";
+                                    }
+                                }, 1000);
+                            </script>
 
-                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            if(hours<10) hours = "0"+hours;
-                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                            if(minutes<10) minutes = "0"+minutes;
-                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                            if(seconds<10) seconds = "0"+seconds;
-
-                            document.getElementById('timer-'+index).innerHTML = days + "d " + hours + "h "
-                                + minutes + "m " + seconds + "s ";
-                            if (distance < 0) {
-                                clearInterval(x);
-                                document.getElementById('timer-'+index).innerHTML = "EXPIRED";
-                            }
-                        }, 1000);
-                    </script>
-                    <a class="btn text-white" th:href="@{'/parcel_details/' + ${transport.id}}">Details</a>
-                    <a class="btn text-white" th:href="@{'/delete_parcel/' + ${transport.id}}" style=" background-color: red;">Delete</a>
+                            <div class="square text-center" style="margin-left: 7px">
+                                <div class="tile-top" >
+                                    <a class="btn text-white" th:href="@{'/transport_details/' + ${transport.id}}"
+                                       style=" background-color: blue;">Details</a><!--change to transport details-->
+                                </div>
+                                <div class="tile-bottom" style="margin-top: 5px">
+                                    <a class="btn text-white" th:href="@{'/transport_delivered_notification/' + ${transport.id}}"
+                                       style=" background-color: green;">Mark as delivered</a>
+                                </div>
+                                <div class="tile-bottom" style="margin-top: 5px">
+                                    <a class="btn text-white" th:href="@{'/delete_parcel/' + ${transport.id}}"
+                                       style=" background-color: red;">Delete</a>
+                                </div>
+                            </div>
+                            </h6>
                 </div>
             </figure>
         </div>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <title>Title</title>
+
+    <style>
+
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+
+        .btn {
+            background-color: #fc7333;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+        }
+
+        .btn:hover {
+            background-color: #B2B356;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+
+        }
+
+        .jumbotron text-center {
+
+        }
+
+
+
+        .wf {
+            outline: 1px solid black;
+        }
+
+        .ns {
+            background-color: silver;
+        }
+
+        .ns2 {
+            background-color: gray;
+        }
+
+        .row {
+            min-height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="col-12 text-right">
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
+</div>
+
+<div class="jumbotron text-center"
+     style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
+    <h1 class="display-4">Add your parcel</h1>
+
+</div>
+
+<div class="container">
+
+
+    <form class="form-horizontal"  action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post">
+
+
+    <div class="row">
+        <div class="col wf">
+            <div class="form-group ">
+                <!-- Default input -->
+
+                <div class="form-group col-md-6">
+                    <label for="weight" style="">Weight in kg</label>
+                    <input th:field="*{weight}" type="text" class="form-control align-middle" id="weight">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="length">Length in cm</label>
+                    <input th:field="*{length}" type="text" class="form-control" id="length" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="width">Width in cm</label>
+                    <input th:field="*{width}" type="text" class="form-control" id="width" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="height">Height in cm</label>
+                    <input th:field="*{height}" type="text" class="form-control" id="height">
+                </div>
+            </div>
+        </div>
+
+        <div class="col wf">
+            <div class="form-group col-md-6" style="margin-top: 15px">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress"
+                       th:field="*{address}"> <!--required-->
+            </div>
+            <div class="form-group col-md-6" style="margin-top: 15px">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity" th:field="*{city}">
+                <!--required-->
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip" th:field="*{zip}">
+                <!--required-->
+            </div>
+            <div class="form-group col-md-8">
+                <label for="inputCountry">Country</label>
+                <input type="text" class="form-control" id="inputCountry"
+                       th:field="*{country}"> <!--required-->
+            </div>
+        </div>
+
+        <div class="col wf">
+
+
+        </div>
+    </div>
+        <button class="btn btn-large btn-block btn-primary" style="width: 100%" type="submit">Add</button>
+    </form>
+
+</div>
+<footer class="page-footer font-small blue">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
+</body>
+</html>

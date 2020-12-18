@@ -105,6 +105,11 @@
                     <h5 class="card-title text-primary font-weight-bolder" th:text="${parcel.destination}">Destination</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
+                    </div>
+                    <h5 class="card-text" th:text="${transport.companyName}">Company Name</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}" alt="Card image cap">
                     </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.content}">Content</small></p>

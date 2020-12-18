@@ -14,10 +14,10 @@ public class Parcel {
     private int id;
     private String userName;
     private String content;
-    private String weight;
-    private String width;
-    private String length;
-    private String height;
+    private int weight;
+    private int width;
+    private int length;
+    private int height;
     private String destination;
     private String status = "REGISTERED";
     private String additionalComments;
@@ -25,15 +25,21 @@ public class Parcel {
     private int value;
     private LocalDate departureDate;
 
+    private String address;
+    private String city;
+    private String country;
+    private String zip;
 
-    public Parcel(int id, String userName, String content, String weight, String width, String length, String height) {
-        this.id = id;
+
+    public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
         this.userName = userName;
         this.content = content;
         this.weight = weight;
         this.width = width;
         this.length = length;
         this.height = height;
+        this.destination = destination;
+        this.status = status;
     }
 
     public int getInTransportNumber() {
@@ -84,35 +90,67 @@ public class Parcel {
         this.additionalComments = additionalComments;
     }
 
-    public String getWeight() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    public String getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public String getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(String length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    public String getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

@@ -30,7 +30,8 @@
             color: #f5f5f5;
 
         }
-        .btn-logout{
+
+        .btn-logout {
             width: 100px;
             height: 40px;
             background-color: #ee0938;
@@ -40,7 +41,8 @@
             font-weight: bold;
             color: #f5f5f5;
         }
-        .btn-logout:hover{
+
+        .btn-logout:hover {
             width: 100px;
             height: 40px;
             background-color: #07ac30;
@@ -70,33 +72,54 @@
 
 </div>
 
-    <div class="jumbotron text-center" style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
-        <h1 class="display-5">New transport</h1>
-    </div>
+<div class="jumbotron text-center"
+     style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
+    <h1 class="display-5">New transport</h1>
+</div>
 
-    <form action="#" th:action="@{/register_transport}" th:object="${transport}" method="post">
-        <div class="form-row">
+<form action="#" th:action="@{/register_transport}" th:object="${transport}" method="post">
+    <div class="form-row">
 
-            <div class="card-img-top d-flex justify-content-center">
-                <div class="form-group">
-                    <label>Departure date</label>
-                    <input type="date" class="form-control" th:field="*{departureDate}" style="text-align: center;"></td>
-                </div>
-
-                <div class="form-group">
-                    <label for="destination">Destination</label>
-                    <select class="form-control" id="destination" th:field="*{destination}">
-                        Destination
-                        <option th:each=" d : ${listOfDestinations}" th:value="${d}" th:text="${d}">Oslo</option>
-                    </select>
-                </div>
+        <div class="card-img-top d-flex justify-content-center">
+            <div class="form-group">
+                <label>Departure date</label>
+                <input type="date" class="form-control" th:field="*{departureDate}" style="text-align: center;"></td>
             </div>
 
-            <div class="card-img-top d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary btn-lg" >Create</button>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <select class="form-control" id="destination" th:field="*{destination}">
+                    Destination
+                    <option th:each=" d : ${listOfDestinations}" th:value="${d}" th:text="${d}">Oslo</option>
+                </select>
             </div>
         </div>
-    </form>
+<!--
+        <div class="card-img-top d-flex justify-content-center">
+            <div class="form-group col-md-1">
+                <label for="weight1"> 1kg to 10kg</label>
+                <input type="text" class="form-control" id="weight1" th:field="*{code}">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="weight2"> 11kg to 20kg</label>
+                <input type="text" class="form-control" id="weight2" th:field="*{code}">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="weight3"> 21kg to 30kg</label>
+                <input type="text" class="form-control" id="weight3" th:field="*{code}">
+            </div>
+            <div class="form-group col-md-1">
+                <label for="weight4"> 31kg to any</label>
+                <input type="text" class="form-control" id="weight4" th:field="*{code}">
+            </div>
+        </div>-->
+
+
+        <div class="card-img-top d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary btn-lg">Create</button>
+        </div>
+    </div>
+</form>
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
 </footer>

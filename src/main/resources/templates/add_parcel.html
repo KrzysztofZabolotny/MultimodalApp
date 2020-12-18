@@ -7,8 +7,10 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
-    <title>SpringBootThymeleaf Form</title>
+    <title>Title</title>
+
     <style>
+
         body {
             background-color: #03859b;
             color: whitesmoke;
@@ -16,16 +18,6 @@
             font-size: 20px;
         }
 
-        #container {
-            width: 800px;
-            height: 240px;
-            margin-left: auto;
-            margin-right: auto;
-
-            /*border-style: solid;*/
-            /*border-color: whitesmoke;*/
-
-        }
 
         .btn {
             background-color: #fc7333;
@@ -41,19 +33,19 @@
             margin-bottom: 30px;
 
         }
-        .jumbotron text-center{
+
+        .jumbotron text-center {
 
         }
-        .square {
-            width: 50%;
-            float: left;
-        }
 
+
+        .row {
+            min-height: 500px;
+        }
     </style>
-
-
 </head>
 <body>
+
 <div class="col-12 text-right">
 
     <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
@@ -68,53 +60,91 @@
 
 </div>
 
-<div class="jumbotron text-center" style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
+<div class="jumbotron text-center"
+     style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
     <h1 class="display-4">Add your parcel</h1>
 
 </div>
 
-
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <div class="square" style="margin-top: 50px;">
-                <img src="../static/img/box-dim.png" th:src="@{../img/box-dim.png}"
-                     style=" max-width: fit-content;"/>
-            </div>
-        </div>
-        <div class="col-6">
-            <form action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post" >
-                <div class="form-group">
-                    <label for="content">Content</label>
-                    <input th:field="*{content}" type="text" class="form-control" id="content" placeholder="Toys, food, clothes, etc.">
-                </div>
-                <div class="form-group">
-                    <label for="weight">Weight in kg</label>
-                    <input th:field="*{weight}" type="text" class="form-control" id="weight" placeholder="3">
-                </div>
-                <div class="form-group">
-                    <label for="length">Length in cm</label>
-                    <input th:field="*{length}" type="text" class="form-control" id="length" placeholder="40">
-                </div>
-                <div class="form-group">
-                    <label for="width">Width in cm</label>
-                    <input th:field="*{width}" type="text" class="form-control" id="width" placeholder="50">
-                </div>
-                <div class="form-group">
-                    <label for="height">Height in cm</label>
-                    <input th:field="*{height}" type="text" class="form-control" id="height" placeholder="60">
-                </div>
 
+
+    <form class="form-horizontal"  action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post">
+
+
+        <div class="row">
+
+            <div class="col" style="margin-top: 5px">
+
+                <img style="margin-top: 40px" src="../static/img/box-dim.png" th:src="@{../img/box-dim.png}">
+            </div>
+
+            <div class="col" style="margin-top: 5px">
+                <div class="form-group">
+                    <!-- Default input -->
+
+
+                    <div class="form-group col-md-12">
+                        <label >Length in cm</label>
+                        <input th:field="*{length}" type="text" class="form-control text-center">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label  style="">Weight in kg</label>
+                        <input th:field="*{weight}" type="text" class="form-control align-middle text-center">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="width">Width in cm</label>
+                        <input th:field="*{width}" type="text" class="form-control text-center" id="width" >
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="height">Height in cm</label>
+                        <input th:field="*{height}" type="text" class="form-control text-center" id="height">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" style="margin-top: 5px">
+                <div class="form-group col-md-12" >
+                    <label for="inputAddress">Address</label>
+                    <input type="text" class="form-control" id="inputAddress"
+                           th:field="*{address}"> <!--required-->
+                </div>
+                <div class="form-group col-md-12" >
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" id="inputCity" th:field="*{city}">
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputZip">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" th:field="*{zip}">
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputCountry">Country</label>
+                    <input type="text" class="form-control" id="inputCountry"
+                           th:field="*{country}"> <!--required-->
+                </div>
+            </div>
+
+            <div class="col">
+
+                <div class="form-group">
+                    <label for="additionalComments">Content</label>
+                    <textarea th:field="*{content}" class="form-control" id="content"
+                               rows="5"></textarea>
+                </div>
 
                 <div class="form-group">
                     <label for="additionalComments">Additional comments</label>
-                    <textarea th:field="*{additionalComments}" class="form-control" id="additionalComments" placeholder="Preferred delivery time, no lift, top flor etc." rows="3"></textarea>
+                    <textarea th:field="*{additionalComments}" class="form-control" id="additionalComments"
+                               rows="5"></textarea>
                 </div>
 
-                <button class="btn btn-large btn-block btn-primary" type="submit">Add</button>
-            </form>
+            </div>
         </div>
-    </div>
+        <button class="btn btn-large btn-block btn-primary align-self-center" style="width: 100%; height: 60px; font-size: 30px;" type="submit">Add</button>
+    </form>
+
 </div>
 <footer class="page-footer font-small blue">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
