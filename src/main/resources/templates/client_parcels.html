@@ -99,24 +99,24 @@
         <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
             <figure>
                 <div class="card-body">
-                    <div class="card-img-top d-flex justify-content-center bg-light">
+                    <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
                     </div>
                     <h5 class="card-title text-primary font-weight-bolder" th:text="${parcel.destination}">Destination</h5>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
+                    <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
                     </div>
-                    <h5 class="card-text" th:text="${transport.companyName}">Company Name</h5>
+                    <h5 class="card-text" th:text="${parcel.inTransportName}">Company Name</h5>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
+                    <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}" alt="Card image cap">
                     </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.content}">Content</small></p>
                     <h6 class="card-text"><small class="text-dark font-italic">Additional comments</small></h6>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.additionalComments}">Additional Comments</small></p>
 
-                    <div class="card-img-top d-flex justify-content-center bg-light">
+                    <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}" alt="Card image cap">
                     </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.departureDate}">Departure date</small></p>

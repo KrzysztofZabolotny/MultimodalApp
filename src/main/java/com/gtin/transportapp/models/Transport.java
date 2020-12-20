@@ -26,6 +26,11 @@ public class Transport {
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JoinColumn(name = "range_id")
+    List<Range> ranges = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JoinColumn(name = "parcel_id")
     List<Parcel> parcels = new ArrayList<>();
 
@@ -37,6 +42,13 @@ public class Transport {
         this.departureDate = departureDate;
     }
 
+    public List<Range> getRanges() {
+        return ranges;
+    }
+
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
+    }
 
     public int getTransportValue() {
         return transportValue;

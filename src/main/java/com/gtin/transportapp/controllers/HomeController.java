@@ -4,10 +4,7 @@
 package com.gtin.transportapp.controllers;
 
 import com.gtin.transportapp.models.*;
-import com.gtin.transportapp.repositories.ClientRepository;
-import com.gtin.transportapp.repositories.ParcelRepository;
-import com.gtin.transportapp.repositories.TransportRepository;
-import com.gtin.transportapp.repositories.UserRepository;
+import com.gtin.transportapp.repositories.*;
 import com.gtin.transportapp.services.MailSender;
 import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +19,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
 @EnableScheduling
 @Controller
 public class HomeController {
@@ -35,6 +34,7 @@ public class HomeController {
     public static User globalUser;
     public static Client globalClient;
     public static int oneTimeCode;
+    public static Transport globalTransport;
 
     @Autowired
     UserRepository userRepository;
@@ -44,6 +44,9 @@ public class HomeController {
     ClientRepository clientRepository;
     @Autowired
     TransportRepository transportRepository;
+
+    @Autowired
+    RangeRepository rangeRepository;
     /*@Autowired
     private PasswordEncoder passwordEncoder;*/
 
@@ -139,7 +142,7 @@ public class HomeController {
         System.out.println("generated code: " + oneTimeCode);
 
         if (client.getOneTimeCode() == oneTimeCode) {
-        /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
+            /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
@@ -181,6 +184,35 @@ public class HomeController {
     }
 
 
+    /*==================================================================================================================*/
+
+    @GetMapping("/test")
+    public String test(Model model) {
+
+        Range range = new Range();
+        Transport transport = new Transport();
+        model.addAttribute("transport", transport);
+        model.addAttribute("range", range);
+        model.addAttribute("listOfDestinations", listOfDestinations);
+
+        return "test";
+    }
+
+
+    @PostMapping("/test")
+    public String test(@ModelAttribute("range") Range range) {
+
+
+        System.out.println(range);
+
+
+        rangeRepository.save(range);
+        return "success";
+    }
+
+    /*==================================================================================================================*/
+
+
 
 
 
@@ -201,7 +233,6 @@ public class HomeController {
         model.addAttribute("transports", transports);
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
-
 
 
         return "choose_transport";
@@ -248,25 +279,36 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
-        parcel.setUserName(principal.getName());;
+        parcel.setUserName(principal.getName());
+        ;
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
         parcel.setValue(Utilities.calculateValue(parcel.getWeight()));
         parcel.setInTransportNumber(transportNumber);
+        parcel.setInTransportName(transport.getCompanyName());
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
-        transportRepository.save(transport);
+        globalTransport = transport;
+        //transportRepository.save(transport);
 
 
-        return "client_main";
+        return "add_parcel_confirmation";
 
     }
 
+    @PostMapping("/add_parcel_confirmation")
+    public String addParcelConfirmation(@ModelAttribute("parcel") Parcel parcel) {
+
+        transportRepository.save(globalTransport);
+
+        return "success";
+    }
+
     @GetMapping("/parcel_details_precise/{id}")
-    public String parcelDetails(@PathVariable("id") int id, Model model){
+    public String parcelDetails(@PathVariable("id") int id, Model model) {
 
         Optional<Parcel> parcelOptional = parcelRepository.findById(id);
-        parcelOptional.orElseThrow(()-> new RuntimeException("Not found"));
+        parcelOptional.orElseThrow(() -> new RuntimeException("Not found"));
 
         Parcel parcel = parcelOptional.get();
 
@@ -277,7 +319,7 @@ public class HomeController {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(transport.getDriverId());
 
-        clientOptional.orElseThrow(()-> new RuntimeException("Driver not found"));
+        clientOptional.orElseThrow(() -> new RuntimeException("Driver not found"));
 
         Client client = clientOptional.get();
 
@@ -297,16 +339,12 @@ public class HomeController {
     /*SHOWING PARCELS*/
 
 
-
-
-
     @GetMapping("/client_parcels")
-    public String showClientParcels(Model model, Principal principal){
-
+    public String showClientParcels(Model model, Principal principal) {
 
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()-> new RuntimeException("Client not found"));
+        clientOptional.orElseThrow(() -> new RuntimeException("Client not found"));
 
         Client client = clientOptional.get();
 
@@ -315,7 +353,6 @@ public class HomeController {
         List<Parcel> clientParcels = parcels.stream().filter(p -> p.getUserName().equals(client.getUserName())).collect(Collectors.toList());
 
         model.addAttribute("parcels", clientParcels);
-
         return "client_parcels";
     }
 
@@ -374,12 +411,11 @@ public class HomeController {
     }
 
 
-
     @GetMapping("/parcel_details/{id}")
     public String showParcelDetails(@PathVariable("id") Integer id, Model model) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
 
         List<Parcel> parcels = transport.getParcels();
@@ -388,11 +424,12 @@ public class HomeController {
         return "parcel_details";
 
     }
+
     @GetMapping("/transport_details/{id}")
     public String showTransportDetails(@PathVariable("id") Integer id, Model model) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
 
         List<Parcel> parcels = transport.getParcels();
@@ -401,14 +438,14 @@ public class HomeController {
         int transportVolume = 0;
         int transportWeight = Utilities.calculateWeight(parcels);
 
-        for (Parcel p: parcels){
-            transportValue+=p.getValue();
-            transportVolume+=Utilities.calculateVolume(p);
+        for (Parcel p : parcels) {
+            transportValue += p.getValue();
+            transportVolume += Utilities.calculateVolume(p);
         }
 
         double invoice = Utilities.calculateInvoice(transportValue);
-        System.out.println("Transport value: "+transportValue);
-        System.out.println("invoice: "+invoice);
+        System.out.println("Transport value: " + transportValue);
+        System.out.println("invoice: " + invoice);
 
         model.addAttribute("parcels", parcels);
         model.addAttribute("transportValue", transportValue);
@@ -423,7 +460,7 @@ public class HomeController {
     public String deleteParcel(@PathVariable("id") Integer id) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(()-> new RuntimeException("not found"));
+        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
         transportRepository.delete(transport);//delete transport
         return "driver_transports";

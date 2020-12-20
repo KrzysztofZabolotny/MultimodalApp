@@ -22,6 +22,7 @@ public class Parcel {
     private String status = "REGISTERED";
     private String additionalComments;
     private int inTransportNumber;
+    private String inTransportName;
     private int value;
     private LocalDate departureDate;
 
@@ -40,6 +41,14 @@ public class Parcel {
         this.height = height;
         this.destination = destination;
         this.status = status;
+    }
+
+    public String getInTransportName() {
+        return inTransportName;
+    }
+
+    public void setInTransportName(String inTransportName) {
+        this.inTransportName = inTransportName;
     }
 
     public int getInTransportNumber() {
