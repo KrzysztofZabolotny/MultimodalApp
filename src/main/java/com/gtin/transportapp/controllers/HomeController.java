@@ -10,7 +10,6 @@ import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @EnableScheduling
@@ -140,7 +136,6 @@ public class HomeController {
 
         System.out.println("inserted code: " + client.getOneTimeCode());
         System.out.println("generated code: " + oneTimeCode);
-
         if (client.getOneTimeCode() == oneTimeCode) {
             /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
             userRepository.save(globalUser);
@@ -176,6 +171,15 @@ public class HomeController {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
+        PriceRange priceRange1 = new PriceRange(1,10,500);
+        PriceRange priceRange2 = new PriceRange(11,20,700);
+        PriceRange priceRange3 = new PriceRange(21,30,1000);
+        PriceRange priceRange4 = new PriceRange(31,50,1500);
+
+        transport.getRanges().add(priceRange1);
+        transport.getRanges().add(priceRange2);
+        transport.getRanges().add(priceRange3);
+        transport.getRanges().add(priceRange4);
         Client client = clientOptional.get();
         transport.setDriverId(client.getEmail());
         transport.setCompanyName(client.getCompanyName());
@@ -189,10 +193,10 @@ public class HomeController {
     @GetMapping("/test")
     public String test(Model model) {
 
-        Range range = new Range();
+        PriceRange priceRange = new PriceRange();
         Transport transport = new Transport();
         model.addAttribute("transport", transport);
-        model.addAttribute("range", range);
+        model.addAttribute("range", priceRange);
         model.addAttribute("listOfDestinations", listOfDestinations);
 
         return "test";
@@ -200,13 +204,13 @@ public class HomeController {
 
 
     @PostMapping("/test")
-    public String test(@ModelAttribute("range") Range range) {
+    public String test(@ModelAttribute("range") PriceRange priceRange) {
 
 
-        System.out.println(range);
+        System.out.println(priceRange);
 
 
-        rangeRepository.save(range);
+        rangeRepository.save(priceRange);
         return "success";
     }
 
@@ -280,10 +284,9 @@ public class HomeController {
 
         Transport transport = transportOptional.get();
         parcel.setUserName(principal.getName());
-        ;
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
-        parcel.setValue(Utilities.calculateValue(parcel.getWeight()));
+        parcel.setValue(Utilities.calculateValue(parcel.getWeight(),transport));
         parcel.setInTransportNumber(transportNumber);
         parcel.setInTransportName(transport.getCompanyName());
         transport.getParcels().add(parcel);

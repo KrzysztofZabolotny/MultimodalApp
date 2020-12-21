@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Range {
+public class PriceRange {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,8 +17,21 @@ public class Range {
     private int price;
     private int toWeight;
 
-    public Range(){
+    public PriceRange(){
 
+    }
+
+    public PriceRange(int fromWeight, int toWeight, int price) {
+        this.fromWeight = fromWeight;
+        this.price = price;
+        this.toWeight = toWeight;
+    }
+
+    public PriceRange(int id, int fromWeight, int toWeight, int price) {
+        this.id = id;
+        this.fromWeight = fromWeight;
+        this.price = price;
+        this.toWeight = toWeight;
     }
 
     public int getId() {

@@ -1,5 +1,7 @@
 package com.gtin.transportapp.services;
 
+import com.gtin.transportapp.models.PriceRange;
+import com.gtin.transportapp.models.Transport;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,6 +25,16 @@ class UtilitiesTest {
         String twelveDigitNumber = "123456789101";
         assertTrue(Utilities.isValidPhoneNumber(fiveDigitNumber));
         assertTrue(Utilities.isValidPhoneNumber(twelveDigitNumber));
+    }
+    @Test
+    public void calculateValue(){
+
+        int weight = 5;
+        Transport transport = new Transport();
+        transport.getRanges().add(new PriceRange(1,10,500));
+
+
+        assertEquals(500, Utilities.calculateValue(weight,transport));
     }
 
 }

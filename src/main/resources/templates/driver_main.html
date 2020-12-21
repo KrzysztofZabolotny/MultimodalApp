@@ -37,7 +37,8 @@
             color: #f5f5f5;
 
         }
-        .btn-logout{
+
+        .btn-logout {
             width: 100px;
             height: 40px;
             background-color: #00203f;
@@ -47,7 +48,8 @@
             font-weight: bold;
             color: #f5f5f5;
         }
-        .btn-logout:hover{
+
+        .btn-logout:hover {
             width: 100px;
             height: 40px;
             background-color: #EA4F45;
@@ -65,6 +67,7 @@
             margin-top: 50px;
             justify-content: center;
         }
+
         .square {
             width: 50%;
             float: left;
@@ -91,25 +94,33 @@
     <div class="container">
         <h1 class="display-4" style="justify-content: center">Main menu</h1>
     </div>
-    <div class="square">
-        <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
-             style=" max-width: fit-content; margin-top: 100px; margin-left: 90px"/>
-    </div>
-    <div class="square">
-        <div id="button_container">
-            <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both" >
-                New Transport
-            </button>
-            <button onclick="window.location.href='/driver_transports';" class="btn" style="clear: both" >
-                Existing Transports
-            </button>
-            <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
-                Edit Transports
-            </button>
-            <button onclick="window.location.href='/client_details';" class="btn" style="clear: both" >
-                Your stats
-            </button>
-            <div style="clear:both;"></div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+
+        <div class="col">
+            <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
+                 style=" max-width: fit-content; margin-top: 100px; margin-left: 90px"/>
+        </div>
+        <div class="col">
+            <div id="button_container">
+                <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both">
+                    New Transport
+                </button>
+                <button onclick="window.location.href='/driver_transports';" class="btn" style="clear: both">
+                    Existing Transports
+                </button>
+                <!--    <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
+                        Edit Transports
+                    </button>-->
+                <!--     <button onclick="window.location.href='/client_details';" class="btn" style="clear: both" >
+                         Your stats
+                     </button>-->
+                <div style="clear:both;"></div>
+            </div>
         </div>
     </div>
 </div>

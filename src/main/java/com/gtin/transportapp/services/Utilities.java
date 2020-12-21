@@ -3,12 +3,8 @@
  */
 package com.gtin.transportapp.services;
 
-import com.gtin.transportapp.models.Client;
-import com.gtin.transportapp.models.Parcel;
-import com.gtin.transportapp.models.User;
+import com.gtin.transportapp.models.*;
 
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -82,24 +78,17 @@ public final class Utilities {
         return matcher.matches();
     }
 
-    public static int calculateValue(int weight) {
+    public static int calculateValue(int weight, Transport transport) {
 
-        int group = 0;
+        List<PriceRange> priceRanges = transport.getRanges();
 
-        if (weight <= 10) group = -1;
-        if (weight > 10 && weight <= 20) group = 0;
-        if (weight > 20) group = 1;
 
-        int value = switch (group) {
+        for (PriceRange r: priceRanges){
 
-            case -1 -> 500;
-            case 0 -> 700;
-            case 1 -> 1000;
+            if(weight>=r.getFromWeight() && weight<=r.getToWeight()) return r.getPrice();
+        }
 
-            default -> throw new IllegalStateException("Unexpected value:" + group);
-        };
-
-        return value;
+        return 1234567;
     }
 
     public static int calculateVolume(Parcel parcel){
