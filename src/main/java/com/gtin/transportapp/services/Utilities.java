@@ -80,7 +80,7 @@ public final class Utilities {
 
     public static int calculateValue(int weight, Transport transport) {
 
-        List<PriceRange> priceRanges = transport.getRanges();
+        List<PriceRange> priceRanges = transport.getPriceRanges();
 
 
         for (PriceRange r: priceRanges){

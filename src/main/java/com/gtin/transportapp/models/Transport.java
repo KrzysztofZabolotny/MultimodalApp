@@ -42,11 +42,11 @@ public class Transport {
         this.departureDate = departureDate;
     }
 
-    public List<PriceRange> getRanges() {
+    public List<PriceRange> getPriceRanges() {
         return priceRanges;
     }
 
-    public void setRanges(List<PriceRange> priceRanges) {
+    public void setPriceRanges(List<PriceRange> priceRanges) {
         this.priceRanges = priceRanges;
     }
 

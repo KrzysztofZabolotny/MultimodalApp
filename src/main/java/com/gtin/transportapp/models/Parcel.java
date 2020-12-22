@@ -14,18 +14,17 @@ public class Parcel {
     private int id;
     private String userName;
     private String content;
+    private String destination;
+    private String status = "REGISTERED";
+    private String additionalComments;
+    private String inTransportName;
     private int weight;
     private int width;
     private int length;
     private int height;
-    private String destination;
-    private String status = "REGISTERED";
-    private String additionalComments;
     private int inTransportNumber;
-    private String inTransportName;
     private int value;
     private LocalDate departureDate;
-
     private String address;
     private String city;
     private String country;
@@ -163,11 +162,11 @@ public class Parcel {
         this.height = height;
     }
 
-    public Parcel(){
+    public Parcel() {
 
     }
 
-    public Parcel(String userName,String content) {
+    public Parcel(String userName, String content) {
         this.userName = userName;
         this.content = content;
     }
@@ -201,7 +200,6 @@ public class Parcel {
     public void setContent(String content) {
         this.content = content;
     }
-
 
 
     @Override

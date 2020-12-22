@@ -31,7 +31,7 @@ class UtilitiesTest {
 
         int weight = 5;
         Transport transport = new Transport();
-        transport.getRanges().add(new PriceRange(1,10,500));
+        transport.getPriceRanges().add(new PriceRange(1,10,500));
 
 
         assertEquals(500, Utilities.calculateValue(weight,transport));

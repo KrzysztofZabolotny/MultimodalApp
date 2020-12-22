@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.*;
@@ -171,19 +168,32 @@ public class HomeController {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
-        PriceRange priceRange1 = new PriceRange(1,10,500);
-        PriceRange priceRange2 = new PriceRange(11,20,700);
-        PriceRange priceRange3 = new PriceRange(21,30,1000);
-        PriceRange priceRange4 = new PriceRange(31,50,1500);
+        PriceRange priceRange = new PriceRange();
 
-        transport.getRanges().add(priceRange1);
-        transport.getRanges().add(priceRange2);
-        transport.getRanges().add(priceRange3);
-        transport.getRanges().add(priceRange4);
+        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange);
+
         Client client = clientOptional.get();
         transport.setDriverId(client.getEmail());
         transport.setCompanyName(client.getCompanyName());
-        transportRepository.save(transport);
+        globalTransport = transport;
+
+        return "register_transport_price_range";
+    }
+
+    @PostMapping("/register_transport_price_range")
+    public String submitTransportPriceRanges(@ModelAttribute("transport") Transport transport, @RequestParam(required = false) String add){
+
+        List<PriceRange> priceRanges = transport.getPriceRanges();
+
+        priceRanges.removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
+        globalTransport.setPriceRanges(priceRanges);
+        transportRepository.save(globalTransport);
+
+
         return "register_transport_success";
     }
 
