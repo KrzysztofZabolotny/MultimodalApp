@@ -89,22 +89,6 @@
                 <div class="card-body">
 
 
-                    <!--
-
-                    private String userName;
-                    private String destination;
-                    private String content;
-
-                    private String weight;
-                    private String width;
-                    private String length;
-                    private String height;
-
-                    private String status;
-                    private String additionalComments;
-                    private int value;
-                    private LocalDate departureDate;-->
-
                     <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
                     <h3 class="card-title" th:text="${transport.destination}"> Destination</h3>
 
@@ -131,7 +115,7 @@
                     <p class="card-text" th:text="${parcel.status}">status</p>
 
                     <h6 class="card-text"><small class="text-dark font-italic">Price</small></h6>
-                    <p class="card-text" th:text="${parcel.value}+' Nok'">0</p>
+                    <span class="badge badge-success" th:text="${parcel.value}+' Nok'">0</span>
 
 
                 </div>

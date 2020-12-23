@@ -23,6 +23,8 @@ public class Transport {
     private String companyName;
     private String numberOfParcels = "0";
     private int transportValue = 0;
+    private int capacity;
+    private int load;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -34,29 +36,6 @@ public class Transport {
     @JoinColumn(name = "parcel_id")
     List<Parcel> parcels = new ArrayList<>();
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
-
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    public List<PriceRange> getPriceRanges() {
-        return priceRanges;
-    }
-
-    public void setPriceRanges(List<PriceRange> priceRanges) {
-        this.priceRanges = priceRanges;
-    }
-
-    public int getTransportValue() {
-        return transportValue;
-    }
-
-    public void setTransportValue(int value) {
-        this.transportValue = value;
-    }
 
     public Transport() {
 
@@ -77,44 +56,20 @@ public class Transport {
         this.driverId = driverId;
     }
 
-    public String getNumberOfParcels() {
-        return numberOfParcels;
-    }
-
-    public void setNumberOfParcels(String numberOfParcels) {
-        this.numberOfParcels = numberOfParcels;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public List<Parcel> getParcels() {
-        return parcels;
-    }
-
-    public String getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(String clientId) {
-        this.driverId = clientId;
-    }
-
-    public void setParcels(List<Parcel> parcels) {
-        this.parcels = parcels;
-    }
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
     }
 
     public String getDestination() {
@@ -125,11 +80,83 @@ public class Transport {
         this.destination = destination;
     }
 
+    public String getDriverId() {
+        return driverId;
+    }
+
+    public void setDriverId(String driverId) {
+        this.driverId = driverId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getNumberOfParcels() {
+        return numberOfParcels;
+    }
+
+    public void setNumberOfParcels(String numberOfParcels) {
+        this.numberOfParcels = numberOfParcels;
+    }
+
+    public int getTransportValue() {
+        return transportValue;
+    }
+
+    public void setTransportValue(int transportValue) {
+        this.transportValue = transportValue;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public List<PriceRange> getPriceRanges() {
+        return priceRanges;
+    }
+
+    public void setPriceRanges(List<PriceRange> priceRanges) {
+        this.priceRanges = priceRanges;
+    }
+
+    public List<Parcel> getParcels() {
+        return parcels;
+    }
+
+    public void setParcels(List<Parcel> parcels) {
+        this.parcels = parcels;
+    }
+
+    public int getLoad() {
+        return load;
+    }
+
+    public void setLoad(int load) {
+        this.load = load;
+    }
     public void increaseParcelCount(){
         int numberOfParcels = Integer.parseInt(this.getNumberOfParcels());
         numberOfParcels++;
         this.setNumberOfParcels(String.valueOf(numberOfParcels));
     }
+
+    public boolean permitLoading(int parcelWeight){
+
+        return this.load+parcelWeight<this.capacity;
+    }
+
+
+
+
 
 
     @Override

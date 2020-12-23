@@ -15,16 +15,8 @@
             font-size: 20px;
         }
 
-        #container {
-            width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
 
-        .square {
-            width: 50%;
-            float: left;
-        }
+
 
         .btn {
             width: 300px;
@@ -66,24 +58,29 @@
 
     <div id="container">
 
-        <div class="square" style="margin-top: 50px;">
-            <img src="img/modes_of_transportation.png"  th:src="@{img/modes_of_transportation.png}"
-                 style=" max-width: fit-content;" alt=""/>
-        </div>
-        <div class="square" style="margin-top: 150px">
-            <div class="tile-top">
-                <button onclick="window.location.href='/login';" class="btn">
-                    LOGIN
-                </button>
-            </div>
-            <div class="tile-bottom" style="margin-top: 20px">
-                <button onclick="window.location.href='/register';" class="btn">
-                    REGISTER
-                </button>
+        <div class="row">
+
+            <div class="col" >
+                <img src="../static/img/modes_of_transportation.png"  th:src="@{img/modes_of_transportation.png}"
+                     style="  margin-top: 50px" alt=""/>
 
             </div>
+
+            <div class="col" style="margin-top: 150px">
+                <div class="tile-top">
+                    <button onclick="window.location.href='/login';" class="btn">
+                        LOGIN
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 20px">
+                    <button onclick="window.location.href='/register';" class="btn">
+                        REGISTER
+                    </button>
+
+                </div>
+            </div>
+
         </div>
-        <div style="clear: both;"></div>
     </div>
 </div>
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">

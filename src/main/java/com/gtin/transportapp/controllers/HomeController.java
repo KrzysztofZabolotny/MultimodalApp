@@ -185,12 +185,13 @@ public class HomeController {
     }
 
     @PostMapping("/register_transport_price_range")
-    public String submitTransportPriceRanges(@ModelAttribute("transport") Transport transport, @RequestParam(required = false) String add){
+    public String submitTransportPriceRanges(@ModelAttribute("transport") Transport transport, @RequestParam(required = false) String add) {
 
         List<PriceRange> priceRanges = transport.getPriceRanges();
 
         priceRanges.removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
         globalTransport.setPriceRanges(priceRanges);
+        globalTransport.setCapacity(transport.getCapacity());
         transportRepository.save(globalTransport);
 
 
@@ -296,14 +297,17 @@ public class HomeController {
         parcel.setUserName(principal.getName());
         parcel.setDestination(transport.getDestination());
         parcel.setDepartureDate(transport.getDepartureDate());
-        parcel.setValue(Utilities.calculateValue(parcel.getWeight(),transport));
+        parcel.setValue(Utilities.calculateValue(parcel.getWeight(), transport));
         parcel.setInTransportNumber(transportNumber);
         parcel.setInTransportName(transport.getCompanyName());
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
-        globalTransport = transport;
-        //transportRepository.save(transport);
 
+        if (transport.permitLoading(parcel.getWeight())) {
+            transport.setLoad(transport.getLoad() + parcel.getWeight());
+        } else return "errors/error_permit_load";
+
+        globalTransport = transport;
 
         return "add_parcel_confirmation";
 
