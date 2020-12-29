@@ -1,7 +1,7 @@
 package com.gtin.transportapp.services;
 
-import com.gtin.transportapp.models.PriceRange;
-import com.gtin.transportapp.models.Transport;
+
+import com.gtin.transportapp.models.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

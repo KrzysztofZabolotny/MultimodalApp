@@ -57,7 +57,6 @@
         }
 
 
-
     </style>
 
 </head>
@@ -77,40 +76,22 @@
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">Review your submission</h1>
+        <h1 class="display-4" style="justify-content: center">Are you sure you want to delete this transport?</h1>
     </div>
 </div>
 
 
-<form form action="#" th:action="@{/add_parcel_confirmation}" th:object="${parcel}" method="post">
+<form form action="#" th:action="@{/delete_transport_confirmation}" th:object="${transport}" method="post">
     <div class="container">
         <div class="row">
             <div class="col">
-                <img src="../img/send_package.png" th:src="@{../static/img/send_package.png}"
-                     style=" max-width: fit-content;"/>
             </div>
             <div class="col text-center">
-                <h4 style="margin-bottom: 15px; text-blink: 200">Waga i wymiary</h4>
-                <div th:text="'Waga: '+${parcel.weight}+'kg'"> Weight</div>
-                <div th:text="'Wysokość: '+${parcel.height}+'cm'">Height</div>
-                <div th:text="'Szerokość: '+${parcel.width}+'cm'">Width</div>
-                <div th:text="'Długość: '+${parcel.length}+'cm'">Length</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Zawartość</h2>
-                <div th:text="${parcel.content}">Content</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Komentarz</h2>
-                <div th:text="${parcel.additionalComments}">Comments</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Adres dostawy</h2>
-                <div th:text="'Ulica: '+${parcel.address}">Street</div>
-                <div th:text="'Kod: '+${parcel.zip}">Zip</div>
-                <div th:text="'Miasto: '+${parcel.city}">City</div>
-                <div th:text="'Panstwo: '+${parcel.country}">Country</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Cena</h2>
-                <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Country</div>
-
-                <button type="submit" style="margin-top: 30px;" class="btn btn-default">Zamow</button>
-                <h6 style="margin-top: 10px"><small class="font-italic">*potwierdzenie zamówienia zostanie do Ciebie wysłane</small></h6>
-                <div class="col"></div>
+                <button type="submit" style="margin-top: 30px;" class="btn btn-default">Delete</button>
+                <h6 style="margin-top: 10px"><small class="font-italic">*the transport will be removed with it's
+                    parcels</small></h6>
             </div>
+            <div class="col"></div>
         </div>
     </div>
 </form>

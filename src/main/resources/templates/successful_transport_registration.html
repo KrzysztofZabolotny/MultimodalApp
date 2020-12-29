@@ -55,14 +55,10 @@
         .wf {
             outline: 1px solid black;
         }
-
-
-
     </style>
-
 </head>
 <body>
-<div class="col-12 text-right">
+<div class="col text-right">
 
     <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
         <a href="/">
@@ -74,46 +70,25 @@
     </div>
 
 </div>
-
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">Review your submission</h1>
+        <h1 class="display-4" style="justify-content: center">Your transport has been registered</h1>
     </div>
 </div>
 
 
-<form form action="#" th:action="@{/add_parcel_confirmation}" th:object="${parcel}" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <img src="../img/send_package.png" th:src="@{../static/img/send_package.png}"
-                     style=" max-width: fit-content;"/>
-            </div>
-            <div class="col text-center">
-                <h4 style="margin-bottom: 15px; text-blink: 200">Waga i wymiary</h4>
-                <div th:text="'Waga: '+${parcel.weight}+'kg'"> Weight</div>
-                <div th:text="'Wysokość: '+${parcel.height}+'cm'">Height</div>
-                <div th:text="'Szerokość: '+${parcel.width}+'cm'">Width</div>
-                <div th:text="'Długość: '+${parcel.length}+'cm'">Length</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Zawartość</h2>
-                <div th:text="${parcel.content}">Content</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Komentarz</h2>
-                <div th:text="${parcel.additionalComments}">Comments</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Adres dostawy</h2>
-                <div th:text="'Ulica: '+${parcel.address}">Street</div>
-                <div th:text="'Kod: '+${parcel.zip}">Zip</div>
-                <div th:text="'Miasto: '+${parcel.city}">City</div>
-                <div th:text="'Panstwo: '+${parcel.country}">Country</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Cena</h2>
-                <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Country</div>
+<div class="col text-center">
+    <img class="text-center" style="margin-top: -50px" src="../static/img/success.png" th:src="@{../img/success.png}">
+</div>
 
-                <button type="submit" style="margin-top: 30px;" class="btn btn-default">Zamow</button>
-                <h6 style="margin-top: 10px"><small class="font-italic">*potwierdzenie zamówienia zostanie do Ciebie wysłane</small></h6>
-                <div class="col"></div>
-            </div>
-        </div>
-    </div>
-</form>
+
+<div class="row ">
+
+    <div class="col text-center" ><button style="margin-top: 50px" onclick="window.location.href='/';" class="btn">
+        Home
+    </button></div>
+
+</div>
 
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>

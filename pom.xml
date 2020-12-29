@@ -15,7 +15,7 @@
     <description>Web App for Transports</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
     </properties>
 

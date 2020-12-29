@@ -195,38 +195,8 @@ public class HomeController {
         transportRepository.save(globalTransport);
 
 
-        return "register_transport_success";
+        return "successful_transport_registration";
     }
-
-
-    /*==================================================================================================================*/
-
-    @GetMapping("/test")
-    public String test(Model model) {
-
-        PriceRange priceRange = new PriceRange();
-        Transport transport = new Transport();
-        model.addAttribute("transport", transport);
-        model.addAttribute("range", priceRange);
-        model.addAttribute("listOfDestinations", listOfDestinations);
-
-        return "test";
-    }
-
-
-    @PostMapping("/test")
-    public String test(@ModelAttribute("range") PriceRange priceRange) {
-
-
-        System.out.println(priceRange);
-
-
-        rangeRepository.save(priceRange);
-        return "success";
-    }
-
-    /*==================================================================================================================*/
-
 
 
 
@@ -318,7 +288,7 @@ public class HomeController {
 
         transportRepository.save(globalTransport);
 
-        return "success";
+        return "successful_parcel_add";
     }
 
     @GetMapping("/parcel_details_precise/{id}")
@@ -424,7 +394,7 @@ public class HomeController {
         userRepository.save(user);
 
 
-        return "success";
+        return "successful_profile_edit";
     }
 
 
@@ -461,9 +431,8 @@ public class HomeController {
         }
 
         double invoice = Utilities.calculateInvoice(transportValue);
-        System.out.println("Transport value: " + transportValue);
-        System.out.println("invoice: " + invoice);
 
+        model.addAttribute("parcels", parcels);
         model.addAttribute("parcels", parcels);
         model.addAttribute("transportValue", transportValue);
         model.addAttribute("transportVolume", transportVolume);
@@ -472,17 +441,25 @@ public class HomeController {
         return "transport_details";
 
     }
-
-    @GetMapping("/delete_parcel/{id}")
-    public String deleteParcel(@PathVariable("id") Integer id) {
+    @GetMapping("/delete_transport/{id}")
+    public String deleteParcel(@PathVariable("id") Integer id, Model model) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
-        Transport transport = transportOptional.get();
-        transportRepository.delete(transport);//delete transport
-        return "driver_transports";
+
+        globalTransport = transportOptional.get();
+        return "delete_transport_confirmation";
 
     }
+
+    @PostMapping("/delete_transport_confirmation")
+    public String deleteParcelConfirmation(){
+
+        transportRepository.delete(globalTransport);
+
+        return "successful_transport_deletion";
+    }
+
 
 
 

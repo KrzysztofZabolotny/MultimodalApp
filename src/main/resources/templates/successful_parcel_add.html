@@ -58,7 +58,7 @@
     </style>
 </head>
 <body>
-<div class="col-12 text-right">
+<div class="col text-right">
 
     <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
         <a href="/">
@@ -72,16 +72,22 @@
 </div>
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">You can continue</h1>
+        <h1 class="display-4" style="justify-content: center">Your parcel has been registered</h1>
     </div>
 </div>
 
+
+    <div class="col text-center">
+        <img class="text-center" style="margin-top: -50px" src="../static/img/success.png" th:src="@{../img/success.png}">
+    </div>
+
+
 <div class="row ">
-    <div class="col "></div>
-    <div class="col text-center " ><button  onclick="window.location.href='/';" class="btn">
+
+    <div class="col text-center" ><button style="margin-top: 50px" onclick="window.location.href='/';" class="btn">
         Home
     </button></div>
-    <div class="col "></div>
+
 </div>
 
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">

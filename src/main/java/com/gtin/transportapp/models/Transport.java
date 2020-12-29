@@ -24,7 +24,9 @@ public class Transport {
     private String numberOfParcels = "0";
     private int transportValue = 0;
     private int capacity;
-    private int load;
+    private int load = 0;
+    private int value = 0;
+    private String status;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -140,9 +142,26 @@ public class Transport {
         return load;
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public void setLoad(int load) {
         this.load = load;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void increaseParcelCount(){
         int numberOfParcels = Integer.parseInt(this.getNumberOfParcels());
         numberOfParcels++;
@@ -153,12 +172,6 @@ public class Transport {
 
         return this.load+parcelWeight<this.capacity;
     }
-
-
-
-
-
-
     @Override
     public String toString() {
         return "Transport{" +
