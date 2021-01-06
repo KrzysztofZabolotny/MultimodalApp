@@ -11,12 +11,13 @@ import javax.persistence.*;
 @Table
 public class PriceRange {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private int id;
     private int fromWeight;
     private int price;
     private int toWeight;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Transport transport;
     public PriceRange(){
 
     }
@@ -33,6 +34,8 @@ public class PriceRange {
         this.price = price;
         this.toWeight = toWeight;
     }
+
+
 
     public int getId() {
         return id;
@@ -66,13 +69,21 @@ public class PriceRange {
         this.toWeight = toWeight;
     }
 
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+
     @Override
     public String toString() {
         return "Range{" +
                 "id=" + id +
-                ", fromWeight=" + fromWeight +
-                ", price=" + price +
-                ", toWeight=" + toWeight +
+                "\n, fromWeight=" + fromWeight +
+                "\n, price=" + price +
+                "\n, toWeight=" + toWeight +
                 '}';
     }
 }

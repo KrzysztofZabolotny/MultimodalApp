@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,9 +38,8 @@ public class HomeController {
     ClientRepository clientRepository;
     @Autowired
     TransportRepository transportRepository;
-
     @Autowired
-    RangeRepository rangeRepository;
+    PriceRangeRepository priceRangeRepository;
     /*@Autowired
     private PasswordEncoder passwordEncoder;*/
 
@@ -129,16 +129,11 @@ public class HomeController {
 
     @PostMapping("/register_confirmation_code")
     public String registrationCodeValidation(@ModelAttribute("client") Client client) {
-
-
-        System.out.println("inserted code: " + client.getOneTimeCode());
-        System.out.println("generated code: " + oneTimeCode);
         if (client.getOneTimeCode() == oneTimeCode) {
             /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
-            System.out.println(globalClient);
             new Thread(() -> new MailSender(globalClient.getEmail(), "Your details: \n" + globalClient.toString())).start();
 //            Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
 //            sendRegistrationDetails.start();
@@ -146,9 +141,6 @@ public class HomeController {
         } else return "registration_error";
 
     }
-
-
-
 
 
     /* TRANSPORT REGISTRATION*/
@@ -165,21 +157,30 @@ public class HomeController {
 
     @PostMapping("/register_transport")
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
+
+
+//        Optional<Transport> transportOptional = transportRepository.findById(transport.getId());
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
-        PriceRange priceRange = new PriceRange();
+        PriceRange priceRange1 = new PriceRange();
+        PriceRange priceRange2 = new PriceRange();
+        PriceRange priceRange3 = new PriceRange();
+        PriceRange priceRange4 = new PriceRange();
+        PriceRange priceRange5 = new PriceRange();
 
-        transport.getPriceRanges().add(priceRange);
-        transport.getPriceRanges().add(priceRange);
-        transport.getPriceRanges().add(priceRange);
-        transport.getPriceRanges().add(priceRange);
-        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange1);
+        transport.getPriceRanges().add(priceRange2);
+        transport.getPriceRanges().add(priceRange3);
+        transport.getPriceRanges().add(priceRange4);
+        transport.getPriceRanges().add(priceRange5);
 
         Client client = clientOptional.get();
         transport.setDriverId(client.getEmail());
         transport.setCompanyName(client.getCompanyName());
+
         globalTransport = transport;
+
 
         return "register_transport_price_range";
     }
@@ -187,11 +188,15 @@ public class HomeController {
     @PostMapping("/register_transport_price_range")
     public String submitTransportPriceRanges(@ModelAttribute("transport") Transport transport, @RequestParam(required = false) String add) {
 
-        List<PriceRange> priceRanges = transport.getPriceRanges();
+        System.out.println(transport);
 
-        priceRanges.removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
-        globalTransport.setPriceRanges(priceRanges);
+        globalTransport.setPriceRanges(transport.getPriceRanges());
         globalTransport.setCapacity(transport.getCapacity());
+
+        globalTransport.getPriceRanges().removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
+        for (PriceRange priceRange : globalTransport.getPriceRanges()) {
+            priceRangeRepository.save(priceRange);
+        }
         transportRepository.save(globalTransport);
 
 
@@ -240,6 +245,27 @@ public class HomeController {
     }
 
 
+    @GetMapping("/test")
+    public String runTest() {
+        Transport transport = new Transport();
+        transport.setDestination("Warszawa");
+
+        PriceRange priceRange = new PriceRange(1, 10, 500);
+        PriceRange priceRange2 = new PriceRange(1, 10, 500);
+
+        priceRange.setTransport(transport);
+        priceRange2.setTransport(transport);
+
+        transport.getPriceRanges().add(priceRange);
+        transport.getPriceRanges().add(priceRange2);
+
+        transportRepository.save(transport);
+        priceRangeRepository.save(priceRange);
+        priceRangeRepository.save(priceRange2);
+
+
+        return "index";
+    }
 
 
 
@@ -274,7 +300,7 @@ public class HomeController {
         transport.increaseParcelCount();
 
         if (transport.permitLoading(parcel.getWeight())) {
-            transport.setLoad(transport.getLoad() + parcel.getWeight());
+            transport.setBallast(transport.getBallast() + parcel.getWeight());
         } else return "errors/error_permit_load";
 
         globalTransport = transport;
@@ -441,6 +467,7 @@ public class HomeController {
         return "transport_details";
 
     }
+
     @GetMapping("/delete_transport/{id}")
     public String deleteParcel(@PathVariable("id") Integer id, Model model) {
 
@@ -453,9 +480,10 @@ public class HomeController {
     }
 
     @PostMapping("/delete_transport_confirmation")
-    public String deleteParcelConfirmation(){
+    public String deleteParcelConfirmation() {
 
         transportRepository.delete(globalTransport);
+
 
         return "successful_transport_deletion";
     }
@@ -470,12 +498,16 @@ public class HomeController {
 
     /*SCHEDUlED TASKS*/
 
-//    @Scheduled(fixedDelay = 1000)
+//    static int counter = 0;
+//    @Scheduled(fixedDelay = 100)
 //    public static void runner(){
-//        System.out.println(Utilities.timeStamp());
-//        System.out.println(Thread.activeCount());
-//        Thread sendRegistrationDetails = new Thread(new MailSender("krzysztof.zabolotny@gmail.com", Utilities.timeStamp()));
-//        sendRegistrationDetails.start();
+//
+//        Thread thread = new Thread(new Timer());
+//        thread.start();
+//
 //    }
 
+
 }
+
+

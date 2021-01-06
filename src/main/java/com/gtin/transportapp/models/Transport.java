@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -21,16 +22,16 @@ public class Transport {
     private String destination;
     private String driverId;
     private String companyName;
-    private String numberOfParcels = "0";
+    private int numberOfParcels = 0;
     private int transportValue = 0;
     private int capacity;
-    private int load = 0;
+    private int ballast = 0;
     private int value = 0;
-    private String status;
+    private String status = "none";
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "range_id")
+    @JoinColumn(name = "price_id")
     List<PriceRange> priceRanges = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -39,17 +40,28 @@ public class Transport {
     List<Parcel> parcels = new ArrayList<>();
 
 
+
     public Transport() {
 
     }
 
-    public Transport(int id, LocalDate departureDate, String destination, String driverId, List<Parcel> parcels) {
+    public Transport(int id, LocalDate departureDate, String destination, String driverId, List<PriceRange> priceRanges) {
         this.id = id;
         this.departureDate = departureDate;
         this.destination = destination;
         this.driverId = driverId;
-        this.parcels = parcels;
+        this.priceRanges = priceRanges;
     }
+
+
+
+//    public Transport(int id, LocalDate departureDate, String destination, String driverId, List<Parcel> parcels) {
+//        this.id = id;
+//        this.departureDate = departureDate;
+//        this.destination = destination;
+//        this.driverId = driverId;
+//        this.parcels = parcels;
+//    }
 
     public Transport(int id, LocalDate departureDate, String destination, String driverId) {
         this.id = id;
@@ -98,11 +110,11 @@ public class Transport {
         this.companyName = companyName;
     }
 
-    public String getNumberOfParcels() {
+    public int getNumberOfParcels() {
         return numberOfParcels;
     }
 
-    public void setNumberOfParcels(String numberOfParcels) {
+    public void setNumberOfParcels(int numberOfParcels) {
         this.numberOfParcels = numberOfParcels;
     }
 
@@ -138,8 +150,8 @@ public class Transport {
         this.parcels = parcels;
     }
 
-    public int getLoad() {
-        return load;
+    public int getBallast() {
+        return ballast;
     }
 
     public int getValue() {
@@ -150,8 +162,8 @@ public class Transport {
         this.value = value;
     }
 
-    public void setLoad(int load) {
-        this.load = load;
+    public void setBallast(int load) {
+        this.ballast = load;
     }
 
     public String getStatus() {
@@ -163,23 +175,32 @@ public class Transport {
     }
 
     public void increaseParcelCount(){
-        int numberOfParcels = Integer.parseInt(this.getNumberOfParcels());
+        int numberOfParcels = this.getNumberOfParcels();
         numberOfParcels++;
-        this.setNumberOfParcels(String.valueOf(numberOfParcels));
+        this.setNumberOfParcels(numberOfParcels);
     }
 
     public boolean permitLoading(int parcelWeight){
 
-        return this.load+parcelWeight<this.capacity;
+        return this.ballast +parcelWeight<this.capacity;
     }
+
     @Override
     public String toString() {
         return "Transport{" +
                 "id=" + id +
-                ", departureDate=" + departureDate +
-                ", destination='" + destination + '\'' +
-                ", clientId='" + driverId + '\'' +
-                ", parcels=" + parcels +
+                ",\n departureDate=" + departureDate +
+                ",\n destination='" + destination + '\'' +
+                ",\n driverId='" + driverId + '\'' +
+                ",\n companyName='" + companyName + '\'' +
+                ",\n numberOfParcels=" + numberOfParcels +
+                ",\n transportValue=" + transportValue +
+                ",\n capacity=" + capacity +
+                ",\n ballast=" + ballast +
+                ",\n value=" + value +
+                ",\n status='" + status + '\'' +
+                ",\n priceRanges=" + priceRanges +
+                ",\n parcels=" + parcels +
                 '}';
     }
 }

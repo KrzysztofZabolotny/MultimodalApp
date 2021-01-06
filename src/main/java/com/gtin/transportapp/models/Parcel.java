@@ -31,6 +31,8 @@ public class Parcel {
     private String zip;
 
 
+
+
     public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
         this.userName = userName;
         this.content = content;

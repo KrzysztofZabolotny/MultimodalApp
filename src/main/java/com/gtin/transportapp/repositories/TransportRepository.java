@@ -1,6 +1,5 @@
 package com.gtin.transportapp.repositories;
 
-import com.gtin.transportapp.models.Parcel;
 import com.gtin.transportapp.models.Transport;
 import org.springframework.data.jpa.repository.JpaRepository;
 

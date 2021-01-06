@@ -37,25 +37,26 @@
             color: #f5f5f5;
 
         }
-        .btn-logout{
+
+        .btn-logout {
             width: 100px;
             height: 40px;
-            background-color: #ee0938;
+            background-color: #00203f;
             margin-right: 20px;
             margin-left: 20px;
             margin-top: 30px;
             font-weight: bold;
             color: #f5f5f5;
         }
-        .btn-logout:hover{
+
+        .btn-logout:hover {
             width: 100px;
             height: 40px;
-            background-color: #07ac30;
+            background-color: #EA4F45;
             margin-right: 20px;
             margin-left: 20px;
             font-weight: bold;
             color: #f5f5f5;
-            /*background: url("img/test/homesmall.png") no-repeat scroll 0 0 transparent;*/
         }
 
 
@@ -63,24 +64,11 @@
             width: 400px;
             margin-left: auto;
             margin-right: auto;
-            margin-top: 50px;
+            margin-top: 30px;
             justify-content: center;
         }
-        .square {
-            width: 50%;
-            float: left;
-        }
 
 
-        .footer {
-            font-size: 10px;
-            text-align: center;
-            margin-left: 140px;
-            width: 1000px;
-            height: 30px;
-            position: absolute;
-            bottom: 0;
-        }
 
     </style>
 
@@ -102,33 +90,33 @@
     <div class="container">
         <h1 class="display-4" style="justify-content: center">Main menu</h1>
     </div>
-    <div class="square">
-        <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
-             style=" max-width: fit-content; margin-top: 100px; margin-left: 280px"/>
-    </div>
-    <div class="square">
-        <div id="button_container">
+</div>
 
+<div class="container">
+
+    <div class="row">
+
+
+        <div class="col">
+            <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
+                 style=" margin-top: 0px; margin-left: 90px"/>
+        </div>
+        <div class="col">
+            <div id="button_container">
                 <img style="margin-top: 30px" src="../static/img/truck.png" th:src="@{../img/truck.png}">
-
-            <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-                FIND A TRANSPORT
-            </button>
-
-            <img style="margin-top: 30px" src="../static/img/parcels.png" th:src="@{../img/parcels.png}">
-
-            <button onclick="window.location.href='/client_parcels';" class="btn" style="clear: both">
-                YOUR PARCELS
-            </button>
-            <!--<button onclick="window.location.href='/client_order_history';" class="btn" style="clear: both">
-                HISTORY
-            </button>-->
-            <img style="margin-top: 30px" src="../static/img/profile.png" th:src="@{../img/profile.png}">
-
-            <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
-                PROFILE
-            </button>
-            <div style="clear:both;"></div>
+                <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
+                    FIND A TRANSPORT
+                </button>
+                <img style="margin-top: 30px" src="../static/img/parcels.png" th:src="@{../img/parcels.png}">
+                <button onclick="window.location.href='/client_parcels';" class="btn" style="clear: both">
+                    YOUR PARCELS
+                </button>
+                <img style="margin-top: 30px" src="../static/img/profile.png" th:src="@{../img/profile.png}">
+                <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
+                    PROFILE
+                </button>
+                <div style="clear:both;"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -137,3 +125,5 @@
 </footer>
 </body>
 </html>
+
+

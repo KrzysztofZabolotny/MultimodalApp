@@ -6,7 +6,7 @@ package com.gtin.transportapp.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,14 @@ public class User {
     private String password;
     private boolean active = true;
     private String roles = "USER";
+
+    public User(){
+
+    }
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 
     public int getId() {
         return id;

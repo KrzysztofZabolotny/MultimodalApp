@@ -7,6 +7,7 @@ import com.gtin.transportapp.models.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -80,10 +81,11 @@ public final class Utilities {
 
     public static int calculateValue(int weight, Transport transport) {
 
-        List<PriceRange> priceRanges = transport.getPriceRanges();
+        Collection<PriceRange> priceRanges = transport.getPriceRanges();
 
 
         for (PriceRange r: priceRanges){
+            System.out.println(r);
 
             if(weight>=r.getFromWeight() && weight<=r.getToWeight()) return r.getPrice();
         }
