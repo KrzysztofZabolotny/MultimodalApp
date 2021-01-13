@@ -53,6 +53,8 @@
         }
 
 
+
+
     </style>
 
 
@@ -87,14 +89,17 @@
             </div>
 
             <div class="form-group">
-                <label for="destination">Destination</label>
-                <select class="form-control" id="destination" th:field="*{destination}">
-                    Destination
-                    <option th:each=" d : ${listOfDestinations}" th:value="${d}" th:text="${d}">Oslo</option>
-                </select>
+                <label>Destination</label>
+                <input type="text" class="form-control" th:field="*{destination}" style="text-align: center;"></td>
             </div>
+<!--            <div class="form-group">-->
+<!--                <label for="destination">Destination</label>-->
+<!--                <select class="form-control" id="destination" th:field="*{destination}">-->
+<!--                    Destination-->
+<!--                    <option th:each=" d : ${listOfDestinations}" th:value="${d}" th:text="${d}">Oslo</option>-->
+<!--                </select>-->
+<!--            </div>-->
 
-            <div></div>
         </div>
 
 

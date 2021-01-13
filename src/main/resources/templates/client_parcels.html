@@ -121,6 +121,11 @@
                     </div>
                     <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.departureDate}">Departure date</small></p>
 
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/status.png" th:src="@{../img/status.png}" alt="Card image cap">
+                    </div>
+                    <p class="card-text" th:text="${parcel.status}">Unknown</p>
+
                     <a class="btn text-white" th:href="@{'/parcel_details_precise/' + ${parcel.id}}">Details</a>
                 </div>
             </figure>

@@ -90,7 +90,7 @@ public final class Utilities {
             if(weight>=r.getFromWeight() && weight<=r.getToWeight()) return r.getPrice();
         }
 
-        return 1234567;
+        return 0;
     }
 
     public static int calculateVolume(Parcel parcel){
@@ -117,7 +117,6 @@ public final class Utilities {
 
         double interestRate = 0.05;
 
-
-        return value*interestRate;
+        return Math.round(value*interestRate);
     }
 }

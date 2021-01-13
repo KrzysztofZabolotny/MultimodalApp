@@ -15,7 +15,7 @@ public class Parcel {
     private String userName;
     private String content;
     private String destination;
-    private String status = "REGISTERED";
+    private String status = "OCZEKUJE NA ZATWIERDZENIE";
     private String additionalComments;
     private String inTransportName;
     private int weight;
@@ -29,6 +29,8 @@ public class Parcel {
     private String city;
     private String country;
     private String zip;
+
+    private String formattedAddress;
 
 
 
@@ -164,6 +166,14 @@ public class Parcel {
         this.height = height;
     }
 
+    public String getFormattedAddress() {
+        return formatAddress();
+    }
+
+    public void setFormattedAddress(String formattedAddressed) {
+        this.formattedAddress = formattedAddress;
+    }
+
     public Parcel() {
 
     }
@@ -201,6 +211,15 @@ public class Parcel {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String formatAddress(){
+
+        return address
+                +"\n"
+                +zip
+                +"\n"
+                +city;
     }
 
 

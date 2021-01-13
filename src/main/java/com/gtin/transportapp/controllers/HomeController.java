@@ -150,7 +150,8 @@ public class HomeController {
     public String registerTransport(Model model) {
         Transport transport = new Transport();
         model.addAttribute("transport", transport);
-        model.addAttribute("listOfDestinations", listOfDestinations);
+        model.addAttribute("destination",transport.getDestination());
+        //model.addAttribute("listOfDestinations", listOfDestinations);
         return "register_transport";
     }
 
@@ -244,28 +245,6 @@ public class HomeController {
         return "driver_transports";
     }
 
-
-    @GetMapping("/test")
-    public String runTest() {
-        Transport transport = new Transport();
-        transport.setDestination("Warszawa");
-
-        PriceRange priceRange = new PriceRange(1, 10, 500);
-        PriceRange priceRange2 = new PriceRange(1, 10, 500);
-
-        priceRange.setTransport(transport);
-        priceRange2.setTransport(transport);
-
-        transport.getPriceRanges().add(priceRange);
-        transport.getPriceRanges().add(priceRange2);
-
-        transportRepository.save(transport);
-        priceRangeRepository.save(priceRange);
-        priceRangeRepository.save(priceRange2);
-
-
-        return "index";
-    }
 
 
 
@@ -448,7 +427,7 @@ public class HomeController {
         List<Parcel> parcels = transport.getParcels();
 
         int transportValue = 0;
-        int transportVolume = 0;
+        double transportVolume = 0;
         int transportWeight = Utilities.calculateWeight(parcels);
 
         for (Parcel p : parcels) {
@@ -476,6 +455,57 @@ public class HomeController {
 
         globalTransport = transportOptional.get();
         return "delete_transport_confirmation";
+
+    }
+
+    @GetMapping("/accept_parcel/{id}")
+    public String acceptParcel(@PathVariable("id") Integer id) {
+
+        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
+        parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
+
+        Parcel parcel = parcelOptional.get();
+
+        parcel.setStatus("ZATWIERDZONY");
+        parcelRepository.save(parcel);
+        return "/successful_parcel_acceptance";
+
+    }
+
+    @GetMapping("/deny_parcel/{id}")
+    public String denyParcel(@PathVariable("id") Integer id) {
+
+        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
+        parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
+
+        Parcel parcel = parcelOptional.get();
+        parcel.setStatus("ODRZUCONY");
+
+        Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
+        transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+        transport.setNumberOfParcels(transport.getNumberOfParcels()-1);
+        parcelRepository.delete(parcel);
+        return "/successful_parcel_denial";
+
+    }
+
+    @GetMapping("/accept_all_parcels/{id}")
+    public String acceptAllParcels(@PathVariable("id") Integer id) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+        for(Parcel parcel: transport.getParcels()){
+            parcel.setStatus("ZATWIERDZONY");
+        }
+
+        transportRepository.save(transport);
+        return "/successful_parcel_acceptance_all";
 
     }
 

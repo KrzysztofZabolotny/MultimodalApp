@@ -27,6 +27,7 @@ public class Transport {
     private int capacity;
     private int ballast = 0;
     private int value = 0;
+    private String pricing;
     private String status = "none";
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -174,6 +175,14 @@ public class Transport {
         this.status = status;
     }
 
+    public String getPricing() {
+        return concatenatePrices();
+    }
+
+    public void setPricing(String pricing) {
+        this.pricing = pricing;
+    }
+
     public void increaseParcelCount(){
         int numberOfParcels = this.getNumberOfParcels();
         numberOfParcels++;
@@ -183,6 +192,18 @@ public class Transport {
     public boolean permitLoading(int parcelWeight){
 
         return this.ballast +parcelWeight<this.capacity;
+    }
+
+    public String concatenatePrices(){
+
+        List<PriceRange> priceRanges = this.getPriceRanges();
+        StringBuilder result = new StringBuilder();
+        for (PriceRange priceRange: priceRanges){
+            result.append(priceRange).append("\n");
+        }
+
+        return result.toString();
+
     }
 
     @Override

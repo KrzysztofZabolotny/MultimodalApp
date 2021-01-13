@@ -79,11 +79,6 @@ public class PriceRange {
 
     @Override
     public String toString() {
-        return "Range{" +
-                "id=" + id +
-                "\n, fromWeight=" + fromWeight +
-                "\n, price=" + price +
-                "\n, toWeight=" + toWeight +
-                '}';
+        return fromWeight+" to "+toWeight+" kg"+" -> "+price+" Nok";
     }
 }
