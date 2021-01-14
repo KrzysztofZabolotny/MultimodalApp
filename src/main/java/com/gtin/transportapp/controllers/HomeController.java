@@ -376,6 +376,18 @@ public class HomeController {
         return "client_details";
     }
 
+    @GetMapping("/driver_details")
+    public String showDriverDetails(Model model, Principal principal) {
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client found"));
+
+        Client client = clientOptional.get();
+
+        model.addAttribute("client", client);
+
+        return "driver_details";
+    }
+
 
 
     /*EDIT PROFILE*/
@@ -414,6 +426,38 @@ public class HomeController {
         return "successful_profile_edit";
     }
 
+    @GetMapping("/edit_profile_driver")
+    public String editProfileDriver(Model model, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
+
+        Client client = clientOptional.get();
+        model.addAttribute("client", client);
+
+        return "edit_profile";
+
+    }
+
+    @PostMapping("/edit_profile_driver")
+    public String saveEditProfileDriver(@ModelAttribute("client") Client updatedClient, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
+        Optional<User> userOptional = userRepository.findByUserName(principal.getName());
+        userOptional.orElseThrow(() -> new RuntimeException("user not found"));
+
+
+        User user = userOptional.get();
+        Client oldClient = clientOptional.get();
+        Utilities.updateUserPassword(updatedClient, user);
+        Utilities.updateClientDetails(oldClient, updatedClient);
+        clientRepository.save(updatedClient);
+        userRepository.save(user);
+
+
+        return "successful_profile_edit";
+    }
 
     @GetMapping("/parcel_details/{id}")
     public String showParcelDetails(@PathVariable("id") Integer id, Model model) {
