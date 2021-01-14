@@ -9,11 +9,16 @@ import com.gtin.transportapp.services.MailSender;
 import com.gtin.transportapp.services.Utilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.*;
@@ -30,6 +35,8 @@ public class HomeController {
     public static int oneTimeCode;
     public static Transport globalTransport;
 
+
+
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -45,7 +52,6 @@ public class HomeController {
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
-
 
 
 
@@ -103,9 +109,9 @@ public class HomeController {
         Optional<Client> clientOptional = clientRepository.findByUserName(client.getUserName());
 
         {
-            if (clientOptional.isPresent()) return "errors/error_user_already_exists";
-            if (!Utilities.isValidEmailAddress(client.getEmail())) return "errors/error_incorrect_email";
-            if (!Utilities.isValidPhoneNumber(client.getPhone())) return "errors/error_incorrect_phone_number";
+            if (clientOptional.isPresent()) return "error_user_already_exists";
+            if (!Utilities.isValidEmailAddress(client.getEmail())) return "error_incorrect_email";
+            if (!Utilities.isValidPhoneNumber(client.getPhone())) return "error_incorrect_phone_number";
         }
 
 
@@ -189,8 +195,6 @@ public class HomeController {
     @PostMapping("/register_transport_price_range")
     public String submitTransportPriceRanges(@ModelAttribute("transport") Transport transport, @RequestParam(required = false) String add) {
 
-        System.out.println(transport);
-
         globalTransport.setPriceRanges(transport.getPriceRanges());
         globalTransport.setCapacity(transport.getCapacity());
 
@@ -268,6 +272,11 @@ public class HomeController {
         Optional<Transport> transportOptional = transportRepository.findById(transportNumber);
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(()-> new RuntimeException("Client not found"));
+
+        Client client = clientOptional.get();
+
         Transport transport = transportOptional.get();
         parcel.setUserName(principal.getName());
         parcel.setDestination(transport.getDestination());
@@ -275,6 +284,9 @@ public class HomeController {
         parcel.setValue(Utilities.calculateValue(parcel.getWeight(), transport));
         parcel.setInTransportNumber(transportNumber);
         parcel.setInTransportName(transport.getCompanyName());
+        parcel.setOwnerPhoneNumber(client.getCode()+client.getPhone());
+        parcel.setOwnerAddress(client.getStreet()+" "+client.getZip()+" "+client.getCity());
+        parcel.setOwnerName(client.getName()+" "+client.getSurname());
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
 
@@ -418,11 +430,13 @@ public class HomeController {
     }
 
     @GetMapping("/transport_details/{id}")
-    public String showTransportDetails(@PathVariable("id") Integer id, Model model) {
+    public String showTransportDetails(@PathVariable("id") Integer id, Model model, Principal principal) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         List<Parcel> parcels = transport.getParcels();
 
@@ -516,6 +530,52 @@ public class HomeController {
 
 
         return "successful_transport_deletion";
+    }
+
+
+    @GetMapping("/generate_report/{id}")
+    public ResponseEntity<Object> generateTransportWaybill(@PathVariable("id") Integer id) throws IOException {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(()-> new RuntimeException("Not found"));
+        Transport transport = transportOptional.get();
+
+        String transportData  = "src/main/resources/reports/"+transport.getCompanyName()+transport.getDepartureDate();
+
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(transportData+".txt"));
+            writer.write(Utilities.generateTransportWaybill(transport));
+            writer.close();
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+
+        }
+
+        String filename = transportData+".txt";
+        File file = new File(filename);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition",
+                String.format("attachment; filename=\"%s\"", file.getName()));
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+        return ResponseEntity.ok().headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("application/txt")).body(resource);
     }
 
 

@@ -81,7 +81,7 @@
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center; text-align: center">
     <div class="container">
-        <h6 class="display-4" style="justify-content: center">Szczegóły transportu</h6>
+        <h6 class="display-4" style="justify-content: center;">Szczegóły transportu</h6>
 
         <div class="row">
 
@@ -129,10 +129,12 @@
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center; text-align: center">
 
     <div class="container">
-        <h6 class="display-3" style="justify-content: center">Zarejestrowane przesyłki</h6>
+        <h6 class="display-3" style="justify-content: center; margin-top: -150px">Zarejestrowane przesyłki</h6>
 
         <a class="btn text-white" th:href="@{'/accept_all_parcels/' + ${id}}"
            style=" background-color: green; line-height: 70px; justify-content: center; width: 300px; height: 80px; margin-top: 50px; font-size: 15px">ZATWIERDŹ WSZYSTKIE PRZESYŁKI</a>
+        <a class="btn text-white" th:href="@{'/generate_report/' + ${id}}"
+           style=" background-color: gray; line-height: 70px; justify-content: center; width: 300px; height: 80px; margin-top: 50px; font-size: 15px">WYGENERUJ RAPORT</a>
     </div>
 
 
@@ -148,11 +150,22 @@
                     </div>
                     <h5 class="card-title" th:text="${parcel.userName}">Owner</h5>
 
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/details.png" th:src="@{../img/details.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Dane nadawcy</small></h6>
+                    <h5 class="card-title" th:text="${parcel.ownerName}">Owner Name</h5>
+                    <h5 class="card-title" th:text="${parcel.ownerAddress}">Owner Address</h5>
+                    <h5 class="card-title" th:text="'tel. '+${parcel.ownerPhoneNumber}">Phone number</h5>
+
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}"
                              alt="Card image cap">
                     </div>
-                    <h5 class="card-title" th:text="${parcel.formattedAddress}">Address</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Adres dostawy</small></h6>
+                    <h5 class="card-title" th:text="${parcel.formattedAddress}">Delivery Address</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}"
@@ -190,12 +203,14 @@
                         <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}"
                              alt="Card image cap">
                     </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Kwota do zapłaty</small></h6>
                     <p class="card-text" th:text="${parcel.value}+' Nok'">0</p>
 
                     <div class="card-img-top d-flex justify-content-center">
                         <img class="img-fluid" src="../static/img/status.png" th:src="@{../img/status.png}"
                              alt="Card image cap">
                     </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Status paczki</small></h6>
                     <p class="card-text" th:text="${parcel.status}">Unknown</p>
 
                     <a class="btn  text-white" th:href="@{'/accept_parcel/' + ${parcel.id}}"

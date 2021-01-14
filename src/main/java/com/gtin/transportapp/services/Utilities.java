@@ -4,7 +4,11 @@
 package com.gtin.transportapp.services;
 
 import com.gtin.transportapp.models.*;
+import com.gtin.transportapp.repositories.ParcelRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -14,6 +18,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Utilities {
+
+
 
     public static int generateRegistrationCode() {
 
@@ -118,5 +124,37 @@ public final class Utilities {
         double interestRate = 0.05;
 
         return Math.round(value*interestRate);
+    }
+
+    public static String generateTransportWaybill(Transport transport){
+
+
+        List<Parcel> parcels = transport.getParcels();
+
+        String report = "";
+
+        for (Parcel parcel: parcels){
+
+
+
+            report+="Dane klienta\n";
+            report+= "Imie i Nazwisko: "+parcel.getOwnerName()+"\n";
+            report+="Numer telefonu: "+parcel.getOwnerPhoneNumber()+"\n";
+            report+="Adres: "+parcel.getOwnerAddress()+"\n\n";
+            report+="Dane paczki:\n";
+            report+="Adres dostawy: "+parcel.getAddress()+", "+parcel.getZip()+" "+parcel.getCity()+"\n";
+            report+="waga: "+parcel.getWeight()
+                    +"kg, wsokość: "+parcel.getHeight()
+                    +"cm, szerokość: "+parcel.getWidth()
+                    +"cm, długość " +parcel.getLength()
+                    +"cm\n\n";
+            report+="Zawartość: "+parcel.getContent()+"\n";
+            report+="Komentarz: "+parcel.getAdditionalComments()+"\n\n";
+            report+="Kwota do zapłaty: "+parcel.getValue()+"\n";
+            report+="_____________________________________________________________________________________________________________________________________\n";
+
+        }
+
+        return report;
     }
 }

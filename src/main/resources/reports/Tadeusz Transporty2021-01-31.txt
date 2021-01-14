@@ -1,0 +1,14 @@
+Dane klienta
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +48507401912
+Adres: Handlowa 7/3 66-100 Sulechow
+
+Dane paczki:
+Adres dostawy: Kwiatowa 13/5, 66-100 Sulechów
+waga: 18kg, wsokość: 30cm, szerokość: 90cm, długość 82cm
+
+Zawartość: Alkohol i papierosy
+Komentarz: palnie zabija
+
+Kwota do zapłaty: 600
+_____________________________________________________________________________________________________________________________________

@@ -18,6 +18,9 @@ public class Parcel {
     private String status = "OCZEKUJE NA ZATWIERDZENIE";
     private String additionalComments;
     private String inTransportName;
+    private String ownerName;
+    private String ownerAddress;
+    private String ownerPhoneNumber;
     private int weight;
     private int width;
     private int length;
@@ -29,7 +32,6 @@ public class Parcel {
     private String city;
     private String country;
     private String zip;
-
     private String formattedAddress;
 
 
@@ -166,6 +168,22 @@ public class Parcel {
         this.height = height;
     }
 
+    public String getOwnerAddress() {
+        return ownerAddress;
+    }
+
+    public void setOwnerAddress(String ownerAddress) {
+        this.ownerAddress = ownerAddress;
+    }
+
+    public String getOwnerPhoneNumber() {
+        return ownerPhoneNumber;
+    }
+
+    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
+        this.ownerPhoneNumber = ownerPhoneNumber;
+    }
+
     public String getFormattedAddress() {
         return formatAddress();
     }
@@ -176,6 +194,14 @@ public class Parcel {
 
     public Parcel() {
 
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Parcel(String userName, String content) {
