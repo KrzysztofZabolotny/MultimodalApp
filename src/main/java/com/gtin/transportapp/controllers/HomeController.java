@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +48,8 @@ public class HomeController {
     TransportRepository transportRepository;
     @Autowired
     PriceRangeRepository priceRangeRepository;
-    /*@Autowired
-    private PasswordEncoder passwordEncoder;*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
@@ -136,7 +137,8 @@ public class HomeController {
     @PostMapping("/register_confirmation_code")
     public String registrationCodeValidation(@ModelAttribute("client") Client client) {
         if (client.getOneTimeCode() == oneTimeCode) {
-            /*    globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));*/
+            globalUser.setPassword(passwordEncoder.encode(globalUser.getPassword()));
+            globalClient.setPassword(globalUser.getPassword());
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
 
@@ -417,54 +419,26 @@ public class HomeController {
 
         User user = userOptional.get();
         Client oldClient = clientOptional.get();
-        Utilities.updateUserPassword(updatedClient, user);
+
+        updatedClient.setPassword(passwordEncoder.encode(updatedClient.getPassword()));
         Utilities.updateClientDetails(oldClient, updatedClient);
+        user.setPassword(updatedClient.getPassword());
         clientRepository.save(updatedClient);
         userRepository.save(user);
 
-
-        return "successful_profile_edit";
-    }
-
-    @GetMapping("/edit_profile_driver")
-    public String editProfileDriver(Model model, Principal principal) {
-
-        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
-
-        Client client = clientOptional.get();
-        model.addAttribute("client", client);
-
-        return "edit_profile";
-
-    }
-
-    @PostMapping("/edit_profile_driver")
-    public String saveEditProfileDriver(@ModelAttribute("client") Client updatedClient, Principal principal) {
-
-        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(() -> new RuntimeException("Something went wrong"));
-        Optional<User> userOptional = userRepository.findByUserName(principal.getName());
-        userOptional.orElseThrow(() -> new RuntimeException("user not found"));
-
-
-        User user = userOptional.get();
-        Client oldClient = clientOptional.get();
-        Utilities.updateUserPassword(updatedClient, user);
-        Utilities.updateClientDetails(oldClient, updatedClient);
-        clientRepository.save(updatedClient);
-        userRepository.save(user);
 
 
         return "successful_profile_edit";
     }
 
     @GetMapping("/parcel_details/{id}")
-    public String showParcelDetails(@PathVariable("id") Integer id, Model model) {
+    public String showParcelDetails(@PathVariable("id") Integer id, Model model, Principal principal) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         List<Parcel> parcels = transport.getParcels();
 
@@ -506,23 +480,50 @@ public class HomeController {
     }
 
     @GetMapping("/delete_transport/{id}")
-    public String deleteParcel(@PathVariable("id") Integer id, Model model) {
+    public String deleteParcel(@PathVariable("id") Integer id, Principal principal) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
+
+        Transport transport = transportOptional.get();
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         globalTransport = transportOptional.get();
         return "delete_transport_confirmation";
 
     }
 
-    @GetMapping("/accept_parcel/{id}")
-    public String acceptParcel(@PathVariable("id") Integer id) {
+    @GetMapping("/transport_delivered_notification/{id}")
+    public String deliverTransport(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
+        Transport transport = transportOptional.get();
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        for(Parcel parcel: transport.getParcels()){
+
+            parcel.setStatus("DELIVERED");
+
+        }
+        transportRepository.save(transport);
+        return "transport_delivered_notification";
+    }
+
+
+        @GetMapping("/accept_parcel/{id}")
+    public String acceptParcel(@PathVariable("id") Integer id, Principal principal) {
 
         Optional<Parcel> parcelOptional = parcelRepository.findById(id);
         parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
 
         Parcel parcel = parcelOptional.get();
+            Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
+            transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
+
+            Transport transport = transportOptional.get();
+            if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         parcel.setStatus("ZATWIERDZONY");
         parcelRepository.save(parcel);
@@ -531,18 +532,21 @@ public class HomeController {
     }
 
     @GetMapping("/deny_parcel/{id}")
-    public String denyParcel(@PathVariable("id") Integer id) {
+    public String denyParcel(@PathVariable("id") Integer id, Principal principal) {
 
         Optional<Parcel> parcelOptional = parcelRepository.findById(id);
         parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
 
         Parcel parcel = parcelOptional.get();
-        parcel.setStatus("ODRZUCONY");
-
         Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
         transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+        parcel.setStatus("ODRZUCONY");
+
+
 
         transport.setNumberOfParcels(transport.getNumberOfParcels()-1);
         parcelRepository.delete(parcel);
@@ -551,12 +555,15 @@ public class HomeController {
     }
 
     @GetMapping("/accept_all_parcels/{id}")
-    public String acceptAllParcels(@PathVariable("id") Integer id) {
+    public String acceptAllParcels(@PathVariable("id") Integer id, Principal principal) {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
 
         Transport transport = transportOptional.get();
+
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         for(Parcel parcel: transport.getParcels()){
             parcel.setStatus("ZATWIERDZONY");
@@ -568,7 +575,12 @@ public class HomeController {
     }
 
     @PostMapping("/delete_transport_confirmation")
-    public String deleteParcelConfirmation() {
+    public String deleteParcelConfirmation(Principal principal) {
+
+
+        Transport transport = globalTransport;
+
+        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         transportRepository.delete(globalTransport);
 
@@ -578,11 +590,48 @@ public class HomeController {
 
 
     @GetMapping("/generate_report/{id}")
-    public ResponseEntity<Object> generateTransportWaybill(@PathVariable("id") Integer id) throws IOException {
+    public ResponseEntity<Object> generateTransportWaybill(@PathVariable("id") Integer id, Principal principal) throws IOException {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
         transportOptional.orElseThrow(()-> new RuntimeException("Not found"));
         Transport transport = transportOptional.get();
+
+        if(!transport.getDriverId().equals(principal.getName()))
+        {
+
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("notauthorised.txt"));
+                writer.write("not authorized");
+                writer.close();
+
+            }catch (Exception e){
+
+                e.printStackTrace();
+
+            }
+
+            String filename = "notauthorised.txt";
+            File file = new File(filename);
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition",
+                    String.format("attachment; filename=\"%s\"", file.getName()));
+            headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+            headers.add("Pragma", "no-cache");
+            headers.add("Expires", "0");
+
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
+            return ResponseEntity.ok().headers(headers)
+                    .contentLength(file.length())
+                    .contentType(MediaType.parseMediaType("application/txt")).body(resource);
+        }
 
         String transportData  = "src/main/resources/reports/"+transport.getCompanyName()+transport.getDepartureDate();
 

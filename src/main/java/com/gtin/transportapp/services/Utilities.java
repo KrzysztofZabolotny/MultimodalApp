@@ -4,8 +4,12 @@
 package com.gtin.transportapp.services;
 
 import com.gtin.transportapp.models.*;
+import com.gtin.transportapp.configurations.SecurityConfiguration;
 import com.gtin.transportapp.repositories.ParcelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -19,6 +23,8 @@ import java.util.regex.Pattern;
 
 public final class Utilities {
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     public static int generateRegistrationCode() {
@@ -47,7 +53,7 @@ public final class Utilities {
         globalClient.setEmail(client.getEmail());
         globalClient.setPassword(client.getPassword());
         globalClient.setName(client.getName());
-        globalClient.setPassword(client.getPassword());
+        globalClient.setPassword(SecurityConfiguration.getPasswordEncoder().encode(client.getPassword()));
         globalClient.setPhone(client.getPhone());
         globalClient.setRole(client.getRole());
         globalClient.setStreet(client.getStreet());
@@ -61,7 +67,8 @@ public final class Utilities {
     }
 
     public static void updateUserPassword(Client client, User user) {
-        user.setPassword(client.getPassword());
+
+        client.setPassword(SecurityConfiguration.getPasswordEncoder().encode(user.getPassword()));
     }
 
     public static String timeStamp() {
@@ -156,5 +163,10 @@ public final class Utilities {
         }
 
         return report;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 }
