@@ -79,7 +79,7 @@
 
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
-        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+        <h1 class="display-4" style="justify-content: center">Zarejestrowane paczki</h1>
     </div>
 </div>
 
@@ -89,32 +89,32 @@
                 <div class="card-body">
 
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
-                    <h3 class="card-title" th:text="${transport.destination}"> Destination</h3>
+                    <h6 class="card-text"><small class="text-dark font-italic">Cel</small></h6>
+                    <h3 class="card-title" th:text="${transport.destination}">Cel</h3>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
-                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+                    <h6 class="card-text"><small class="text-dark font-italic">Data wyjazdu</small></h6>
+                    <p class="card-text" th:text="${transport.departureDate}">Data wyjazdu</p>
 
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Driver</small></h6>
-                    <h5 class="card-title" th:text="${client.userName}">Driver</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Kierowca</small></h6>
+                    <h5 class="card-title" th:text="${client.userName}">Kierowca</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Content</small></h6>
-                    <h5 class="card-title" th:text="${parcel.content}">Content</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Zawartość</small></h6>
+                    <h5 class="card-title" th:text="${parcel.content}">Zawartość</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Dimensions</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'weight '+${parcel.weight}+ 'kg'">Weight</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'length '+${parcel.length}+ 'cm'">Length</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'width '+${parcel.width}+ 'cm'">Width</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'height '+${parcel.height}+ 'cm'">Height</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic">Wymiary</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'weight '+${parcel.weight}+ 'kg'">Waga</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'length '+${parcel.length}+ 'cm'">Długośc</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'width '+${parcel.width}+ 'cm'">Szerokość</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-weight-bold" th:text="'height '+${parcel.height}+ 'cm'">Wysokość</small></h6>
 
 
                     <!--implement different color badges for status-->
 
                     <h6 class="card-text"><small class="text-dark font-italic">Status</small></h6>
-                    <p class="card-text" th:text="${parcel.status}">status</p>
+                    <p class="card-text" th:text="${parcel.status}">Status</p>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Price</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic">Cena</small></h6>
                     <span class="badge badge-success" th:text="${parcel.value}+' Nok'">0</span>
 
 
@@ -123,7 +123,7 @@
         </div>
 </div>
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
-    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+    <div class="footer-copyright text-center py-4">2020&copy Transport Terminal</div>
 </footer>
 </body>
 </html>

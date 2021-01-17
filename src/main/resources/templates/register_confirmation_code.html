@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Transport Application</title>
+    <title>Transport Terminal</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -69,17 +69,17 @@
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
     <div class="container">
         <form form action="#" th:action="@{/register_confirmation_code}" th:object="${client}" method="post">
-        <h1 class="display-4">Registration confirmation</h1>
-        <p class="lead">An E-mail has been sent to you with the registration code </p>
+        <h1 class="display-4">Potwierdzenie email</h1>
+        <p class="lead">Wiadomość z kodem aktywacyjnym została wysłana za podany przez Ciebie adres </p>
         <div class="myDiv">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label class="myLabel" for="code">6 digit code</label>
+                    <label class="myLabel" for="code">kod</label>
                     <input type="text" class="form-control" id="code" placeholder="******" th:field="*{oneTimeCode}" style="text-align: center; margin-left: auto; margin-right: auto; ">
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-default">Confirm</button>
+        <button type="submit" class="btn btn-default">Powierdź</button>
         </form>
     </div>
 </div>

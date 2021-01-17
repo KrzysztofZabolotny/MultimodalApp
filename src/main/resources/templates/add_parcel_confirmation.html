@@ -53,9 +53,8 @@
         }
 
         .wf {
-            outline: 1px solid black;
+            outline: 1px solid red;
         }
-
 
 
     </style>
@@ -84,33 +83,43 @@
 
 <form form action="#" th:action="@{/add_parcel_confirmation}" th:object="${parcel}" method="post">
     <div class="container">
-        <div class="row">
-            <div class="row">
-                <img src="../img/send_package.png" th:src="@{../img/send_package.png}">
+
+        <div class="row  justify-content-center align-items-center">
+            <img src="../static/img/send_package.png" th:src="@{../img/send_package.png}"
+                 style="width:300px; height: 300px ">
+        </div>
+        <div class="row " style="margin-top: 30px">
+            <div class="col "><h2>Rozmiar</h2>
+                <div th:text="'Waga: '+${parcel.weight}+'kg'">Waga</div>
+                <div th:text="'Wysokość: '+${parcel.height}+'cm'">Wysokość</div>
+                <div th:text="'Szerokość: '+${parcel.width}+'cm'">Szerokość</div>
+                <div th:text="'Długość: '+${parcel.length}+'cm'">Długość</div>
             </div>
 
-            <div class="col text-center">
-                <h4 style="margin-bottom: 15px; text-blink: 200">Waga i wymiary</h4>
-                <div th:text="'Waga: '+${parcel.weight}+'kg'"> Weight</div>
-                <div th:text="'Wysokość: '+${parcel.height}+'cm'">Height</div>
-                <div th:text="'Szerokość: '+${parcel.width}+'cm'">Width</div>
-                <div th:text="'Długość: '+${parcel.length}+'cm'">Length</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Zawartość</h2>
+            <div class="col"><h2 style=" margin-bottom: 15px">Zawartość</h2>
                 <div th:text="${parcel.content}">Content</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Komentarz</h2>
+            </div>
+
+            <div class="col"><h2 style=" margin-bottom: 15px">Komentarz</h2>
                 <div th:text="${parcel.additionalComments}">Comments</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Adres dostawy</h2>
+            </div>
+
+            <div class="col"><h2 style=" margin-bottom: 15px">Adres dostawy</h2>
                 <div th:text="'Ulica: '+${parcel.address}">Street</div>
                 <div th:text="'Kod: '+${parcel.zip}">Zip</div>
                 <div th:text="'Miasto: '+${parcel.city}">City</div>
                 <div th:text="'Panstwo: '+${parcel.country}">Country</div>
-                <h2 style="margin-top: 50px; margin-bottom: 15px">Cena</h2>
-                <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Country</div>
-
-                <button type="submit" style="margin-top: 30px;" class="btn btn-default">Zamow</button>
-                <h6 style="margin-top: 10px"><small class="font-italic">*potwierdzenie zamówienia zostanie do Ciebie wysłane</small></h6>
-                <div class="col"></div>
             </div>
+
+            <div class="col"><h2 style="margin-bottom: 15px">Cena</h2>
+                <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Price</div>
+            </div>
+        </div>
+        <div class="row  justify-content-center align-items-center">
+            <button type="submit" style="margin-top: 30px" class="btn btn-default">Zamow</button>
+        </div>
+        <div class="row  justify-content-center align-items-center">
+            <h6 style="margin-top: 10px"><small class="font-italic">*potwierdzenie zamówienia zostanie do Ciebie wysłane</small></h6>
         </div>
     </div>
 </form>

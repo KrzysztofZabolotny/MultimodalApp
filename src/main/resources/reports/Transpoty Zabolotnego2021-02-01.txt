@@ -1,0 +1,28 @@
+Dane klienta
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +9992010437
+Adres: Handlowa 7/3 0000 Sulechow
+
+Dane paczki:
+Adres dostawy: Konows Gate, 0192 Oslo
+waga: 15kg, wsokość: 40cm, szerokość: 20cm, długość 30cm
+
+Zawartość: Zabawki dla dzieci
+Komentarz: Zadzwonić godzinę przed przyjazdem
+
+Kwota do zapłaty: 1000
+_____________________________________________________________________________________________________________________________________
+Dane klienta
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +48507401912
+Adres: Handlowa 7/3 66-100 Sulechów
+
+Dane paczki:
+Adres dostawy: Konows Gate 1e, 0192 Oslo
+waga: 8kg, wsokość: 46cm, szerokość: 19cm, długość 23cm
+
+Zawartość: Stoły i meble
+Komentarz: Zadzwonić godzinę przed przyjazdem
+
+Kwota do zapłaty: 500
+_____________________________________________________________________________________________________________________________________

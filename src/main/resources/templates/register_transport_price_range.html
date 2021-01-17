@@ -81,8 +81,8 @@
                         <td><input class="form-control text-center" th:field="*{priceRanges[__${stat.index}__].price}"></td>
                     </tr>
                     <div class="form-group text-center">
-                        <label for="maxCapacity">Dopuszczalne obciążenie(kg)</label>
-                        <input type="text" class="form-control align-middle text-center" id="maxCapacity" placeholder="" th:field="*{capacity}" style="margin-bottom: 40px" > <!--required-->
+                        <label for="maxCapacity">Dopuszczalne obciążenie</label>
+                        <input type="text" class="form-control align-middle text-center" id="maxCapacity" placeholder="kg" th:field="*{capacity}" style="margin-bottom: 40px" > <!--required-->
                     </div>
                     <div class="form-group text-center">
                     <label for="maxCapacity">Zakres</label>
@@ -91,7 +91,7 @@
                 </table>
 
                 <div class="d-flex justify-content-center">
-                    <button style="width: 100%" type="submit" class="btn btn-primary btn-lg">Create</button>
+                    <button style="width: 100%" type="submit" class="btn btn-primary btn-lg">Zatwierdź</button>
                 </div>
             </form>
         </div>
@@ -102,7 +102,7 @@
 
 
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
-    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+    <div class="footer-copyright text-center py-4">2020&copy Transport Terminal</div>
 </footer>
 </body>
 </html>

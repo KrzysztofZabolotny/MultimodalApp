@@ -224,4 +224,24 @@ public class Transport {
                 ",\n parcels=" + parcels +
                 '}';
     }
+    public String transportSummary() {
+
+        StringBuilder prices= new StringBuilder(new String());
+
+        for (PriceRange priceRange: this.getPriceRanges()){
+            if(priceRange!=null)
+            prices.append(priceRange).append("\n");
+
+        }
+
+
+        return
+                "Data wyjazdu: " + departureDate
+                        + "\nKierunek: "+destination
+                        +"\nNazwa firmy: "+companyName
+                        +"\nŁadowność: "+capacity+"kg"
+                        +"\nCennik: "
+                        +"\n"
+                        +prices;
+    }
 }

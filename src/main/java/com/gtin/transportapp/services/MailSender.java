@@ -14,7 +14,7 @@ public class MailSender implements Runnable {
     public static final String SENDER = "multimodaltransportapp@gmail.com";
     public static final String PASSWORD = "multimodal2020";
     private final String RECIPIENT;
-    private static final String TITLE = "Your registration at Multimodal Transport App has been successful";
+    private static final String TITLE = "Transport Terminal message";
     private final String CONTENT;
 
     public MailSender(String recipient, String content){

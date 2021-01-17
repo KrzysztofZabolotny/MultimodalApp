@@ -98,8 +98,6 @@ public final class Utilities {
 
 
         for (PriceRange r: priceRanges){
-            System.out.println(r);
-
             if(weight>=r.getFromWeight() && weight<=r.getToWeight()) return r.getPrice();
         }
 
@@ -157,7 +155,7 @@ public final class Utilities {
                     +"cm\n\n";
             report+="Zawartość: "+parcel.getContent()+"\n";
             report+="Komentarz: "+parcel.getAdditionalComments()+"\n\n";
-            report+="Kwota do zapłaty: "+parcel.getValue()+"\n";
+            report+="Kwota do zapłaty: "+parcel.getValue()+"Nok\n";
             report+="_____________________________________________________________________________________________________________________________________\n";
 
         }

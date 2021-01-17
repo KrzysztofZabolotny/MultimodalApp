@@ -171,13 +171,13 @@
                         <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}"
                              alt="Card image cap">
                     </div>
-                    <h5 class="card-title" th:text="${parcel.content}">Content</h5>
+                    <h5 class="card-title" th:text="${parcel.content}">Zawartość</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/comment.png" th:src="@{../img/comment.png}"
                              alt="Card image cap">
                     </div>
-                    <h5 class="card-title" th:text="${parcel.additionalComments}">Comment</h5>
+                    <h5 class="card-title" th:text="${parcel.additionalComments}">Komentarz</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/weight.png" th:src="@{../img/weight.png}"
@@ -185,19 +185,18 @@
                     </div>
 
                     <h6 class="card-text"><small class="text-dark font-italic"
-                                                 th:text="${parcel.weight} + 'kg'">Weight</small></h6>
+                                                 th:text="${parcel.weight} + 'kg'">Waga</small></h6>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/dimensions.png" th:src="@{../img/dimensions.png}"
                              alt="Card image cap">
                     </div>
-
                     <h6 class="card-text"><small class="text-dark font-italic"
-                                                 th:text="'length '+${parcel.length}+ 'cm'">Length</small></h6>
-                    <h6 class="card-text"><small class="text-dark font-italic" th:text="'width '+${parcel.width}+ 'cm'">Width</small>
+                                                 th:text="'długość '+${parcel.length}+ 'cm'">Length</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic" th:text="'szerokość '+${parcel.width}+ 'cm'">Width</small>
                     </h6>
                     <h6 class="card-text"><small class="text-dark font-italic"
-                                                 th:text="'height '+${parcel.height}+ 'cm'">Height</small></h6>
+                                                 th:text="'wysokość '+${parcel.height}+ 'cm'">Height</small></h6>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}"
@@ -230,7 +229,7 @@
     </div>
 </div>
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
-    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+    <div class="footer-copyright text-center py-4">2020&copy Transport Termianl</div>
 </footer>
 </body>
 </html>

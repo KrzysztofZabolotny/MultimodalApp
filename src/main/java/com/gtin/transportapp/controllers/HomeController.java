@@ -35,7 +35,7 @@ public class HomeController {
     public static Client globalClient;
     public static int oneTimeCode;
     public static Transport globalTransport;
-
+    public static Parcel globalParcel;
 
 
     @Autowired
@@ -127,8 +127,8 @@ public class HomeController {
         Utilities.updateGlobalClientDetails(client, globalClient);
 
 
-        /*Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Your one time code required for registration: "+oneTimeCode));
-        sendConfirmationCode.start();*/
+        Thread sendConfirmationCode = new Thread(new MailSender(client.getEmail(), "Jednorazowy kod wymagany przy rejestracji: " + oneTimeCode));
+        sendConfirmationCode.start();
 
         System.out.println(oneTimeCode);
         return "register_confirmation_code";
@@ -141,10 +141,13 @@ public class HomeController {
             globalClient.setPassword(globalUser.getPassword());
             userRepository.save(globalUser);
             clientRepository.save(globalClient);
-
-            new Thread(() -> new MailSender(globalClient.getEmail(), "Your details: \n" + globalClient.toString())).start();
-//            Thread sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Your details: \n"+ globalClient.toString()));
-//            sendRegistrationDetails.start();
+            Thread sendRegistrationDetails;
+            if (globalClient.getRole().equals("Client")) {
+                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.toString()));
+            } else {
+                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.toString() + "\n" + "Company name: " + globalClient.getCompanyName()));
+            }
+            sendRegistrationDetails.start();
             return "register_success";
         } else return "registration_error";
 
@@ -158,7 +161,7 @@ public class HomeController {
     public String registerTransport(Model model) {
         Transport transport = new Transport();
         model.addAttribute("transport", transport);
-        model.addAttribute("destination",transport.getDestination());
+        model.addAttribute("destination", transport.getDestination());
         //model.addAttribute("listOfDestinations", listOfDestinations);
         return "register_transport";
     }
@@ -168,7 +171,6 @@ public class HomeController {
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
 
 
-//        Optional<Transport> transportOptional = transportRepository.findById(transport.getId());
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
 
@@ -205,6 +207,21 @@ public class HomeController {
             priceRangeRepository.save(priceRange);
         }
         transportRepository.save(globalTransport);
+
+        try {
+
+
+            System.out.println("Twój transport został dołączony do naszej bazy\n"
+                    + "Szczegóły transportu:\n" + globalTransport.transportSummary());
+
+
+            Thread thread = new Thread(new MailSender(globalTransport.getDriverId(), "Twój transport został dołączony do naszej bazy\n"
+                    + "Szczegóły transportu:\n" + globalTransport.transportSummary()));
+
+            thread.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return "successful_transport_registration";
@@ -275,7 +292,7 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
-        clientOptional.orElseThrow(()-> new RuntimeException("Client not found"));
+        clientOptional.orElseThrow(() -> new RuntimeException("Client not found"));
 
         Client client = clientOptional.get();
 
@@ -286,16 +303,18 @@ public class HomeController {
         parcel.setValue(Utilities.calculateValue(parcel.getWeight(), transport));
         parcel.setInTransportNumber(transportNumber);
         parcel.setInTransportName(transport.getCompanyName());
-        parcel.setOwnerPhoneNumber(client.getCode()+client.getPhone());
-        parcel.setOwnerAddress(client.getStreet()+" "+client.getZip()+" "+client.getCity());
-        parcel.setOwnerName(client.getName()+" "+client.getSurname());
+        parcel.setOwnerPhoneNumber(client.getCode() + client.getPhone());
+        parcel.setOwnerAddress(client.getStreet() + " " + client.getZip() + " " + client.getCity());
+        parcel.setOwnerName(client.getName() + " " + client.getSurname());
+        parcel.setOwnerEmail(client.getEmail());
+        globalParcel = parcel;
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
 
         if (transport.permitLoading(parcel.getWeight())) {
             transport.setBallast(transport.getBallast() + parcel.getWeight());
-        } else return "errors/error_permit_load";
-
+        } else return "error_permit_load";
+        globalClient = client;
         globalTransport = transport;
 
         return "add_parcel_confirmation";
@@ -306,6 +325,17 @@ public class HomeController {
     public String addParcelConfirmation(@ModelAttribute("parcel") Parcel parcel) {
 
         transportRepository.save(globalTransport);
+        try {
+            Thread thread = new Thread(new MailSender(globalClient.getEmail(), "Twoja paczka została dodana do transportu\n"
+                    + "Dane paczki\n"
+                    + globalParcel.parcelSummary()));
+
+            thread.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         return "successful_parcel_add";
     }
@@ -427,7 +457,6 @@ public class HomeController {
         userRepository.save(user);
 
 
-
         return "successful_profile_edit";
     }
 
@@ -438,7 +467,7 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
 
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         List<Parcel> parcels = transport.getParcels();
 
@@ -454,7 +483,7 @@ public class HomeController {
         transportOptional.orElseThrow(() -> new RuntimeException("not found"));
         Transport transport = transportOptional.get();
 
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         List<Parcel> parcels = transport.getParcels();
 
@@ -487,90 +516,12 @@ public class HomeController {
 
         Transport transport = transportOptional.get();
 
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         globalTransport = transportOptional.get();
+
+
         return "delete_transport_confirmation";
-
-    }
-
-    @GetMapping("/transport_delivered_notification/{id}")
-    public String deliverTransport(@PathVariable("id") Integer id, Principal principal) {
-
-        Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
-        Transport transport = transportOptional.get();
-
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
-        for(Parcel parcel: transport.getParcels()){
-
-            parcel.setStatus("DELIVERED");
-
-        }
-        transportRepository.save(transport);
-        return "transport_delivered_notification";
-    }
-
-
-        @GetMapping("/accept_parcel/{id}")
-    public String acceptParcel(@PathVariable("id") Integer id, Principal principal) {
-
-        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
-        parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
-
-        Parcel parcel = parcelOptional.get();
-            Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
-            transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
-
-            Transport transport = transportOptional.get();
-            if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
-
-        parcel.setStatus("ZATWIERDZONY");
-        parcelRepository.save(parcel);
-        return "/successful_parcel_acceptance";
-
-    }
-
-    @GetMapping("/deny_parcel/{id}")
-    public String denyParcel(@PathVariable("id") Integer id, Principal principal) {
-
-        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
-        parcelOptional.orElseThrow(()-> new RuntimeException("Parcel not found"));
-
-        Parcel parcel = parcelOptional.get();
-        Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
-        transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
-
-        Transport transport = transportOptional.get();
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
-
-        parcel.setStatus("ODRZUCONY");
-
-
-
-        transport.setNumberOfParcels(transport.getNumberOfParcels()-1);
-        parcelRepository.delete(parcel);
-        return "/successful_parcel_denial";
-
-    }
-
-    @GetMapping("/accept_all_parcels/{id}")
-    public String acceptAllParcels(@PathVariable("id") Integer id, Principal principal) {
-
-        Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(()-> new RuntimeException("Transport not found"));
-
-        Transport transport = transportOptional.get();
-
-
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
-
-        for(Parcel parcel: transport.getParcels()){
-            parcel.setStatus("ZATWIERDZONY");
-        }
-
-        transportRepository.save(transport);
-        return "/successful_parcel_acceptance_all";
 
     }
 
@@ -580,12 +531,124 @@ public class HomeController {
 
         Transport transport = globalTransport;
 
-        if(!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
+        try {
+            new MailSender(globalTransport.getDriverId(), "Transport został usunięty\n"
+                    + globalTransport.transportSummary()).sendMail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         transportRepository.delete(globalTransport);
 
 
         return "successful_transport_deletion";
+    }
+
+    @GetMapping("/transport_delivered_notification/{id}")
+    public String deliverTransport(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(() -> new RuntimeException("not found"));
+        Transport transport = transportOptional.get();
+
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+        Thread notifyAboutStatusChange;
+        for (Parcel parcel : transport.getParcels()) {
+
+            parcel.setStatus("DOSTARCZONA");
+
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została dostarczona"));
+            notifyAboutStatusChange.start();
+
+
+        }
+        transportRepository.save(transport);
+        return "transport_delivered_notification";
+    }
+
+
+    @GetMapping("/accept_parcel/{id}")
+    public String acceptParcel(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
+        parcelOptional.orElseThrow(() -> new RuntimeException("Parcel not found"));
+
+        Parcel parcel = parcelOptional.get();
+        Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+        parcel.setStatus("ZATWIERDZONA");
+        Thread notifyAboutStatusChange;
+        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka na adres:\n"
+                + parcel.getAddress()
+                + "\n" + parcel.getZip()
+                + "\n" + parcel.getCity()
+                + "\n" + parcel.getCountry()
+                + " została zatwierdzona przez: "
+                + transport.getDriverId()
+                + "z firmy" + transport.getCompanyName()));
+        notifyAboutStatusChange.start();
+
+        parcelRepository.save(parcel);
+        return "/successful_parcel_acceptance";
+
+    }
+
+    @GetMapping("/deny_parcel/{id}")
+    public String denyParcel(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Parcel> parcelOptional = parcelRepository.findById(id);
+        parcelOptional.orElseThrow(() -> new RuntimeException("Parcel not found"));
+
+        Parcel parcel = parcelOptional.get();
+        Optional<Transport> transportOptional = transportRepository.findById(parcel.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+        parcel.setStatus("ODRZUCONY");
+        Thread notifyAboutStatusChange;
+        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została odrzucona"));
+        notifyAboutStatusChange.start();
+
+
+        transport.setNumberOfParcels(transport.getNumberOfParcels() - 1);
+        parcelRepository.delete(parcel);
+        return "/successful_parcel_denial";
+
+    }
+
+    @GetMapping("/accept_all_parcels/{id}")
+    public String acceptAllParcels(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(id);
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+
+        Thread notifyAboutStatusChange;
+        for (Parcel parcel : transport.getParcels()) {
+
+            parcel.setStatus("ZATWIERDZONY");
+
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została dostarczona"));
+            notifyAboutStatusChange.start();
+
+
+        }
+
+        transportRepository.save(transport);
+        return "/successful_parcel_acceptance_all";
+
     }
 
 
@@ -593,18 +656,17 @@ public class HomeController {
     public ResponseEntity<Object> generateTransportWaybill(@PathVariable("id") Integer id, Principal principal) throws IOException {
 
         Optional<Transport> transportOptional = transportRepository.findById(id);
-        transportOptional.orElseThrow(()-> new RuntimeException("Not found"));
+        transportOptional.orElseThrow(() -> new RuntimeException("Not found"));
         Transport transport = transportOptional.get();
 
-        if(!transport.getDriverId().equals(principal.getName()))
-        {
+        if (!transport.getDriverId().equals(principal.getName())) {
 
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("notauthorised.txt"));
-                writer.write("not authorized");
+                writer.write("Brak autoryzacji");
                 writer.close();
 
-            }catch (Exception e){
+            } catch (Exception e) {
 
                 e.printStackTrace();
 
@@ -633,21 +695,21 @@ public class HomeController {
                     .contentType(MediaType.parseMediaType("application/txt")).body(resource);
         }
 
-        String transportData  = "src/main/resources/reports/"+transport.getCompanyName()+transport.getDepartureDate();
+        String transportData = "src/main/resources/reports/" + transport.getCompanyName() + transport.getDepartureDate();
 
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(transportData+".txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(transportData + ".txt"));
             writer.write(Utilities.generateTransportWaybill(transport));
             writer.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
 
         }
 
-        String filename = transportData+".txt";
+        String filename = transportData + ".txt";
         File file = new File(filename);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 

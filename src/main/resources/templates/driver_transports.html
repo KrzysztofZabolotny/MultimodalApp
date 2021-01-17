@@ -88,33 +88,33 @@
                      th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
 
                 <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Number of ordered parcels</small>
+                    <h6 class="card-text"><small class="text-dark font-italic">Liczba dodwancyh paczeks</small>
                         <h3>
                             <span class="badge badge-primary" th:text="${transport.numberOfParcels}">size</span>
                         </h3>
                     </h6>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Destination</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic">Kierunek</small></h6>
                         <div class="card-img-top d-flex justify-content-center bg-light">
                             <img class="img-fluid" src="../static/img/destination.png"
                                  th:src="@{../img/destination.png}" alt="Card image cap">
                         </div>
-                        <h5 class="card-text" th:text="${transport.destination}">Route</h5>
+                        <h5 class="card-text" th:text="${transport.destination}">Trasa</h5>
 
-                    <h6 class="card-text"><small class="text-dark font-italic">Departure date</small></h6>
+                    <h6 class="card-text"><small class="text-dark font-italic">Data wyjazdu</small></h6>
                             <div class="card-img-top d-flex justify-content-center bg-light">
                                 <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}"
                                      alt="Card image cap">
                             </div>
-                            <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+                            <p class="card-text" th:text="${transport.departureDate}">Data wyjazdu</p>
 
                             <div class="card-img-top d-flex justify-content-center bg-light">
                                 <img class="img-fluid" src="../static/img/timer.png" th:src="@{../img/timer.png}"
                                      alt="Card image cap">
                             </div>
-                            <h6 class="card-text"><small class="text-dark font-italic">Should leave in</small>
+                            <h6 class="card-text"><small class="text-dark font-italic">Wyjazd za</small>
                             <p class="card-text text-danger" th:id="'timer-' + ${iterStat.index}"><small
-                                    class="text-danger" id="timer">Time till departure</small></p>
+                                    class="text-danger" id="timer">Wyjazd za</small></p>
                             <script th:inline="javascript">
 
 

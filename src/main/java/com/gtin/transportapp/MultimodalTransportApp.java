@@ -2,6 +2,7 @@ package com.gtin.transportapp;
 
 import com.gtin.transportapp.models.User;
 import com.gtin.transportapp.repositories.UserRepository;
+import com.gtin.transportapp.services.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,28 +17,10 @@ public class MultimodalTransportApp {
     UserRepository userRepository;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
         SpringApplication.run(MultimodalTransportApp.class, args);
 
 
     }
-
-//    @Bean
-//    public void makeUser() {
-//
-//        System.out.println("Making users");
-//        for (int i = 0; i <10000 ; i++) {
-//            String userName = String.valueOf(Math.random()*1000000);
-//            String password = String.valueOf(Math.random()*1000000);
-//            userRepository.save(new User(userName, password));
-//
-//            List<User> userList = userRepository.findAll();
-//
-//            System.out.println("Number of users "+userList.size());
-//        }
-//
-//
-//
-//    }
-
 }

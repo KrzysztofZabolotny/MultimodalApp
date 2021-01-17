@@ -84,25 +84,25 @@
         <div class="col">
             <div class="card">
                 <div class="card-body text-dark">
-                    <h5 class="card-title text-center">User profile</h5>
-                    <h6>Name:</h6>
+                    <h5 class="card-title text-center">Profil</h5>
+                    <h6>Imie: </h6>
                     <p class="card-text" th:text="${client.name}">Name</p>
-                    <h6>Surname:</h6>
+                    <h6>Nazwisko: </h6>
                     <p class="card-text" th:text="${client.surname}">Surname</p>
-                    <h6>Street:</h6>
+                    <h6>Ulica: </h6>
                     <p class="card-text" th:text="${client.street}">Street</p>
-                    <h6>City:</h6>
+                    <h6>Miasto: </h6>
                     <p class="card-text" th:text="${client.city}">City</p>
-                    <h6>Zip:</h6>
+                    <h6>Kod:</h6>
                     <p class="card-text" th:text="${client.zip}">Zip</p>
-                    <h6>Phone number:</h6>
+                    <h6>Numer telefonu:</h6>
                     <p class="card-text" th:text="${client.code} +' '+ ${client.phone}">Phone</p>
-                    <h6>Company name:</h6>
+                    <h6>Nazwa firmy:</h6>
                     <p class="card-text" th:text="${client.companyName}">Company Name</p>
                 </div>
                 <div class="col text-center">
                     <button onclick="window.location.href='/edit_profile_driver';" class="btn" style="clear: both">
-                        Edit profile
+                        Edutuj profil
                     </button>
                 </div>
             </div>

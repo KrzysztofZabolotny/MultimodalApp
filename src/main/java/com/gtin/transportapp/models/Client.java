@@ -189,39 +189,17 @@ public class Client {
         creationDate = timeStamp();
     }
 
-//    @Override
-//    public String toString() {
-//
-//        return "Username: "+userName+"\n"
-//                +"Name: "+name+"\n"
-//                +"Surname: "+surname+"\n"
-//                +"City: "+city+"\n"
-//                +"Street: "+street+"\n"
-//                +"Zip: "+zip+"\n"
-//                +"Phone number: "+code+phone+"\n";
-//
-//    }
-
-
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", companyName='" + companyName + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", zip='" + zip + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", code='" + code + '\'' +
-                ", phone='" + phone + '\'' +
-                ", role='" + role + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", oneTimeCode=" + oneTimeCode +
-                ", parcels=" + parcels +
-                '}';
+
+        return "Nazwa użytkownika: "+userName+"\n"
+                +"Imie: "+name+"\n"
+                +"Nazwisko: "+surname+"\n"
+                +"Ulica: "+street+"\n"
+                +"Kod: "+zip+"\n"
+                +"Miasto: "+city+"\n"
+                +"Numer telefonu: "+code+phone+"\n";
+
     }
+
 }

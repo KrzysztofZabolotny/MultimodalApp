@@ -18,6 +18,7 @@ public class Parcel {
     private String status = "OCZEKUJE NA ZATWIERDZENIE";
     private String additionalComments;
     private String inTransportName;
+    private String ownerEmail;
     private String ownerName;
     private String ownerAddress;
     private String ownerPhoneNumber;
@@ -33,8 +34,6 @@ public class Parcel {
     private String country;
     private String zip;
     private String formattedAddress;
-
-
 
 
     public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
@@ -215,6 +214,14 @@ public class Parcel {
         this.content = content;
     }
 
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
     public int getId() {
         return id;
     }
@@ -239,13 +246,13 @@ public class Parcel {
         this.content = content;
     }
 
-    public String formatAddress(){
+    public String formatAddress() {
 
         return address
-                +"\n"
-                +zip
-                +"\n"
-                +city;
+                + "\n"
+                + zip
+                + "\n"
+                + city;
     }
 
 
@@ -261,5 +268,23 @@ public class Parcel {
                 ", height='" + height + '\'' +
                 ", additionalComments='" + additionalComments + '\'' +
                 '}';
+    }
+
+    public String parcelSummary() {
+        return
+                "Adres dostawy:\n"
+                        + address
+                        + "\n"+zip
+                        + "\n"+city
+                        + "\n"+country
+                        + "\n\nZawarość: " + content
+                        + "\n\nWymiary:"
+                        + "\nwysokosc: " + height+"cm"
+                        + "\nszerokosc: " + width+"cm"
+                        + "\ndługość: " + length+"cm"
+                        + "\nWaga: " + weight+"kg"
+                        + "\n\nZawartość: " + content
+                        + "\nKomentarz: " + additionalComments
+                        + "\nKwota do zapłaty po akceptacji: " + value+"Nok";
     }
 }
