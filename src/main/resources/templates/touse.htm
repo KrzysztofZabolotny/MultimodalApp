@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Warunki użytkkowania aplikacji</title>
+
+    <style type="text/css" data-fbcssmodules="css:fb.css.basecss:fb.css.dialog css:fb.css.iframewidget">.fb_hidden {
+        position: absolute;
+        top: -10000px;
+        z-index: 10001
+    }
+
+    .fb_reposition {
+        overflow: hidden;
+        position: relative
+    }
+
+    .fb_invisible {
+        display: none
+    }
+
+    .fb_reset {
+        background: none;
+        border: 0;
+        border-spacing: 0;
+        color: #000;
+        cursor: auto;
+        direction: ltr;
+        font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+        font-size: 11px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        letter-spacing: normal;
+        line-height: 1;
+        margin: 0;
+        overflow: visible;
+        padding: 0;
+        text-align: left;
+        text-decoration: none;
+        text-indent: 0;
+        text-shadow: none;
+        text-transform: none;
+        visibility: visible;
+        white-space: normal;
+        word-spacing: normal
+    }
+
+    .fb_reset > div {
+        overflow: hidden
+    }
+
+    @keyframes fb_transform {
+        from {
+            opacity: 0;
+            transform: scale(.95)
+        }
+        to {
+            opacity: 1;
+            transform: scale(1)
+        }
+    }
+
+
+
+    .fb_dialog_mobile .fb_dialog_close_icon {
+        left: 5px;
+        right: auto;
+        top: 5px
+    }
+
+
+    .fb_dialog_content .dialog_title {
+        background: #6d84b4;
+        border: 1px solid #365899;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0
+    }
+
+    .fb_dialog_content .dialog_title > span {
+        background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;
+        float: left;
+        padding: 5px 0 7px 26px
+    }
+
+    body.fb_hidden {
+        height: 100%;
+        left: 0;
+        margin: 0;
+        overflow: visible;
+        position: absolute;
+        top: -10000px;
+        transform: none;
+        width: 100%
+    }
+
+    .fb_dialog.fb_dialog_mobile.loading {
+        background: url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;
+        min-height: 100%;
+        min-width: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 10001
+    }
+
+    .fb_dialog.fb_dialog_mobile.loading.centered {
+        background: none;
+        height: auto;
+        min-height: initial;
+        min-width: initial;
+        width: auto
+    }
+
+    .fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner {
+        width: 100%
+    }
+
+    .fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content {
+        background: none
+    }
+
+    .loading.centered #fb_dialog_loader_close {
+        clear: both;
+        color: #fff;
+        display: block;
+        font-size: 18px;
+        padding-top: 20px
+    }
+
+    #fb-root #fb_dialog_ipad_overlay {
+        background: rgba(0, 0, 0, .4);
+        bottom: 0;
+        left: 0;
+        min-height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 100%;
+        z-index: 10000
+    }
+
+    #fb-root #fb_dialog_ipad_overlay.hidden {
+        display: none
+    }
+
+    .fb_dialog.fb_dialog_mobile.loading iframe {
+        visibility: hidden
+    }
+
+    .fb_dialog_mobile .fb_dialog_iframe {
+        position: sticky;
+        top: 0
+    }
+
+    .fb_dialog_content .dialog_header {
+        background: linear-gradient(from(#738aba), to(#2c4987));
+        border-bottom: 1px solid;
+        border-color: #043b87;
+        box-shadow: white 0 1px 1px -1px inset;
+        color: #fff;
+        font: bold 14px Helvetica, sans-serif;
+        text-overflow: ellipsis;
+        text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
+        vertical-align: middle;
+        white-space: nowrap
+    }
+
+    .fb_dialog_content .dialog_header table {
+        height: 43px;
+        width: 100%
+    }
+
+    .fb_dialog_content .dialog_header td.header_left {
+        font-size: 12px;
+        padding-left: 5px;
+        vertical-align: middle;
+        width: 60px
+    }
+
+    .fb_dialog_content .dialog_header td.header_right {
+        font-size: 12px;
+        padding-right: 5px;
+        vertical-align: middle;
+        width: 60px
+    }
+
+    .fb_dialog_content .touchable_button {
+        background: linear-gradient(from(#4267B2), to(#2a4887));
+        background-clip: padding-box;
+        border: 1px solid #29487d;
+        border-radius: 3px;
+        display: inline-block;
+        line-height: 18px;
+        margin-top: 3px;
+        max-width: 85px;
+        padding: 4px 12px;
+        position: relative
+    }
+
+    .fb_dialog_content .dialog_header .touchable_button input {
+        background: none;
+        border: none;
+        color: #fff;
+        font: bold 12px Helvetica, sans-serif;
+        margin: 2px -12px;
+        padding: 2px 6px 3px 6px;
+        text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+    }
+
+    .fb_dialog_content .dialog_header .header_center {
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 18px;
+        text-align: center;
+        vertical-align: middle
+    }
+
+    .fb_dialog_content .dialog_content {
+        background: url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;
+        border: 1px solid #4a4a4a;
+        border-bottom: 0;
+        border-top: 0;
+        height: 150px
+    }
+
+    .fb_dialog_content .dialog_footer {
+        background: #f5f6f7;
+        border: 1px solid #4a4a4a;
+        border-top-color: #ccc;
+        height: 40px
+    }
+
+    #fb_dialog_loader_close {
+        float: left
+    }
+
+    .fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
+        visibility: hidden
+    }
+
+    #fb_dialog_loader_spinner {
+        animation: rotateSpinner 1.2s linear infinite;
+        background-color: transparent;
+        background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        height: 24px;
+        width: 24px
+    }
+
+    @keyframes rotateSpinner {
+        0% {
+            transform: rotate(0deg)
+        }
+        100% {
+            transform: rotate(360deg)
+        }
+    }
+
+    .fb_iframe_widget {
+        display: inline-block;
+        position: relative
+    }
+
+    .fb_iframe_widget span {
+        display: inline-block;
+        position: relative;
+        text-align: justify
+    }
+
+    .fb_iframe_widget iframe {
+        position: absolute
+    }
+
+    .fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
+        max-width: 100%
+    }
+
+    .fb_iframe_widget_fluid_desktop iframe {
+        min-width: 220px;
+        position: relative
+    }
+
+    .fb_iframe_widget_lift {
+        z-index: 1
+    }
+
+    .fb_iframe_widget_fluid {
+        display: inline
+    }
+
+    .fb_iframe_widget_fluid span {
+        width: 100%
+    }</style>
+</head>
+<body data-new-gr-c-s-check-loaded="8.868.0" data-gr-ext-installed="" cz-shortcut-listen="true">
+<div id="fb-root" class=" fb_reset">
+    <div style="position: absolute; top: -10000px; width: 0px; height: 0px;">
+        <div></div>
+    </div>
+</div>
+<div id="outer">
+    <div id="nav">
+        <div class="roundedBorder-left"></div>
+        <div class="roundedBorder-right"></div>
+    </div>
+    <div id="nav-opener"></div>
+
+    <div id="main" class="wideContent"><!-- col2 -->
+        <div id="col2"><!-- box -->
+            <div class="box boxFirst">
+                <div class="content"><h2>Terms of Use</h2>
+                    <div class="legal">
+                        <ol>
+                            <li><strong>Wprowadzenie i akceptacja</strong>
+                                <p>
+                                    Przeczytaj uważnie niniejsze warunki użytkowania przed użyciem
+                                    TransportTerminal.company (dalej „nas”, „my” lub
+                                    „TransportTerminal.company”). Uzyskując dostęp i / lub korzystając z TransportTerminal.company
+                                    (poza pierwszym przeczytaniem niniejszych warunków użytkowania)
+                                    wyrażasz zgodę na przestrzeganie niniejszych warunków użytkowania, które mogą ulec
+                                    zmianie
+                                    do czasu, jak określono w sekcji 16 poniżej. jeśli się nie zgadzasz
+                                    się z niniejszymi warunkami użytkowania, nie uzyskujesz dostępu ani nie korzystasz z
+                                    TransportTerminal.company. </p>
+                                <p>
+                                    Zgadzasz się z tym że Warunki użytkowania są jasne i klarowne.
+                                    Warunki dotyczą, bez ograniczeń, twoje użycie
+                                    apliakcji TransportTerminal.com oraz materiały i informacje
+                                    na niej. </p>
+                                <p> Oprócz niniejszych Warunków użytkowania,
+                                    Firma TransportTerminal.com ustanowiła Politykę prywatności, aby wyjaśnić, w jaki sposób
+                                    informacje o użytkowniku są gromadzone i wykorzystywane przez firmę TransportTerminal.com. Kopia
+                                    niniejszej Polityki prywatności można znaleźć tutaj: <a
+                                            href = "https://www.transportterminal.company/polityka_prywatnosci/"> https://www.transportterminal.company/polityka_prywatnosci/ </a>
+                                    i jest włączone przez odniesienie do niniejszych Warunków użytkowania. Uzyskując dostęp
+                                    lub korzystając z którejkolwiek z naszych witryn internetowych, potwierdzasz swoją zgodę
+                                    i zgodę na Politykę prywatności firmy TransportTerminal.com. </p></li>
+                            <li><strong>Własność Intelektualna</strong>
+                                <p>
+                                    TransportTerminal.company i zawarte treści (i wszelkie prace pochodne lub
+                                    rozszerzenia tego samego), w tym między innymi cały tekst,
+                                    ilustracje, pliki, obrazy, oprogramowanie, skrypty, grafiki, zdjęcia,
+                                    dźwięki, muzyka, filmy, informacje, treści, materiały, produkty,
+                                    usługi, adresy URL, technologia, dokumentacja i funkcje interaktywne
+                                    (łącznie „Treść Witryny”) oraz wszelka własność intelektualna
+                                    prawa do tych samych należą do nas lub do naszych licencjodawców.
+                                    Dodatkowo wszystkie znaki towarowe, znaki usługowe, nazwy handlowe i szata graficzna
+                                    które mogą pojawiać się na naszych stronach internetowych są naszą własnością, naszych licencjodawców lub
+                                    obie. Nie nabywasz żadnych praw, tytułów ani udziałów w naszych witrynach internetowych
+                                    lub jakiejkolwiek Treści Witryny. Wszelkie prawa, które nie zostały wyraźnie przyznane w niniejszych Warunkach
+                                    użytkowania są wyraźnie zastrzeżone. </p></li>
+                            <li><strong>Dostęp i Użytkowanie TransportTerminal.company</strong>
+                                <ol>
+                                    <li><p>
+                                        Podczas uzyskiwania dostępu do naszych witryn internetowych, w tym między innymi do
+                                        Treść witryny, Zgadzasz się przestrzegać wszystkich obowiązujących lokalnych, stanowych, krajowych i zagranicznych praw,
+                                        traktatów i przepisów związanych z korzystaniem, w tym między innymi prawo autorskie. Z wyjątkiem jako
+                                        wyraźnie dozwolone w niniejszych Warunkach użytkowania, nie możesz używać, reprodukować,
+                                        rozpowszechniać, tworzyć prace pochodne w oparciu o publiczne wyświetlanie,
+                                        publicznie wykonywać, publikować, przesyłać lub w inny sposób wykorzystywać Witrynę
+                                        Treści w jakimkolwiek celu bez uprzedniego uzyskania pisemnej
+                                        zgody od nas lub, w przypadku treści osób trzecich, odpowiednio
+                                        właścicieli. Potwierdzasz, że nie nabywasz żadnych praw własności przez
+                                        pobieranie lub drukowanie Treści Witryny. </p></li>
+                                    <li><p> Ponadto, z wyjątkiem przypadków wyraźnie dozwolonych w niniejszych Warunkach użytkowania, nie możesz:</p>
+                                        <ol>
+                                            <li><p>usunąć,
+                                                zmieniać, zakrywać ani zniekształcać jakichkolwiek praw autorskich, znaków towarowych lub innych zastrzeżonych praw,
+                                                informacji o prawach do firmy TransportTerminal.com lub Treści witryny;</p></li>
+                                            <li><p>przechytrzyć,
+                                                wyłączać lub w inny sposób ingerować w funkcje związane z bezpieczeństwem naszej
+                                                Witryny internetowej, w tym między innymi wszelkie funkcje uniemożliwiające lub
+                                                ograniczać używanie lub kopiowć jakichkolwiek treści lub egzekwować ograniczenia użytkowania
+                                                naszych Witryn lub Treści Witryny; </p></li>
+                                            <li><p>użyj automatycznego
+                                                urządzenia (np. robot lub pająk) lub ręczny proces kopiowania lub „zdrapywania”
+                                                nasze Witryny lub Treści Witryny w dowolnym celu bez wyraźnej zgody
+                                                pisemnej firmy TransportTerminal.com. Niezależnie od
+                                                powyzej, firma TransportTerminal.com udziela publicznych operatorom wyszukiwarek
+                                                pozwolenie na używanie automatycznych urządzeń (takich jak roboty lub pająki) do kopiowania
+                                                Treść witryny z naszych witryn internetowych wyłącznie w celu tworzenia (i
+                                                tylko w zakresie niezbędnym do stworzenia) przeszukiwalnego indeksu Serwisu
+                                                Treści dostępnych publicznie. Firma TransportTerminal.com zastrzega
+                                                prawo do odwołania tego zezwolenia (ogólnie lub konkretnie) w dowolnym
+                                                czasie; </p></li>
+                                            <li><p>zbierać żadnych danych osobowych i
+                                                informacji z naszych witryn internetowych, w tym między innymi nazwy użytkowników,
+                                                hasła, adresy e-mail; </p></li>
+                                            <li><p>zachęcić innych użytkowników do przyłączenia się
+                                                lub zostać członkiem jakiejkolwiek komercyjnej usługi online lub innej
+                                                organizacja bez naszej uprzedniej pisemnej zgody; </p></li>
+                                            <li><p>podejmować prób lub zakłócać prawidłowe działanie naszych Witryn lub
+                                                osłabiać, przeciążać lub wyłączać to samo;</p></li>
+                                            <li><p>dekompilować, odtwarzać kod źródłowy ani dezasemblować jakiejkolwiek części
+                                                którejkolwiek z naszych
+                                                Strony internetowych;</p></li>
+                                            <li><p>używać oprogramowania do monitorowania sieci w celu określenia architektury lub
+                                                wyodrębniać dane użytkowania z dowolnej z naszych witryn internetowych;</p></li>
+                                            <li><p>zachęcać
+                                                zachowanie, które narusza jakiekolwiek prawo lokalne, cywilne lub
+                                                przestępstwo lub podszywanie się pod innego użytkownika, osobę lub podmiot (np
+                                                członkostwo innej osoby (zgodnie z definicją w sekcji B) bez
+                                                pozwolenie itp.); </p></li>
+                                            <li><p>naruszać polskie przepisy eksportowe, w tym
+                                                bez ograniczeń, naruszenia Ustawy Eksportowej i
+                                                Przepisy dotyczące eksportu administrowane przez  Ministerstwo Handlu Zagranicznego; lub</p></li>
+                                            <li><p>angażować się w jakiekolwiek działania, które ograniczają lub powstrzymują innych użytkowników przed
+                                                korzystaniem z naszych witryn internetowych lub korzystanie z nich. </p></li>
+                                        </ol>
+                                    </li>
+                                    <li><p>Zgadzasz się na pełną współpracę z firmą TransportTerminal.com w celu zbadania wszelkich
+                                        podejrzewanych lub faktycznych działań, które naruszają niniejsze Warunki użytkowania.</p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Rejestracja Użytkownika</strong>
+                                <ol>
+                                    <li><p>W celu
+                                        aby uzyskać dostęp do niektórych funkcji firmy TransportTerminal.com lub z nich korzystać
+                                        musisz zostać zarejestrowanym użytkownikiem. Jeśli masz mniej niż osiemnaście lat,
+                                        wtedy nie możesz zarejestrować się jako użytkownik ani w inny sposób przesyłać
+                                        danych osobowych do firmy TransportTerminal.com.</p></li>
+                                    <li><p>Jeśli
+                                        zostaniesz zarejestrowanym użytkownikiem, zapewnisz prawdziwość, dokładność i kompletność
+                                        informacji rejestracyjnych, a jeśli takie informacje ulegną zmianie, to zrobisz
+                                        niezwłoczną zaktualizacją odpowiednich informacji rejestracyjnych. W trakcie
+                                        rejestracji, utworzysz nazwę użytkownika i hasło („Członkostwo”),
+                                        które mogą umożliwiać dostęp do niektórych obszarów naszych witryn internetowych, ale nie być
+                                        dostępne dla niezarejestrowanych użytkowników. Jesteś odpowiedzialny za ochronę
+                                        i zachowanie poufności Twojego członkostwa. Jesteś jedyny
+                                        odpowiedzialny za działania, które mają miejsce w ramach Twojego członkostwa, czy
+                                        też nie zezwoliłeś na działanie. Zgadzasz się nas powiadomić
+                                        natychmiast pod adresem <a href="https://www.transportterminal.company/kontakt/"> https://www.transportterminal.company/kontakt/ </a>
+                                        o jakimkolwiek naruszeniu bezpieczeństwa lub nieuprawnionym użyciu Twojego członkostwa. </p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Treść Uzytkownika</strong>
+                                <ol>
+                                    <li><p>Teraz lub w przyszłości możemy nie zezwolić użytkownikom na publikowanie, przesyłanie
+                                        poprzez lub w inny sposób udostępninie w naszych Witrynach internetowych (łącznie,
+                                        „wyślij”) wiadomości, szablony, tekst, ilustracje, pliki, obrazy,
+                                        grafiki, zdjęcia, komentarze, dźwięki, muzyka, filmy, informacje, treść,
+                                        i / lub inne materiały („Treści użytkownika”). Z zastrzeżeniem praw i
+                                        Licencji udzielonej w niniejszym dokumencie zachowujesz wszelkie prawa, tytuły i udziały
+                                        Treści użytkownika. Nie gwarantujemy żadnej poufności z szacunkiem
+                                        do Treści użytkownika, nawet jeśli nie są one publikowane w naszych Witrynach. To jest
+                                        wyłączną odpowiedzialność za monitorowanie i ochronę wszelkich intelektualnych
+                                        praw własności, które możesz mieć do Treści użytkownika, a my
+                                        nie ponosimy za to żadnej odpowiedzialności. </p></li>
+                                    <li><p>Nie wolno Ci
+                                        przesyłać treści użytkownika chronionych prawem autorskim, znakiem towarowym, patentem, handlem
+                                        tajnym, moralne prawo lub inną własność intelektualną bez wyraźnej zgody właściciela odpowiednich
+                                        dóbr. Ponosisz wyłączną odpowiedzialność za wszelkie szkody wynikające z Twojej awarii
+                                        uzyskania takiego pozwolenia lub jakiejkolwiek innej szkody wyrządzonej przez Użytkownika
+                                        Treści, które przesyłasz. </p></li>
+                                    <li><p>Oświadczasz, gwarantujesz i zobowiązujesz się, że nie zamieścisz żadnych informacji („Treści użytkownika”),
+                                        które:</p>
+                                        <ol>
+                                            <li><p>w jakikolwiek sposób narusza prawa innych osób, w tym, ale nie
+                                                ograniczone do wszelkich praw autorskich, znaków towarowych, patentów, tajemnic handlowych, praw osobistych,
+                                                lub inne prawa własności intelektualnej lub prawa własności jakiejkolwiek osoby lub
+                                                jednostki;</p></li>
+                                            <li><p>podszywają się pod inną osobę lub jest niezgodna z prawem, grożące,
+                                                obraźliwe, zniesławiające, naruszające prawa do prywatności lub reklamy,
+                                                wulgarne, obsceniczne, pornograficzne lub w inny sposób budzące zastrzeżenia;</p>
+                                            </li>
+                                            <li><p>zachęca do postępowania, które stanowiłoby przestępstwo,
+                                                pociągające za sobą odpowiedzialność cywilną lub w inny sposób naruszają jakiekolwiek prawo;</p></li>
+                                            <li><p>jest reklamą towarów lub usług lub zachętą do nagabywania </p></li>
+                                            <li><p>zawiera
+                                                dane osobowe, takie jak wiadomości identyfikujące numery telefonów,
+                                                numery pesel, numery kont, adresy lub pracodawców; </p></li>
+                                            <li><p>zawierają formułę, instrukcję lub poradę, która może spowodować szkody lub
+                                                zranienie; lub </p></li>
+                                            <li><p>jest łańcuszkiem dowolnego rodzaju. </p></li>
+                                        </ol>
+                                        <p>Ponadto,
+                                            jakiekolwiek zachowanie użytkownika, które według naszego wyłącznego uznania ogranicza lub utrudnia by
+                                            żaden inny użytkownik nie korzystał z naszych Witryn lub czerpał z nich przyjemność .</p></li>
+                                    <li><p>Przesyłając nam Treści użytkownika,
+                                        równocześnie z takim wysłaniem automatycznie udzielasz lub gwarantujesz
+                                        że właściciel wyraźnie udzielił nam ogólnoświatowego, wolnego od tantiem,
+                                        wieczystego, nieodwołalnego, niewyłącznego, w pełni podlegające sublicencjonowaniu i
+                                        zbywalne prawa i licencji na użytkowanie, powielanie, rozpowszechnianie, tworzenie
+                                        prac pochodnych opartych (w tym między innymi
+                                        tłumaczenia), pokazywać publicznie, publicznie wykonywać, transmitować i publikować
+                                        Treści użytkownika (w całości lub w części), ponieważ my, według naszego wyłącznego uznania,
+                                        uznając za stosowne, w tym między innymi (1) w związku z
+                                        naszą sprawa; i (2) w związku z naszą działalnością
+                                        następcy, rodzice, spółki zależne i powiązane z nimi firmy. Możemy
+                                        skorzystać z tej informacji w jakimkolwiek formacie, na jakimkolwiek nośniku lub technologii, która jest obecnie znana lub
+                                        później opracowane dla pełnego okresu obowiązywania wszelkich praw autorskich, które mogą istnieć w
+                                        takie Treści użytkownika. Ponadto przyznajesz również uprawnienia innym użytkownikom
+                                        uzyskiwać dostęp do Treści użytkownika i wykorzystywać, powielać, rozpowszechniać, tworzyć
+                                        utwory pochodne oparte na publicznie prezentowanych,
+                                        przesyłać i publikować Treści użytkownika do osobistego, niekomercyjnego użytku
+                                        zgodnie z funkcjonalnością którejkolwiek z naszych witryn internetowych i tych
+                                        Warunków korzystania. </p></li>
+                                    <li><p>Przesyłając Treści użytkownika, również udzielasz
+                                        nam prawo, ale nie obowiązek, do wykorzystania Twojej biografii
+                                        informacje, w tym między innymi imię i nazwisko oraz dane geograficzne
+                                        lokalizacja w związku z nadawaniem, drukowaniem, online lub innym wykorzystaniem lub
+                                        publikacją Treści użytkownika. Niezależnie od powyższego, ty
+                                        zrzekasz się wszelkich roszczeń, jakie możesz mieć teraz lub później w dowolnej jurysdykcji
+                                        do tak zwanych „praw osobistych” lub „praw moralnych” w odniesieniu do
+                                        Treści użytkownika.</p></li>
+                                    <li><p>Zastrzegamy sobie prawo do wyświetlania
+                                        reklamy w związku z Twoimi Treściami Użytkownika i korzystaniem z Użytkownika
+                                        Treści do celów reklamowych i promocyjnych. Uznajesz i
+                                        zgadzasz się, że Twoje Treści użytkownika mogą być zawarte w witrynach internetowych i
+                                        sieci reklamowe naszych partnerów dystrybucyjnych i stron trzecich
+                                        usługodawcy (w tym ich dalsi użytkownicy).</p></li>
+                                    <li><p>My
+                                        mamy prawo, ale nie obowiązek, do monitorowania Treści Użytkownika. Mamy
+                                        prawo według własnego uznania i z jakiegokolwiek powodu do edycji,
+                                        odmowy opublikowania, usunięcia lub zablokowania dostępu do jakichkolwiek Treści użytkownika. </p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Zawartość strony&amp; Linki stron trzecich</strong>
+                                <ol>
+                                    <li><p>W wielu
+                                        przypadkach, Treść Witryny będzie zawierała treści opublikowane przez stronę trzecią
+                                        lub będzie reprezentować opinie i osądy strony trzeciej. TransportTerminal.company nie
+                                        aprobuje, gwarantuje i nie ponosi odpowiedzialności za dokładność, terminowość,
+                                        kompletność lub wiarygodność wszelkich przedstawionych opinii, porad lub oświadczeń
+                                        na naszych stronach internetowych przez kogokolwiek innego niż upoważnieni pracownicy lub
+                                        rzecznicy podczas pełnienia swoich oficjalnych funkcji. </p></li>
+                                    <li><p>Gdy
+                                        zaistnieje spór między osobami uzyskującymi dostęp do naszych witryn internetowych lub między
+                                        osobami uzyskującymi dostęp do naszych Witryn i wszelkie osoby trzecie, rozumiesz i
+                                        zgadzasz się, że nie mamy obowiązku angażować się. Jeśli taki spór zaistnieje, niniejszym zwalniasz firmę TransportTerminal.com i jej
+                                        kadra kierownicza, dyrektorzy, pracownicy, rodzice, partnerzy, następcy, agenci,
+                                        jednostki stowarzyszone, spółki zależne i powiązane z nimi spółki z roszczeń,
+                                        żądań i wszelkiego rodzaju szkód z nich wynikających
+                                        z takiego sporu lub w jakikolwiek sposób z nim związany. </p></li>
+                                    <li><p>Nasze
+                                        Strony internetowe mogą zawierać linki do innych stron internetowych utrzymywanych przez osoby trzecie.
+                                        Nie działamy ani nie kontrolujemy pod żadnym względem ani niekoniecznie
+                                        popieramy treści znalezione w tych witrynach internetowych osób trzecich. Zakładasz że ponosisz
+                                        odpowiedzialność za korzystanie z linków stron trzecich. Nie jesteśmy
+                                        odpowiedzialni za jakiekolwiek treści publikowane na stronach internetowych osób trzecich, i nie odpowiadamy
+                                        za jakiekolwiek straty lub szkody poniesione w wyniku twoich
+                                        relacji z osobami trzecimi lub ich witrynami internetowymi. </p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Odszkodowanie</strong>
+                                <p>
+                                    Zgadzasz się zwolnić firmę TransportTerminal.com i jej firmy, w tym
+                                    kadra kierownicza, dyrektorzy, pracownicy, rodzice, partnerzy, następcy, agenci,
+                                    partnerzy dystrybucyjni, podmioty stowarzyszone, spółki zależne i powiązane
+                                    firmy od wszelkich roszczeń, zobowiązań, strat,
+                                    odszkodowania, zobowiązania, kosztów i wydatków (w tym rozsądne
+                                    honoraria i koszty obsługi prawnej) wynikające z, związane lub mogące powstać
+                                    w związku z: (i) Twoim dostępem do naszych witryn internetowych lub korzystaniem z nich;
+                                    (ii) Treści użytkownika dostarczone przez Ciebie lub w ramach członkostwa;
+                                    (iii) jakiekolwiek rzeczywiste lub domniemane naruszenie lub naruszenie przez użytkownika niniejszych Warunków
+                                    Użytkowania ; (iv) jakiekolwiek rzeczywiste lub domniemane naruszenie jakichkolwiek oświadczeń, gwarancji,
+                                    lub przymierze, które zawarłeś z nami; lub (v) Twoje działania lub zaniechania.
+                                    Zgadzasz się na pełną współpracę z nami w obronie wszelkich roszczeń
+                                    przedmiotów Twoich zobowiązań wynikających z niniejszej Umowy.</p></li>
+                            <li><strong>Zastrzeżenia</strong>
+                                <p>
+                                    WYRAŹNIE ZGADZASZ SIĘ, ŻE KORZYSTASZ Z NASZYCH STRON INTERNETOWYCH NA WŁASNE RYZYKO. NASZE
+                                    STRONY INTERNETOWE I ZAWARTOŚĆ WITRYNY SĄ DOSTARCZANE W STANIE „TAK JAK SĄ” ORAZ „JAKO
+                                    DOSTĘPNA „PODSTAWA BEZ JAKIEJKOLWIEK GWARANCJI, WYRAŹNEJ ANI
+                                    UKRYTEJ. BEZ OGRANICZANIA POWYŻSZEGO I W NAJSZERSZYM ZAKRESIE
+                                    DOZWOLONE PRZEZ PRAWO, TRANSPORTTERMINAL.COMPANY I JEJ OFICEROWIE, DYREKTORZY,
+                                    PRACOWNICY, RODZICE, PARTNERZY, CODZIENNIKI, AGENCI, PARTNERZY DYSTRYBUCJI,
+                                    PODMIOTY STOWARZYSZONE, PODMIOTY ZALEŻNE I ICH POWIĄZANE
+                                    WSZYSTKIE GWARANCJE, W TYM: (1) GWARANCJE SPEŁNIAJĄCE
+                                    TWOJE WYMAGANIA; (2) GWARANCJE DOTYCZĄCE DOSTĘPNOŚCI,
+                                    DOKŁADNOŚCI, BEZPIECZEŃSTWA, PRZYDATNOŚCI, TERMINOWOŚCI LUB TREŚĆ INFORMACYJNA
+                                    TRANSPORTTERMINAL.COMPANY; (3) GWARANCJE WŁASNOŚCI, NIENARUSZANIA PRAW,
+                                    WARTOŚĆ HANDLOWA LUB PRZYDATNOŚĆ DO OKREŚLONEGO CELU; (4) GWARANCJE NA
+                                    USŁUGI LUB TOWARY OTRZYMANE ZA POŚREDNICTWEM LUB REKLAMOWANE NA NASZYCH STRONACH INTERNETOWYCH LUB
+                                    DOSTĘPNE NA NASZYCH STRONACH INTERNETOWYCH; (5) GWARANCJE DOTYCZĄCE
+                                    DOKŁADNOŚCI LUB NIEZAWODNOŚCI WYNIKÓW, KTÓRE MOŻNA UZYSKAĆ W DZIEDZINIE UŻYTKOWANIA
+                                    STRON INTERNETOWYCH; (6) GWARANCJE KORZYSTANIA Z WITRYN INTERNETOWYCH
+                                    BEZPIECZNE LUB NIEPRZERWANE; ORAZ (7) GWARANCJE NA BŁĘDY W OPROGRAMOWANIU
+                                    ZOSTANIE POPRAWIONE. </p></li>
+                            <li><strong>Ograniczenie odpowiedzialności</strong>
+                                <ol>
+                                    <li><p>
+                                        W ŻADNYCH OKOLICZNOŚCIACH TRANSPORTTERMINAL.COMPANY ANI JEJ OFICEROWIE, DYREKTORZY,
+                                        PRACOWNICY, RODZICE, PARTNERZY, AGENCI,  PODMIOTY STOWARZYSZONE,
+                                        SPÓŁKI ZALEŻNE LUB ICH SPÓŁKI POWIĄZANE PONOSZĄ ODPOWIEDZIALNOŚĆ
+                                        ZA SZKODY POŚREDNIE, PRZYPADKOWE, SZCZEGÓLNE, WTÓRNE LUB PRZYKŁADOWE
+                                        (NAWET JEŚLI TRANSPORTTERMINAL.COMPANY ZOSTAŁA POINFORMOWANA O MOŻLIWOŚCI
+                                        TAKICH SZKÓD), WYNIKAJĄCYCH Z, ZWIĄZANYCH LUB W JAKIKOLWIEK POŁĄCZONYCH Z
+                                        NASZYMI STRONAMI INTERNETOWYMI LUB NINIEJSZYMI WARUNKAMI KORZYSTANIA. JEDYNY SPOSÓB NA PEŁNE
+                                        ZADOWOLENIE Z NASZYCH STRON INTERNETOWYCH, W TYM BEZ OGRANICZEŃ KORZYSTANIE Z
+                                        ZAWARTOŚĆ WITRYNY JEST ZAPRZESTANIE KORZYSTANIA Z NASZYCH WITRYN. TAKIE OGRANICZENIE
+                                        ZASTOSUJ RÓWNIEŻ W ODNIESIENIU DO SZKÓD POWODU USŁUG LUB
+                                        PRODUKTY OTRZYMANE ZA POŚREDNICTWEM LUB REKLAMOWANE W ZWIĄZKU Z JAKIMKOLWIEK Z NASZYCH PRODUKTÓW
+                                        STRON INTERNETOWYCH LUB JAKIEKOLWIEK LINKI NA NASZYCH STRONACH INTERNETOWYCH, A TAKŻE Z JAKICHKOLWIEK
+                                        INFORMACJI LUB PORAD OTRZYMANYCH W RAMACH LUB REKLAMOWANE W ZWIĄZKU Z
+                                        NASZYMI STRONAMI INTERNETOWYMI LUB JAKIEKOLWIEK LINKI W NASZYCH STRONACH INTERNETOWYCH. TAKIE OGRANICZENIE
+                                        ZASTOSUJ RÓWNIEŻ W ODNIESIENIU DO SZKÓD POWODOWYCH Z JAKIEJKOLWIEK TREŚCI
+                                        OPUBLIKOWANYCH PRZEZ STRONĘ TRZECĄ LUB PRZEZ STRONĘ TRZECĄ W NASZYCH WITRYNACH INTERNETOWYCH. </p></li>
+                                    <li><p>JEDNAKŻE
+                                        W ŻADNYM WYPADKU NIE MOGĄ BYĆ WSZYSTKIE ZAWARTE W TUTAJ SPRZECZNOŚCI
+                                        SKUMULOWANA ODPOWIEDZIALNOŚCIĄ TREANSPORTTERMINAL.COMPANY I JEJ OFICERÓW,
+                                        DYREKTORZY, PRACOWNICY, RODZICE, PARTNERZY, CODZIENNIKI, AGENCI,
+                                        PARTNERZY DYSTRYBUCJI, PODMIOTY STOWARZYSZONE, JEDNOSTKI ZALEŻNE I POWIĄZANE Z NIM
+                                        FIRMY PRZEKROCZYŁY WIĘKSZE Z ŁĄCZNEJ PŁATNOŚCI OTRZYMYWANE OD CIEBIE PRZEZ
+                                        FREEWEBTEMPLATES.COM W CIĄGU POPRZEDNICH DWUNASTU (12) MIESIĘCY LUB
+                                        100 $. PONADTO, ZGADZASZ SIĘ, ŻE WSZELKIE PRZYCZYNY DZIAŁANIA WYNIKAJĄCE Z,
+                                        ZWIĄZANE Z LUB W JAKIKOLWIEK POŁĄCZONY Z JAKICHKOLWIEK NASZYCH STRON INTERNETOWYCH LUB TYCH
+                                        WARUNKI UŻYTKOWANIA MUSZĄ ROZPOCZĄĆ SIĘ W CIĄGU JEDNEGO (1) ROKU OD POWODU DZIAŁANIA
+                                        ACCRUES; W PRZECIWNYM WYPADKU TAKIE PRZYCZYNY DZIAŁANIA BĘDĄ NA STAŁE ZABLOKOWANE.</p></li>
+                                    <li><p>In
+                                        some jurisdictions limitations of liability are not permitted. In such
+                                        jurisdictions, some of the foregoing limitations may not apply to you.
+                                        These limitations shall apply to the fullest extent permitted by law. </p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Termination</strong>
+                                <ol>
+                                    <li><p>We
+                                        reserve the right in our sole discretion and at any time to terminate
+                                        or suspend your Membership and/or block your access to our Websites for
+                                        any reason including, without limitation if you have failed to comply
+                                        with the letter and spirit of these Terms of Use. You agree that
+                                        TransportTerminal.company shall not be liable to you or any third party for
+                                        any termination or suspension of your Membership or for blocking your
+                                        access to our Websites.</p></li>
+                                    <li><p>If you become a registered user,
+                                        you may terminate your Membership at any time by going to Membership
+                                        page and selecting the appropriate option.</p></li>
+                                    <li><p>Any suspension
+                                        or termination shall not affect your obligations to us under these
+                                        Terms of Use. The provisions of these Terms of Use which by their nature
+                                        should survive the suspension or termination of your Membership or
+                                        these Terms of Use shall survive including, but not limited to the
+                                        rights and licenses that you have granted hereunder, indemnities,
+                                        releases, disclaimers, limitations on liability, provisions related to
+                                        choice of law, dispute resolution, no class action, no trial by jury and
+                                        all of the miscellaneous provisions in Section 17.</p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Copyright Policy</strong>
+                                <ol>
+                                    <li><p>TransportTerminal.company
+                                        respects the intellectual property rights of others and expects its
+                                        users to do the same. In appropriate circumstances and at its sole
+                                        discretion, TransportTerminal.company may terminate and/or disable the
+                                        Membership of users who it suspects to be infringers of the copyrights
+                                        (or other intellectual property rights) of others. Additionally, in
+                                        appropriate circumstances and in its sole discretion,
+                                        TransportTerminal.company may remove or disable access to material on any of
+                                        its websites or hosted on its systems that may be infringing or the
+                                        subject of infringing activity.</p></li>
+                                    <li><p>In accordance with the
+                                        Digital Millennium Copyright Act of 1998, Title 17 of the United States
+                                        Code, Section 512 ("DMCA"), we will respond promptly to claims of
+                                        copyright infringement that are reported to the agent that we have
+                                        designated to receive notifications of claims infringement (its
+                                        "Designated Agent"). TransportTerminal.company's Designated Agent is:</p>
+                                        <p><strong>Physical Mail:</strong><br> Attn: DMCA Registered Agent for Vertex9
+                                            LLC<br> Frost Brown Todd LLC<br> 10 West Broad Street, Suite 2300<br>
+                                            Columbus, OH 43215-3484<br><br><strong>Phone:</strong> (614)
+                                            464-1211<br><strong>Fax:</strong> (614) 464-1737<br><strong>Email:</strong>
+                                            <span class="v9 ea">dmca</span><br></p></li>
+                                    <li><p>If
+                                        you are a copyright owner (or authorized to act on behalf of the
+                                        copyright owner) and believe that your work's copyright has been
+                                        infringed, please report your notice of infringement to us by providing
+                                        our Designated Agent with a written notification of claimed infringement
+                                        that includes substantially the following: </p>
+                                        <ol>
+                                            <li><p>A physical or
+                                                electronic signature of a person authorized to act on behalf of the
+                                                owner of an exclusive right that is allegedly infringed.</p></li>
+                                            <li><p>Identification
+                                                of the copyrighted work claimed to have been infringed, or, if multiple
+                                                copyrighted works at a single online site are covered by a single
+                                                notification, a representative list of such works at that site.</p></li>
+                                            <li><p>Identification
+                                                of the material that is claimed to be infringing or to be the subject
+                                                of infringing activity and that is to be removed or access to which is
+                                                to be disabled, and information reasonably sufficient to permit us to
+                                                locate the material.</p></li>
+                                            <li><p>Information reasonably sufficient to
+                                                permit us to contact you, such as an address, telephone number, and, if
+                                                available, an electronic mail address at which you may be contacted.</p>
+                                            </li>
+                                            <li><p>A
+                                                statement that you have a good faith belief that use of the material in
+                                                the manner complained of is not authorized by the copyright owner, its
+                                                agent, or the law.</p></li>
+                                            <li><p>A statement that the information in
+                                                the notification is accurate, and under penalty of perjury, that you are
+                                                authorized to act on behalf of the owner of an exclusive right that is
+                                                allegedly infringed.</p></li>
+                                        </ol>
+                                        <p>We will investigate notices of
+                                            copyright infringement and take appropriate actions under the DMCA.
+                                            Inquiries that do not follow this procedure may not receive a response.</p>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li><strong>Choice of Law</strong>
+                                <p>
+                                    These Terms of Use shall be construed in accordance with the laws of
+                                    the State of Tennessee without regard to its conflict of laws rules. Any
+                                    action arising out of your use of the Website or these Terms and
+                                    Conditions shall be brought in any state or federal court located in
+                                    Davidson county, Tennessee. </p></li>
+                            <li><strong>Dispute Resolution</strong>
+                                <p><em>In the Dispute Resolution Section only, "we" and "us" are used to refer to you
+                                    and TransportTerminal.company together.</em></p>
+                                <ol>
+                                    <li><p>We
+                                        each agree to first contact each other with any disputes and provide a
+                                        written description of the problem, all relevant documents/information
+                                        and the proposed resolution. You agree to contact us with disputes by
+                                        contacting us at the address provided in these Terms of Use. We will
+                                        contact you based on the contact information you have provided us.</p></li>
+                                    <li><p>We
+                                        each agree to finally settle all disputes (as defined and subject to
+                                        any specific exceptions below) only by arbitration. In arbitration,
+                                        there's no judge or jury and review is limited. However, just as a court
+                                        would, the arbitrator must honor the terms and limitations in the Terms
+                                        of Use and can award the same damages and relief, including any
+                                        attorney's fees authorized by law. The arbitrator's decision and award
+                                        is final and binding, with some exceptions under the Federal Arbitration
+                                        Act ("FAA"), and judgment on the award may be entered in any court with
+                                        jurisdiction. We each also agree as follows:</p>
+                                        <ol>
+                                            <li><p>"Disputes"
+                                                are any claims or controversies against each other related in any way to
+                                                our Websites, Website Content or these Terms of Use - this includes
+                                                claims you bring against our employees, agents, affiliates or other
+                                                representatives, and claims TransportTerminal.company may bring against
+                                                you.</p></li>
+                                            <li><p>If
+                                                either of us wants to arbitrate a dispute, we agree to send written
+                                                notice to the other providing a description of the dispute, previous
+                                                efforts to resolve the dispute, all supporting documents/information,
+                                                and the proposed resolution. We will send notice to you based on the
+                                                contact information you have provided us and notice to us must be sent
+                                                to: TransportTerminal.company, Attn: Legal Department, PO Box 120272,
+                                                Nashville, TN 37212. We agree to make attempts to resolve the dispute.
+                                                If we cannot resolve the dispute within forty-five (45) days of receipt
+                                                of the notice to arbitrate, then we may submit the dispute to formal
+                                                arbitration.</p></li>
+                                            <li><p>The FAA applies to this Agreement and
+                                                arbitration provision. We each agree the FAA's provisions, not state
+                                                law, govern all questions of whether a dispute is subject to
+                                                arbitration.</p></li>
+                                            <li><p>The arbitration will be administered by the
+                                                National Arbitration Forum ("NAF") under its arbitration rules. If any
+                                                NAF rule conflicts with these Terms of Use, these Terms of Use apply.
+                                                You can obtain procedures, rules, and fee information from the NAF at
+                                                1-800-474-2371 or www.adrforum.com.</p></li>
+                                            <li><p>Unless we each agree
+                                                otherwise, the Arbitration will be conducted by a single neutral
+                                                arbitrator and will take place in your county of residence in the United
+                                                States; otherwise, the Arbitration will take place in Nashville,
+                                                Tennessee. The federal or state law that applies to these Terms of Use
+                                                will also apply during the arbitration.</p></li>
+                                            <li><p>We each agree not
+                                                to pursue arbitration on a classwide basis. We each agree that any
+                                                arbitration will be solely between you and us (not brought on behalf of
+                                                or together with another individual's claim). If for any reason any
+                                                court or arbitrator holds that this restriction is unconscionable or
+                                                unenforceable, then our agreement to arbitrate doesn't apply and the
+                                                dispute must be brought in court.</p></li>
+                                            <li><p>We each are responsible
+                                                for our respective costs relating to counsel, experts, and witnesses,
+                                                as well as any other costs relating to the arbitration. However, we will
+                                                cover any arbitration administrative or filing fees above: (a) $25 if
+                                                you are seeking less than $1,000 from us; or (b) the equivalent court
+                                                filing fees for a court action in the appropriate jurisdiction if you
+                                                are seeking $1,000 or more from us.</p></li>
+                                        </ol>
+                                    </li>
+                                    <li><p>Either of us may bring qualifying claims in small claims court.</p></li>
+                                </ol>
+                            </li>
+                            <li><strong>No Class Actions</strong>
+                                <p>
+                                    TO THE EXTENT ALLOWED BY LAW, WE EACH WAIVE ANY RIGHT TO PURSUE
+                                    DISPUTES ON A CLASSWIDE BASIS; THAT IS, TO EITHER JOIN A CLAIM WITH THE
+                                    CLAIM OF ANY OTHER PERSON OR ENTITY, OR ASSERT A CLAIM IN A
+                                    REPRESENTATIVE CAPACITY ON BEHALF OF ANYONE ELSE IN ANY LAWSUIT,
+                                    ARBITRATION OR OTHER PROCEEDING. </p></li>
+                            <li><strong>No Trial By Jury</strong>
+                                <p> TO THE EXTENT ALLOWED BY LAW, WE EACH WAIVE ANY RIGHT TO TRIAL BY JURY IN ANY
+                                    LAWSUIT, ARBITRATION OR OTHER PROCEEDING. </p></li>
+                            <li><strong>Amendment; Additional Terms</strong>
+                                <ol>
+                                    <li><p>We
+                                        reserve the right in our sole discretion and at any time and for any
+                                        reason, to modify or discontinue any aspect or feature of our Websites
+                                        or to modify these Terms of Use. In addition, we reserve the right to
+                                        provide you with operating rules or additional terms that may govern
+                                        your use of our Websites generally, unique parts of our Websites, or
+                                        both ("Additional Terms"). Any Additional Terms that we may provide to
+                                        you will be incorporated by reference into these Terms of Use. To the
+                                        extent any Additional Terms conflict with these Terms of Use, the
+                                        Additional Terms will control. </p></li>
+                                    <li><p>Modifications to these
+                                        Terms of Use or Additional Terms will be effective immediately upon
+                                        notice, either by posting on our Websites or by notification by email or
+                                        conventional mail. It is your responsibility to review the Terms of Use
+                                        and our Websites from time to time for any changes or Additional Terms.
+                                        Your access and use of any our Websites following any modification of
+                                        these Terms of Use or the provision of Additional Terms will signify
+                                        your assent to and acceptance of the same. If you object to any
+                                        subsequent revision to the Terms of Use or to any Additional Terms, you
+                                        may terminate your Membership as provided in Section B herein or, if you
+                                        do not have an Membership, your only recourse is to immediately
+                                        discontinue use of our Websites.</p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Miscellaneous</strong>
+                                <ol>
+                                    <li><p>No
+                                        waiver by either party of any breach or default hereunder shall be
+                                        deemed to be a waiver of any preceding or subsequent breach or default.
+                                        The section headings used herein are for convenience only and shall not
+                                        be given any legal import. If any provision of these Terms of Use is
+                                        held to be invalid or unenforceable, the invalidity of such provision
+                                        shall not affect the validity of the remaining provisions of the Terms
+                                        of Use, which shall remain in full force and effect.</p></li>
+                                    <li><p>These
+                                        Terms of Use (including the Privacy Policy and any Additional Terms
+                                        incorporated by reference) constitute the entire agreement of the
+                                        parties with respect to the subject matter hereof, and supersede all
+                                        previous written or oral agreements between us with respect to such
+                                        subject matter. </p></li>
+                                    <li><p>You may not assign these Terms of Use or
+                                        assign any rights or delegate any obligations hereunder, in whole or in
+                                        part, without our prior written consent. Any such purported assignment
+                                        or delegation by you without the appropriate prior written consent will
+                                        be null and void and of no force and effect. TransportTerminal.company may
+                                        assign these Terms of Use or any rights hereunder without your consent
+                                        and without notice.</p></li>
+                                </ol>
+                            </li>
+                            <li><strong>Notices</strong>
+                                <p>All
+                                    notices, requests, and communications hereunder shall be in writing,
+                                    and any such notice, request or other communication shall be deemed to
+                                    have been given or made when delivered by hand, transmitted by fax and
+                                    confirmed or, in the case of delivery by mail, when deposited in the
+                                    mail, certified mail, return receipt requested, postage prepaid, to:
+                                    TransportTerminal.company, PO Box 120272, Nashville, TN 37212.</p></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div><!-- col3 -->
+
+        <br class="clear"></div>
+
+
+</div>
+
+</body>
+</html>

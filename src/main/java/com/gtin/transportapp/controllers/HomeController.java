@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -83,6 +82,16 @@ public class HomeController {
         return "login";
     }
 
+
+    @GetMapping("control_panel")
+    public String controlPanel(Model model,Principal principal){
+
+        List<Transport> transports = transportRepository.findAll();
+
+        model.addAttribute("transports", transports);
+
+        return "control_panel";
+    }
 
 
 

@@ -20,18 +20,15 @@
             width: 300px;
         }
 
-        #container {
-            width: 1000px;
-            height: 260px;
-            margin-left: auto;
-            margin-right: auto;
-            /*border-style: solid;*/
-            /*border-color: whitesmoke;*/
+
+        #button_container {
+
+            margin-left: 30px;
+            margin-top: 100px;
 
         }
 
         #form {
-            justify-content: center;
             font-size: 18px;
         }
 
@@ -49,9 +46,8 @@
         }
 
         #forgot_password {
-            font-size: 12px;
-            text-align: center;
-            justify-content: center;
+            font-size: 15px;
+
             /*border-style: solid;*/
             /*border-color: whitesmoke;*/
 
@@ -66,6 +62,7 @@
 </head>
 <body>
 <div class="jumbotron text-center" style="background-color: #03859b; align-content: center">
+
     <h1 class="display-4">Transport Terminal</h1>
 
 
@@ -74,34 +71,41 @@
 <div id="container">
 
     <div class="row">
-
-        <div class="col wf justify-content-center align-items-center">
+        <div class="col"></div>
+        <div class="col justify-content-md-center">
             <img src="../static/img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}" alt=""/>
         </div>
-        <div class="col wf justify-content-center align-items-center">
+        <div class="col justify-content-center align-items-center">
             <form id="form" th:action="@{/login}" method="post">
 
-                <div th:if="${param.error}" class="alert alert-error" role="alert">
-                    Nieprawidłowa nazwa użytkownika lub hasło
+                <!--                <div th:if="${param.error}" class="alert alert-error" role="alert">-->
+                <!--                    Nieprawidłowa nazwa użytkownika lub hasło-->
+                <!--                </div>-->
+                <!--                <div th:if="${param.logout}" class="alert alert-error" role="alert">-->
+                <!--                    Zostałeś pomyślnie wylogowany-->
+                <!--                </div>-->
+                <div id="button_container">
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" name="username" id="exampleInputEmail1"
+                               aria-describedby="emailHelp"
+                               placeholder="Enter email" required="required">
+                    </div>
+                    <div class="form-group">
+
+                        <input type="password" class="form-control" name="password" id="exampleInputPassword1"
+                               placeholder="Password" required="required">
+                    </div>
+
+                        <button id="submit" type="submit" class="btn btn-primary">Zaloguj się</button>
+
+                    <div class="row" style="margin-left: 0px; margin-top: 10px"><a id="forgot_password" href="/reset_password" style="color: whitesmoke">zapomniałeś
+                        hasła?</a></div>
+
                 </div>
-                <div th:if="${param.logout}" class="alert alert-error" role="alert">
-                    Zostałeś pomyślnie wylogowany
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="text" class="form-control" name="username" id="exampleInputEmail1"
-                           aria-describedby="emailHelp"
-                           placeholder="Enter email" required="required">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Hasło</label>
-                    <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                           placeholder="Password" required="required">
-                </div>
-                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-                <a id="forgot_password" href="/reset_password" style="color: whitesmoke">zapomniałeś hasła?</a>
             </form>
         </div>
+        <div class="col"></div>
     </div>
 
 </div>
