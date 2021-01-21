@@ -647,7 +647,7 @@ public class HomeController {
 
             parcel.setStatus("ZATWIERDZONY");
 
-            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została dostarczona"));
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została zatwierdzona"));
             notifyAboutStatusChange.start();
 
 

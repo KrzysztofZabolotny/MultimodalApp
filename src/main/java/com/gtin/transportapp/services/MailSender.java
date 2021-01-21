@@ -6,13 +6,15 @@ import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+/*mrrdnqjnnuqulhzc*/
+
 
 public class MailSender implements Runnable {
     public static Properties properties;
     public static Session session;
 
     public static final String SENDER = "multimodaltransportapp@gmail.com";
-    public static final String PASSWORD = "multimodal2020";
+    public static final String PASSWORD = "mrrdnqjnnuqulhzc";
     private final String RECIPIENT;
     private static final String TITLE = "Transport Terminal message";
     private final String CONTENT;
