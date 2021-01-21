@@ -740,6 +740,12 @@ public class HomeController {
                 .contentType(MediaType.parseMediaType("application/txt")).body(resource);
     }
 
+    @GetMapping("/terms_of_service")
+    public String terms_of_service(){
+
+        return "terms_of_service";
+    }
+
 
 
 
