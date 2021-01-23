@@ -88,7 +88,7 @@
                      th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
 
                 <div class="card-body">
-                    <h6 class="card-text"><small class="text-dark font-italic">Liczba dodwancyh paczek</small>
+                    <h6 class="card-text"><small class="text-dark font-italic">Liczba dodanych paczek</small>
                         <h3>
                             <span class="badge badge-primary" th:text="${transport.numberOfParcels}">size</span>
                         </h3>
@@ -152,15 +152,15 @@
 
 
                                     <a class="btn  text-white" th:href="@{'/transport_delivered_notification/' + ${transport.id}}"
-                                       style=" background-color: green; margin-top: 5px">Mark as delivered</a>
+                                       style=" background-color: green; margin-top: 5px">Już dostarczony</a>
 
 
                                     <a class="btn  text-white" th:href="@{'/delete_transport/' + ${transport.id}}"
-                                       style=" background-color: red; margin-top: 5px">Delete</a>
+                                       style=" background-color: red; margin-top: 5px">Usuń</a>
 
 
                                     <a class="btn  text-white" th:href="@{'/generate_report/' + ${transport.id}}"
-                                       style=" background-color: gray; margin-top: 5px">Generate Report</a>
+                                       style=" background-color: gray; margin-top: 5px">Wygeneruj raport</a>
 
                             </h6>
                 </div>

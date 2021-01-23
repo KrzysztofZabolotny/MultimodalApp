@@ -18,10 +18,9 @@ public class Parcel {
     private String status = "OCZEKUJE NA ZATWIERDZENIE";
     private String additionalComments;
     private String inTransportName;
-    private String ownerEmail;
-    private String ownerName;
-    private String ownerAddress;
+    private String owner;
     private String ownerPhoneNumber;
+
     private int weight;
     private int width;
     private int length;
@@ -29,11 +28,22 @@ public class Parcel {
     private int inTransportNumber;
     private int value;
     private LocalDate departureDate;
-    private String address;
-    private String city;
-    private String country;
-    private String zip;
-    private String formattedAddress;
+
+    private String senderName;
+    private String senderSurname;
+    private String senderStreet;
+    private String senderCity;
+    private String senderZip;
+    private String senderCountry;
+    private String senderPhoneNumber;
+
+    private String receiverName;
+    private String receiverSurname;
+    private String receiverStreet;
+    private String receiverCity;
+    private String receiverZip;
+    private String receiverCountry;
+    private String receiverPhoneNumber;
 
 
     public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
@@ -103,37 +113,6 @@ public class Parcel {
         this.additionalComments = additionalComments;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
 
     public int getWeight() {
         return weight;
@@ -167,12 +146,129 @@ public class Parcel {
         this.height = height;
     }
 
-    public String getOwnerAddress() {
-        return ownerAddress;
+
+    public Parcel() {
+
     }
 
-    public void setOwnerAddress(String ownerAddress) {
-        this.ownerAddress = ownerAddress;
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSenderSurname() {
+        return senderSurname;
+    }
+
+    public void setSenderSurname(String senderSurname) {
+        this.senderSurname = senderSurname;
+    }
+
+    public String getSenderStreet() {
+        return senderStreet;
+    }
+
+    public void setSenderStreet(String senderStreet) {
+        this.senderStreet = senderStreet;
+    }
+
+    public String getSenderCity() {
+        return senderCity;
+    }
+
+    public void setSenderCity(String senderCity) {
+        this.senderCity = senderCity;
+    }
+
+    public String getSenderZip() {
+        return senderZip;
+    }
+
+    public void setSenderZip(String senderZip) {
+        this.senderZip = senderZip;
+    }
+
+    public String getSenderCountry() {
+        return senderCountry;
+    }
+
+    public void setSenderCountry(String senderCountry) {
+        this.senderCountry = senderCountry;
+    }
+
+    public String getSenderPhoneNumber() {
+        return senderPhoneNumber;
+    }
+
+    public void setSenderPhoneNumber(String senderPhoneNumber) {
+        this.senderPhoneNumber = senderPhoneNumber;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverSurname() {
+        return receiverSurname;
+    }
+
+    public void setReceiverSurname(String receiverSurname) {
+        this.receiverSurname = receiverSurname;
+    }
+
+    public String getReceiverStreet() {
+        return receiverStreet;
+    }
+
+    public void setReceiverStreet(String receiverStreet) {
+        this.receiverStreet = receiverStreet;
+    }
+
+    public String getReceiverCity() {
+        return receiverCity;
+    }
+
+    public void setReceiverCity(String receiverCity) {
+        this.receiverCity = receiverCity;
+    }
+
+    public String getReceiverZip() {
+        return receiverZip;
+    }
+
+    public void setReceiverZip(String receiverZip) {
+        this.receiverZip = receiverZip;
+    }
+
+    public String getReceiverCountry() {
+        return receiverCountry;
+    }
+
+    public void setReceiverCountry(String receiverCountry) {
+        this.receiverCountry = receiverCountry;
+    }
+
+    public String getReceiverPhoneNumber() {
+        return receiverPhoneNumber;
+    }
+
+    public void setReceiverPhoneNumber(String receiverPhoneNumber) {
+        this.receiverPhoneNumber = receiverPhoneNumber;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public String getOwnerPhoneNumber() {
@@ -181,26 +277,6 @@ public class Parcel {
 
     public void setOwnerPhoneNumber(String ownerPhoneNumber) {
         this.ownerPhoneNumber = ownerPhoneNumber;
-    }
-
-    public String getFormattedAddress() {
-        return formatAddress();
-    }
-
-    public void setFormattedAddress(String formattedAddressed) {
-        this.formattedAddress = formattedAddress;
-    }
-
-    public Parcel() {
-
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
     }
 
     public Parcel(String userName, String content) {
@@ -214,13 +290,6 @@ public class Parcel {
         this.content = content;
     }
 
-    public String getOwnerEmail() {
-        return ownerEmail;
-    }
-
-    public void setOwnerEmail(String ownerEmail) {
-        this.ownerEmail = ownerEmail;
-    }
 
     public int getId() {
         return id;
@@ -248,11 +317,13 @@ public class Parcel {
 
     public String formatAddress() {
 
-        return address
+        return receiverStreet
                 + "\n"
-                + zip
+                + receiverCity
                 + "\n"
-                + city;
+                + receiverZip
+                + "\n"
+                + receiverCountry;
     }
 
 
@@ -273,18 +344,21 @@ public class Parcel {
     public String parcelSummary() {
         return
                 "Adres dostawy:\n"
-                        + address
-                        + "\n"+zip
-                        + "\n"+city
-                        + "\n"+country
+                        + receiverStreet
+                        + "\n"
+                        + receiverCity
+                        + "\n"
+                        + receiverZip
+                        + "\n"
+                        + receiverCountry
                         + "\n\nZawarość: " + content
                         + "\n\nWymiary:"
-                        + "\nwysokosc: " + height+"cm"
-                        + "\nszerokosc: " + width+"cm"
-                        + "\ndługość: " + length+"cm"
-                        + "\nWaga: " + weight+"kg"
+                        + "\nwysokosc: " + height + "cm"
+                        + "\nszerokosc: " + width + "cm"
+                        + "\ndługość: " + length + "cm"
+                        + "\nWaga: " + weight + "kg"
                         + "\n\nZawartość: " + content
                         + "\nKomentarz: " + additionalComments
-                        + "\nKwota do zapłaty po akceptacji: " + value+"Nok";
+                        + "\nKwota do zapłaty po akceptacji: " + value + "Nok";
     }
 }

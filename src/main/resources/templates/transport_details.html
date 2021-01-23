@@ -96,25 +96,25 @@
                                 <img class="img-fluid" src="../static/img/weight.png" th:src="@{../img/weight.png}"
                                      alt="Card image cap">
                             </div>
-                            <p class="card-text" th:text="'Total weight: '+${transportWeight}+' kg'">0</p>
+                            <p class="card-text" th:text="'Waga całkowita: '+${transportWeight}+' kg'">0</p>
 
                             <div class="card-img-top d-flex justify-content-center">
                                 <img class="img-fluid" src="../static/img/dimensions.png"
                                      th:src="@{../img/dimensions.png}" alt="Card image cap">
                             </div>
-                            <p class="card-text" th:text="'Total volume: '+${transportVolume}+' cm²'">0</p>
+                            <p class="card-text" th:text="'Objętość: '+${transportVolume}+' cm²'">0</p>
 
                             <div class="card-img-top d-flex justify-content-center">
                                 <img class="img-fluid" src="../static/img/dollar.png" th:src="@{../img/dollar.png}"
                                      alt="Card image cap">
                             </div>
-                            <p class="card-text" th:text="'Total value: '+${transportValue}+' nok'">0</p>
+                            <p class="card-text" th:text="'Wartość: '+${transportValue}+' nok'">0</p>
 
                             <div class="card-img-top d-flex justify-content-center">
                                 <img class="img-fluid" src="../static/img/invoice-small.png"
                                      th:src="@{../img/invoice-small.png}" alt="Card image cap">
                             </div>
-                            <p class="card-text" th:text="'Invoice to Transport Hub: '+${invoice}+' nok'">0</p>
+                            <p class="card-text" th:text="'Należność do Transport Terminal: '+${invoice}+' nok'">0</p>
                         </div>
                     </figure>
                 </div>
@@ -155,17 +155,34 @@
                         <img class="img-fluid" src="../static/img/details.png" th:src="@{../img/details.png}"
                              alt="Card image cap">
                     </div>
-                    <h6 class="card-text"><small class="text-dark font-italic">Dane nadawcy</small></h6>
-                    <h5 class="card-title" th:text="${parcel.ownerName}">Owner Name</h5>
-                    <h5 class="card-title" th:text="${parcel.ownerAddress}">Owner Address</h5>
-                    <h5 class="card-title" th:text="'tel. '+${parcel.ownerPhoneNumber}">Phone number</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Właściciel</small></h6>
+                    <h5 class="card-title" th:text="${parcel.owner}">Imie Nazwisko</h5>
+                    <h5 class="card-title" th:text="${parcel.ownerPhoneNumber}">Numer telefonu</h5>
+                    <h5 class="card-title" th:text="${parcel.userName}">Adres email</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/pickup.png" th:src="@{../img/pickup.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Nadawca</small></h6>
+                    <h5 class="card-title" th:text="${parcel.senderName}+' '+${parcel.senderSurname}">Imie Nazwisko</h5>
+                    <h5 class="card-title" th:text="${parcel.senderStreet}">Ulica</h5>
+                    <h5 class="card-title" th:text="${parcel.senderCity}">Miasto</h5>
+                    <h5 class="card-title" th:text="${parcel.senderZip}">Zip</h5>
+                    <h5 class="card-title" th:text="${parcel.senderCountry}">Kraj</h5>
+                    <h5 class="card-title" th:text="${parcel.senderPhoneNumber}">Numer telefonu</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}"
                              alt="Card image cap">
                     </div>
-                    <h6 class="card-text"><small class="text-dark font-italic">Adres dostawy</small></h6>
-                    <h5 class="card-title" th:text="${parcel.formattedAddress}">Delivery Address</h5>
+                    <h6 class="card-text"><small class="text-dark font-italic">Odbiorca</small></h6>
+                    <h5 class="card-title" th:text="${parcel.receiverName}+' '+${parcel.receiverSurname}">Imie Nazwisko</h5>
+                    <h5 class="card-title" th:text="${parcel.receiverStreet}">Ulica</h5>
+                    <h5 class="card-title" th:text="${parcel.receiverCity}">Miasto</h5>
+                    <h5 class="card-title" th:text="${parcel.receiverZip}">Zip</h5>
+                    <h5 class="card-title" th:text="${parcel.receiverCountry}">Kraj</h5>
+                    <h5 class="card-title" th:text="${parcel.receiverPhoneNumber}">Numer telefonu</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}"
@@ -227,6 +244,7 @@
             </figure>
         </div>
     </div>
+</div>
 </div>
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
     <div class="footer-copyright text-center py-4">2020&copy Transport Termianl</div>

@@ -22,6 +22,7 @@ public class Transport {
     private String destination;
     private String driverId;
     private String companyName;
+    private String driverPhoneNumber;
     private int numberOfParcels = 0;
     private int transportValue = 0;
     private int capacity;
@@ -175,6 +176,14 @@ public class Transport {
         this.status = status;
     }
 
+    public String getDriverPhoneNumber() {
+        return driverPhoneNumber;
+    }
+
+    public void setDriverPhoneNumber(String driverPhoneNumber) {
+        this.driverPhoneNumber = driverPhoneNumber;
+    }
+
     public String getPricing() {
         return concatenatePrices();
     }
@@ -199,7 +208,7 @@ public class Transport {
         List<PriceRange> priceRanges = this.getPriceRanges();
         StringBuilder result = new StringBuilder();
         for (PriceRange priceRange: priceRanges){
-            result.append(priceRange).append("\n");
+            result.append(priceRange).append("\n\n");
         }
 
         return result.toString();

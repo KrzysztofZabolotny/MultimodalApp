@@ -145,12 +145,23 @@ public final class Utilities {
 
 
 
-            report+="Dane klienta\n";
-            report+= "Imie i Nazwisko: "+parcel.getOwnerName()+"\n";
-            report+="Numer telefonu: "+parcel.getOwnerPhoneNumber()+"\n";
-            report+="Adres: "+parcel.getOwnerAddress()+"\n\n";
+            report+="Dane klienta składającego zamówienie\n";
+            report+= "Imie i Nazwisko: "+parcel.getOwner()+"\n";
+            report+="Numer telefonu: "+parcel.getOwnerPhoneNumber()+"\n\n";
+
+
+            report+="Dane nadawcy\n\n";
+            report+="Imie i Nazwisko: "+parcel.getSenderName()+" "+parcel.getSenderSurname()+"\n";
+            report+="Adres: "+parcel.getSenderStreet()+", "+parcel.getSenderCity()+", "+parcel.getSenderZip()+", "+parcel.getSenderCountry()+"\n";
+            report+="Numer telefonu: "+parcel.getSenderPhoneNumber()+"\n\n";
+
+            report+="Dane odbiorcy\n\n";
+            report+="Imie i Nazwisko: "+parcel.getReceiverName()+" "+parcel.getReceiverSurname()+"\n";
+            report+="Adres: "+parcel.getReceiverStreet()+", "+parcel.getReceiverCity()+", "+parcel.getReceiverZip()+", "+parcel.getReceiverCountry()+"\n";
+            report+="Numer telefonu: "+parcel.getReceiverPhoneNumber()+"\n\n";
+
+
             report+="Dane paczki:\n";
-            report+="Adres dostawy: "+parcel.getAddress()+", "+parcel.getZip()+" "+parcel.getCity()+"\n";
             report+="waga: "+parcel.getWeight()
                     +"kg, wsokość: "+parcel.getHeight()
                     +"cm, szerokość: "+parcel.getWidth()

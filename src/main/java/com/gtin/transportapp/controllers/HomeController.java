@@ -195,6 +195,7 @@ public class HomeController {
         Client client = clientOptional.get();
         transport.setDriverId(client.getEmail());
         transport.setCompanyName(client.getCompanyName());
+        transport.setDriverPhoneNumber(client.getCode()+""+client.getPhone());
 
         globalTransport = transport;
 
@@ -207,6 +208,8 @@ public class HomeController {
 
         globalTransport.setPriceRanges(transport.getPriceRanges());
         globalTransport.setCapacity(transport.getCapacity());
+
+
 
         globalTransport.getPriceRanges().removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
         for (PriceRange priceRange : globalTransport.getPriceRanges()) {
@@ -306,10 +309,8 @@ public class HomeController {
         parcel.setValue(Utilities.calculateValue(parcel.getWeight(), transport));
         parcel.setInTransportNumber(transportNumber);
         parcel.setInTransportName(transport.getCompanyName());
-        parcel.setOwnerPhoneNumber(client.getCode() + client.getPhone());
-        parcel.setOwnerAddress(client.getStreet() + " " + client.getZip() + " " + client.getCity());
-        parcel.setOwnerName(client.getName() + " " + client.getSurname());
-        parcel.setOwnerEmail(client.getEmail());
+        parcel.setOwner(client.getName()+" "+client.getSurname());
+        parcel.setOwnerPhoneNumber(client.getCode()+" "+client.getPhone());
         globalParcel = parcel;
         transport.getParcels().add(parcel);
         transport.increaseParcelCount();
@@ -561,7 +562,7 @@ public class HomeController {
 
             parcel.setStatus("DOSTARCZONA");
 
-            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została dostarczona"));
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka została dostarczona"));
             notifyAboutStatusChange.start();
 
 
@@ -586,11 +587,11 @@ public class HomeController {
 
         parcel.setStatus("ZATWIERDZONA");
         Thread notifyAboutStatusChange;
-        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka na adres:\n"
-                + parcel.getAddress()
-                + "\n" + parcel.getZip()
-                + "\n" + parcel.getCity()
-                + "\n" + parcel.getCountry()
+        notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka na adres:\n"
+                + parcel.getReceiverStreet()
+                + "\n" + parcel.getReceiverCity()
+                + "\n" + parcel.getReceiverZip()
+                + "\n" + parcel.getReceiverCountry()
                 + " została zatwierdzona przez: "
                 + transport.getDriverId()
                 + "z firmy" + transport.getCompanyName()));
@@ -616,11 +617,11 @@ public class HomeController {
 
         parcel.setStatus("ODRZUCONY");
         Thread notifyAboutStatusChange;
-        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka na adres:\n"
-                + parcel.getAddress()
-                + "\n" + parcel.getZip()
-                + "\n" + parcel.getCity()
-                + "\n" + parcel.getCountry()
+        notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka na adres:\n"
+                + parcel.getReceiverStreet()
+                + "\n" + parcel.getReceiverCity()
+                + "\n" + parcel.getReceiverZip()
+                + "\n" + parcel.getReceiverCountry()
                 + " została odrzucona przez: "
                 + transport.getDriverId()
                 + "z firmy" + transport.getCompanyName()));
@@ -650,7 +651,7 @@ public class HomeController {
 
             parcel.setStatus("ZATWIERDZONY");
 
-            notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została zatwierdzona"));
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka została zatwierdzona"));
             notifyAboutStatusChange.start();
 
 

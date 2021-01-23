@@ -38,10 +38,27 @@
 
         }
 
-
-        .row {
-            min-height: 500px;
+        textarea {
+            white-space: normal;
+            text-align: justify;
+            -moz-text-align-last: center; /* Firefox 12+ */
+            text-align-last: center;
         }
+
+        input {
+            text-align: center;
+        }
+
+        input:focus::placeholder {
+            color: transparent;
+        }
+
+        .wf {
+            outline: 1px solid red;
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -69,98 +86,156 @@
 <div class="container">
 
 
-    <form class="form-horizontal" id="addForm" action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post">
+    <form class="form-horizontal" id="addForm" action="#" th:action="@{/add_parcel}" th:object="${parcel}"
+          method="post">
+        <div class="row justify-content-center text-center" style="margin-bottom: 40px">
+            <div class="col"><label style=" font-size: 30px">Szczegóły paczki</label></div>
+            <div class="col"><label style=" font-size: 30px">Dane nadawcy</label></div>
+            <div class="col"><label style=" font-size: 30px">Dane odbiorcy</label></div>
+        </div>
 
+        <div class="row justify-content-center text-center">
 
-        <div class="row">
-
-            <div class="col" style="margin-top: 5px">
-
-                <img style="margin-top: 40px" src="../static/img/box-dim.png" th:src="@{../img/box-dim.png}">
-            </div>
-
-            <div class="col" style="margin-top: 5px">
+            <div class="col">
                 <div class="form-group">
                     <!-- Default input -->
                     <div class="form-group col-md-12">
-                        <label>Waga<img style="margin-left: 35px; margin-bottom: 10px"
-                                                src="../static/img/weight.png"
-                                                th:src="@{../img/weight.png}"></label>
-                        <input th:field="*{weight}" type="text" placeholder="kg" class="form-control align-middle text-center">
+                        <h5 class="card-text"><small class="text-dark font-weight-bold">WAGA</small></h5>
+                        <input th:field="*{weight}" type="text"
+                               class="form-control align-middle text-center" style="margin-bottom: 52px" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <h5 class="card-text"><small class="text-dark font-weight-bold">SZEROKOŚĆ</small></h5>
+                        <input th:field="*{width}" type="text" class="form-control text-center"
+                               id="width" style="margin-bottom: 52px" required>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <h5 class="card-text"><small class="text-dark font-weight-bold">DŁUGOŚĆ</small></h5>
+                        <input th:field="*{length}" type="text" class="form-control text-center"
+                               id="length" style="margin-bottom: 52px" required>
                     </div>
 
                     <div class="form-group col-md-12">
-                        <label for="width">Szerokość<img style="margin-left: 35px; margin-bottom: 7px"
-                                                           src="../static/img/width-small.png"
-                                                           th:src="@{../img/width-small.png}"></label>
-                        <input th:field="*{width}" type="text" placeholder="cm" class="form-control text-center" id="width">
+                        <h5 class="card-text"><small class="text-dark font-weight-bold">WYSOKOŚĆ</small></h5>
+                        <input th:field="*{height}" type="text" class="form-control text-center"
+                               id="height" style="margin-bottom: 52px" required>
                     </div>
-                    <div class="form-group col-md-12">
-                        <label>Długość<img style="margin-left: 30px" src="../static/img/length-small.png"
-                                                th:src="@{../img/length-small.png}"></label>
-                        <input th:field="*{length}" type="text" placeholder="cm" class="form-control text-center">
+                    <div class="form-group col-md-12 justify-content-center text-center">
+                        <h5 class="card-text"><small class="text-dark font-weight-bold">ZAWARTOŚĆ</small></h5>
+                        <textarea th:field="*{content}" class="form-control" id="content"
+                                  rows="3" style="margin-bottom: 45px"></textarea>
                     </div>
 
-
-                    <div class="form-group col-md-12">
-                        <label for="height">Wysokość<img style="margin-left: 35px"
-                                                             src="../static/img/height-small.png"
-                                                             th:src="@{../img/height-small.png}"></label></label>
-                        <input th:field="*{height}" type="text" placeholder="cm" class="form-control text-center" id="height">
+                    <div class="form-group col-md-12 justify-content-center text-center" style="margin-top: 78px">
+                        <h5 class="card-text "><small class="text-dark font-weight-bold">KOMENTARZ</small></h5>
+                        <textarea th:field="*{additionalComments}"  class="form-control "
+                                  id="additionalComments"
+                                  rows="3"></textarea>
                     </div>
                 </div>
             </div>
+<!--            <div class="col" style="margin-top: 80px">-->
+<!--                <div class="form-group col-md-12 justify-content-center text-center">-->
 
-            <div class="col" style="margin-top: 5px">
-                <div class="form-group col-md-12">
-                    <label for="inputAddress">Ulica<img style="margin-left: 35px" src="../static/img/street.png"
-                                                               th:src="@{../img/street.png}"></label>
-                    <input type="text" class="form-control" id="inputAddress"
-                           th:field="*{address}"> <!--required-->
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="inputCity">Miasto<img style="margin-left: 65px" src="../static/img/city.png"
-                                                    th:src="@{../img/city.png}"></label>
-                    <input type="text" class="form-control" id="inputCity" th:field="*{city}">
-                    <!--required-->
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="inputZip">Kod<img style="margin-left: 75px" src="../static/img/zip.png"
-                                                  th:src="@{../img/zip.png}"></label>
-                    <input type="text" class="form-control" id="inputZip" th:field="*{zip}">
-                    <!--required-->
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="inputCountry">Kraj<img style="margin-left: 35px" src="../static/img/country.png"
-                                                          th:src="@{../img/country.png}"></label>
-                    <input type="text" class="form-control" id="inputCountry"
-                           th:field="*{country}"> <!--required-->
-                </div>
-            </div>
+<!--                        <textarea th:field="*{content}" class="form-control" id="content"-->
+<!--                                  rows="5" placeholder="zawartość"></textarea>-->
+<!--                </div>-->
+
+<!--                <div class="form-group col-md-12 justify-content-center text-center">-->
+
+<!--                        <textarea th:field="*{additionalComments}" style="margin-top: 40px" class="form-control"-->
+<!--                                  id="additionalComments"-->
+<!--                                  rows="5" placeholder="komentarz"></textarea>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
 
             <div class="col">
-
-                <div class="form-group">
-                    <label for="additionalComments" style="margin-top: 5px">Zawartość<img style=" margin-left: 55px"
-                                                                                        src="../static/img/content-small.png"
-                                                                                        th:src="@{../img/content-small.png}"></label>
-                    <textarea th:field="*{content}" class="form-control" id="content"
-                              rows="5"></textarea>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">IMIĘ</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{senderName}" style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">NAZWISKO</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{senderSurname}"  style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">ULICA</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{senderStreet}" style="margin-bottom: 52px" required> <!--required-->
                 </div>
 
-                <div class="form-group">
-                    <label for="additionalComments" style="margin-top: 5px">Komentarz<img style="margin-left: 35px"
-                                                                                         src="../static/img/comment.png"
-                                                                                         th:src="@{../img/comment.png}"></label>
-                    <textarea th:field="*{additionalComments}" style="margin-top: 5px" class="form-control"
-                              id="additionalComments"
-                              rows="5"></textarea>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">MIASTO</small></h5>
+                    <input type="text" class="form-control"  th:field="*{senderCity}" style="margin-bottom: 52px" required>
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">KOD POCZTOWY</small></h5>
+                    <input type="text" class="form-control" th:field="*{senderZip}" style="margin-bottom: 52px" required>
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">KRAJ</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{senderCountry}" style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">NUMER TELEFONU</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{senderPhoneNumber}" required> <!--required-->
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">IMIĘ</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{receiverName}"style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">NAZWISKO</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{receiverSurname}" style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">ULICA</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{receiverStreet}" style="margin-bottom: 52px" required> <!--required-->
                 </div>
 
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">MIASTO</small></h5>
+                    <input type="text" class="form-control"  th:field="*{receiverCity}"style="margin-bottom: 52px" required>
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">KOD POCZTOWY</small></h5>
+                    <input type="text" class="form-control" th:field="*{receiverZip}" style="margin-bottom: 52px" required>
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">KRAJ</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{receiverCountry}" style="margin-bottom: 52px" required> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <h5 class="card-text"><small class="text-dark font-weight-bold">NUMER TELEFONU</small></h5>
+                    <input type="text" class="form-control"
+                           th:field="*{receiverPhoneNumber}" required> <!--required-->
+                </div>
             </div>
         </div>
+        <div class="row" style="margin-top: 20px">
+            <div class="col justify-content-center text-center">
+                <button type="submit" class="btn btn-primary" style="width: 98%; height: 60px; font-size: 30px;">Dalej
+                </button>
+            </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; height: 60px; font-size: 30px;">Create</button>
+        </div>
+
     </form>
 
 </div>

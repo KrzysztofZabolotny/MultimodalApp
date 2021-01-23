@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <title>Title</title>
+
+    <style>
+
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+
+        .btn {
+            background-color: #fc7333;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+        }
+
+        .btn:hover {
+            background-color: #B2B356;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-bottom: 30px;
+
+        }
+
+        .jumbotron text-center {
+
+        }
+
+
+        .row {
+            min-height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="col-12 text-right">
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
+</div>
+
+<div class="jumbotron text-center"
+     style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
+    <h1 class="display-4">Dodaj paczkę</h1>
+
+</div>
+
+<div class="container">
+
+
+    <form class="form-horizontal" id="addForm" action="#" th:action="@{/add_parcel}" th:object="${parcel}" method="post">
+
+
+        <div class="row">
+
+            <div class="col" style="margin-top: 5px">
+                <img style="margin-top: 40px" src="../static/img/box-dim.png" th:src="@{../img/box-dim.png}">
+            </div>
+
+            <div class="col" style="margin-top: 5px">
+                <div class="form-group">
+                    <!-- Default input -->
+                    <div class="form-group col-md-12">
+                        <label>Waga<img style="margin-left: 35px; margin-bottom: 10px"
+                                                src="../static/img/weight.png"
+                                                th:src="@{../img/weight.png}"></label>
+                        <input th:field="*{weight}" type="text" placeholder="kg" class="form-control align-middle text-center">
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="width">Szerokość<img style="margin-left: 35px; margin-bottom: 7px"
+                                                           src="../static/img/width-small.png"
+                                                           th:src="@{../img/width-small.png}"></label>
+                        <input th:field="*{width}" type="text" placeholder="cm" class="form-control text-center" id="width">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Długość<img style="margin-left: 30px" src="../static/img/length-small.png"
+                                                th:src="@{../img/length-small.png}"></label>
+                        <input th:field="*{length}" type="text" placeholder="cm" class="form-control text-center">
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        <label for="height">Wysokość<img style="margin-left: 35px"
+                                                             src="../static/img/height-small.png"
+                                                             th:src="@{../img/height-small.png}"></label></label>
+                        <input th:field="*{height}" type="text" placeholder="cm" class="form-control text-center" id="height">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" style="margin-top: 5px">
+                <div class="form-group col-md-12">
+                    <label for="inputAddress">Ulica<img style="margin-left: 35px" src="../static/img/street.png"
+                                                               th:src="@{../img/street.png}"></label>
+                    <input type="text" class="form-control" id="inputAddress"
+                           th:field="*{address}"> <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputCity">Miasto<img style="margin-left: 65px" src="../static/img/city.png"
+                                                    th:src="@{../img/city.png}"></label>
+                    <input type="text" class="form-control" id="inputCity" th:field="*{city}">
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputZip">Kod<img style="margin-left: 75px" src="../static/img/zip.png"
+                                                  th:src="@{../img/zip.png}"></label>
+                    <input type="text" class="form-control" id="inputZip" th:field="*{zip}">
+                    <!--required-->
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputCountry">Kraj<img style="margin-left: 35px" src="../static/img/country.png"
+                                                          th:src="@{../img/country.png}"></label>
+                    <input type="text" class="form-control" id="inputCountry"
+                           th:field="*{country}"> <!--required-->
+                </div>
+            </div>
+
+            <div class="col">
+
+                <div class="form-group">
+                    <label for="additionalComments" style="margin-top: 5px">Zawartość<img style=" margin-left: 55px"
+                                                                                        src="../static/img/content-small.png"
+                                                                                        th:src="@{../img/content-small.png}"></label>
+                    <textarea th:field="*{content}" class="form-control" id="content"
+                              rows="5"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalComments" style="margin-top: 5px">Komentarz<img style="margin-left: 35px"
+                                                                                         src="../static/img/comment.png"
+                                                                                         th:src="@{../img/comment.png}"></label>
+                    <textarea th:field="*{additionalComments}" style="margin-top: 5px" class="form-control"
+                              id="additionalComments"
+                              rows="5"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; height: 60px; font-size: 30px;">Create</button>
+    </form>
+
+</div>
+<footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
+</body>
+</html>

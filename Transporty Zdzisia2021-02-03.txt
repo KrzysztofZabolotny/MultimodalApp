@@ -1,0 +1,48 @@
+Dane klienta składającego zamówienie
+Imie i Nazwisko: null
+Numer telefonu: null
+
+Dane nadawcy
+
+Imie i Nazwisko: Krzysztof Zabołotny
+Adres: Handlowa, Sulechów, 66-100, Polska
+Numer telefonu: 0048507402883
+
+Dane odbiorcy
+
+Imie i Nazwisko: Natalia Zabołotna
+Adres: Konows Gate 1e, Oslo, 0192, Norwegia
+Numer telefonu: 004748640170
+
+Dane paczki:
+waga: 11kg, wsokość: 50cm, szerokość: 20cm, długość 30cm
+
+Zawartość: Ksiazki
+Komentarz: Nie dzwonic po północy
+
+Kwota do zapłaty: 1000Nok
+_____________________________________________________________________________________________________________________________________
+Dane klienta składającego zamówienie
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +47 92010437
+
+Dane nadawcy
+
+Imie i Nazwisko: Maria Oporowska
+Adres: Wichrowe Wzgórza, Poznań, 02-992, Posla
+Numer telefonu: 0047892992881
+
+Dane odbiorcy
+
+Imie i Nazwisko: Natalia Oporowska
+Adres: Sorenkaia 107, Oslo, 66-100, Polska
+Numer telefonu: 004792010437
+
+Dane paczki:
+waga: 10kg, wsokość: 40cm, szerokość: 20cm, długość 30cm
+
+Zawartość: Nic takiego
+Komentarz: Nie dzownic rano
+
+Kwota do zapłaty: 500Nok
+_____________________________________________________________________________________________________________________________________
