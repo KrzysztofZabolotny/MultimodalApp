@@ -202,4 +202,11 @@ public class Client {
 
     }
 
+    public String clientSummary(){
+        return "Nazwa użytkownika: "+userName+"\n"
+                +"Imie: "+name+"\n"
+                +"Nazwisko: "+surname+"\n"
+                +"Numer telefonu: "+code+phone+"\n";
+    }
+
 }

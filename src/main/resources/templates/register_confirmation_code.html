@@ -34,17 +34,24 @@
         .btn {
             width: 272px;
             height: 60px;
-            background-color: #00203f;
             font-weight: bold;
             color: #f5f5f5;
+            background-color: #fc7333;
+            border-color: #F8F9FA;
+            border-style: solid;
         }
 
         .btn:hover {
             width: 272px;
             height: 60px;
-            background-color: #EA4F45;
+            background-color: #B2B356;
             font-weight: bold;
             color: #f5f5f5;
+
+        }
+
+        input:focus::placeholder {
+            color: transparent;
         }
 
         .wf {
@@ -74,8 +81,8 @@
         <div class="myDiv">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label class="myLabel" for="code">kod</label>
-                    <input type="text" class="form-control" id="code" placeholder="******" th:field="*{oneTimeCode}" style="text-align: center; margin-left: auto; margin-right: auto; ">
+<!--                    <label class="myLabel" for="code">kod</label>-->
+                    <input type="text" class="form-control" placeholder="podaj kod" id="code" th:field="*{oneTimeCode}" style="text-align: center; margin-left: auto; margin-right: auto; ">
                 </div>
             </div>
         </div>

@@ -16,134 +16,133 @@
             font-size: 20px;
         }
 
-        #container {
-            width: 800px;
-            height: 240px;
-            margin-left: auto;
-            margin-right: auto;
-
-        }
 
         .btn {
             background-color: #fc7333;
-            height: 50px;
-            width: 300px;
-            margin-left: 235px;
-            margin-top: 30px;
             font-weight: bold;
             color: #f5f5f5;
         }
 
         .btn:hover {
             background-color: #B2B356;
-            height: 50px;
-            width: 300px;
-            margin-left: 235px;
+
             font-weight: bold;
             color: #f5f5f5;
 
         }
-        .btn-logout{
-            width: 100px;
-            height: 40px;
-            background-color: #ee0938;
-            margin-right: 20px;
-            margin-left: 20px;
-            margin-top: 30px;
-            font-weight: bold;
-            color: #f5f5f5;
-        }
-        .btn-logout:hover{
-            width: 100px;
-            height: 40px;
-            background-color: #07ac30;
-            margin-right: 20px;
-            margin-left: 20px;
-            font-weight: bold;
-            color: #f5f5f5;
+
+        .custom-radio {
+            margin-left: 100px;
+
         }
 
         .jumbotron text-center {
 
         }
 
+        .wf {
+            outline: 1px solid red;
+        }
+
+        input[type="text"]:disabled {
+            background-color: #03859b;
+            color: #03859b;
+        }
+
+        input {
+            text-align: center;
+        }
+        input:focus::placeholder {
+            color: transparent;
+        }
+
+
     </style>
 
 
 </head>
 <body>
-<div class="col-12 text-right">
-
-    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
-        <a href="/">
-            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
-        </a>
-        <a href="/logout">
-            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
-        </a>
-    </div>
-
-
-</div>
 
 <div class="jumbotron text-center"
      style="background-color: #03859b; align-content: center; height: 100px; margin-top: -30px">
-    <h1 class="display-4">Edit details</h1>
+    <h1 class="display-4">Edytuj profil</h1>
 
 </div>
 
 <div id="container">
-    <div class="col-6 text-center" style="margin-left: 200px">
-        <img src="../static/img/profile-edit.png" th:src="@{../img/profile-edit.png}"
-             style=" max-width: fit-content;"/>
-    </div>
 
-    <form action="#" th:action="@{/edit_profile}" th:object="${client}" method="post">
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputName" style="text-align: center">Imie</label>
-                <input type="text" class="form-control" id="inputName" placeholder="John" th:field="*{name}">
+    <div class="row justify-content-center text-center">
+            <div class="col"></div>
+
+            <div class="col-6 text-center">
+                <img src="../static/img/profile-edit.png" th:src="@{../img/profile-edit.png}"
+                     style=" max-width: fit-content;"/>
             </div>
-            <div class="form-group col-md-4">
-                <label for="inputSurname">Nazwisko</label>
-                <input type="text" class="form-control" id="inputSurname" placeholder="Doe" th:field="*{surname}">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputPassword">Hasło</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="********" th:field="*{password}">
+            <div class="col"></div>
+        </div>
+
+    <div class="row justify-content-center text-center">
+            <div class="col col-4">
+                <form action="#" th:action="@{/edit_profile}" th:object="${client}" method="post">
+                    <div class="col">
+                        <div class="form-group ">
+                            <!--                        <label for="inputName">Imię</label>-->
+                            <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="imię" required>
+                            <!--required-->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group row-md-6">
+                            <!--                        <label for="inputSurname">Nazwisko</label>-->
+                            <input type="text" class="form-control" id="inputSurname" th:field="*{surname}" placeholder="nazwisko" required>
+                            <!--required-->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group ">
+                            <!--                        <label for="inputPassword">Hasło</label>-->
+                            <input type="password" class="form-control" id="inputPassword" th:field="*{password}" placeholder="hasło" >
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+                            <div class="col">
+                                <!--                            <label for="inputCode">Numer kierunkowy</label>-->
+                                <input type="text" class="form-control" id="inputCode" th:field="*{code}" placeholder="numer kierunkowy" >
+                            </div>
+                            <div class="col">
+                                <!--                            <label for="inputPhoneNumber">Numer telefonu</label>-->
+                                <input type="text" class="form-control" id="inputPhoneNumber" th:field="*{phone}" placeholder="numer telefonu" >
+                                <!--required-->
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="row ">
+                        <div class="col"></div>
+                        <div class="col ">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                    style="margin-top: 20px; margin-left: 18px">Zatwierdź
+                            </button>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                </form>
             </div>
         </div>
-        <div class="form-group">
-            <label for="inputAddress">Ulica</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Wojska Polskeigo 10/4"
-                   th:field="*{street}">
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">Miasto</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Oslo" th:field="*{city}">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputZip">Kod</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="0192" th:field="*{zip}">
-            </div>
-            <div class="form-group col-md-1">
-                <label for="inputCode">Nr. kier</label>
-                <input type="text" class="form-control" id="inputCode" placeholder="+47..." th:field="*{code}">
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputPhoneNumber">Numer telefonu</label>
-                <input type="text" class="form-control" id="inputPhoneNumber" placeholder="91010123"
-                       th:field="*{phone}">
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Aktualizuj</button>
-        <footer class="page-footer font-small blue">
-            <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
-        </footer>
-    </form>
+
 
 </div>
+<footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
+
 </body>
 </html>

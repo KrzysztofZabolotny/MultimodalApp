@@ -1,0 +1,14 @@
+Dane klienta
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +4792010437
+Adres: Konows Gate 1/e 0192 Oslo
+
+Dane paczki:
+Adres dostawy: Handlowa 7/3, 66-100 Sylechów
+waga: 10kg, wsokość: 10cm, szerokość: 10cm, długość 10cm
+
+Zawartość: brak
+Komentarz: brak
+
+Kwota do zapłaty: 500Nok
+_____________________________________________________________________________________________________________________________________

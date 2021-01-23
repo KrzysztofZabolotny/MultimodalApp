@@ -112,7 +112,6 @@ public class HomeController {
 
 
         client.setUserName(client.getEmail());
-        //validation process
 
         Optional<Client> clientOptional = clientRepository.findByUserName(client.getUserName());
 
@@ -150,9 +149,9 @@ public class HomeController {
             clientRepository.save(globalClient);
             Thread sendRegistrationDetails;
             if (globalClient.getRole().equals("Client")) {
-                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.toString()));
+                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.clientSummary()));
             } else {
-                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.toString() + "\n" + "Company name: " + globalClient.getCompanyName()));
+                sendRegistrationDetails = new Thread(new MailSender(globalClient.getEmail(), "Twoje dane: \n" + globalClient.clientSummary() + "\n" + "Company name: " + globalClient.getCompanyName()));
             }
             sendRegistrationDetails.start();
             return "register_success";
@@ -233,9 +232,6 @@ public class HomeController {
 
         return "successful_transport_registration";
     }
-
-
-
 
     /*CHOOSING EXISTING TRANSPORT*/
 
@@ -620,7 +616,14 @@ public class HomeController {
 
         parcel.setStatus("ODRZUCONY");
         Thread notifyAboutStatusChange;
-        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka została odrzucona"));
+        notifyAboutStatusChange = new Thread(new MailSender(parcel.getOwnerEmail(), "Twoja paczka na adres:\n"
+                + parcel.getAddress()
+                + "\n" + parcel.getZip()
+                + "\n" + parcel.getCity()
+                + "\n" + parcel.getCountry()
+                + " została odrzucona przez: "
+                + transport.getDriverId()
+                + "z firmy" + transport.getCompanyName()));
         notifyAboutStatusChange.start();
 
 
@@ -702,7 +705,7 @@ public class HomeController {
                     .contentType(MediaType.parseMediaType("application/txt")).body(resource);
         }
 
-        String transportData = "src/main/resources/reports/" + transport.getCompanyName() + transport.getDepartureDate();
+        String transportData = transport.getCompanyName() + transport.getDepartureDate();
 
 
         try {

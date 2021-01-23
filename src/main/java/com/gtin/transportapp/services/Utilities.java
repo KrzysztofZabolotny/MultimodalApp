@@ -48,18 +48,21 @@ public final class Utilities {
 
     public static Client updateGlobalClientDetails(Client client, Client globalClient) {
 
-        globalClient.setCity(client.getCity());
-        globalClient.setCode(client.getCode());
-        globalClient.setEmail(client.getEmail());
-        globalClient.setPassword(client.getPassword());
+
+        globalClient.setUserName(client.getEmail());
         globalClient.setName(client.getName());
+        globalClient.setSurname(client.getSurname());
+        globalClient.setEmail(client.getEmail());
         globalClient.setPassword(SecurityConfiguration.getPasswordEncoder().encode(client.getPassword()));
+        globalClient.setCode(client.getCode());
         globalClient.setPhone(client.getPhone());
         globalClient.setRole(client.getRole());
-        globalClient.setStreet(client.getStreet());
-        globalClient.setSurname(client.getSurname());
-        globalClient.setZip(client.getZip());
-        globalClient.setUserName(client.getEmail());
+
+//        globalClient.setStreet(client.getStreet());
+//        globalClient.setZip(client.getZip());
+//        globalClient.setCity(client.getCity());
+//        globalClient.setPassword(client.getPassword());
+
         globalClient.setCompanyName(client.getCompanyName());
 
         return globalClient;
