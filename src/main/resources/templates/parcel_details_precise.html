@@ -96,6 +96,10 @@
                     <h5 class="card-title" th:text="${parcel.ownerPhoneNumber}">Numer telefonu</h5>
                     <h5 class="card-title" th:text="${parcel.userName}">Adres email</h5>
 
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/pickup.png" th:src="@{../img/pickup.png}"
+                             alt="Card image cap">
+                    </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Nadawca</small></h6>
                     <h5 class="card-title" th:text="${parcel.senderName}+' '+${parcel.senderSurname}">Imie Nazwisko</h5>
                     <h5 class="card-title" th:text="${parcel.senderStreet}">Ulica</h5>
@@ -104,6 +108,10 @@
                     <h5 class="card-title" th:text="${parcel.senderCountry}">Kraj</h5>
                     <h5 class="card-title" th:text="${parcel.senderPhoneNumber}">Numer telefonu</h5>
 
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}"
+                             alt="Card image cap">
+                    </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Odbiorca</small></h6>
                     <h5 class="card-title" th:text="${parcel.receiverName}+' '+${parcel.receiverSurname}">Imie Nazwisko</h5>
                     <h5 class="card-title" th:text="${parcel.receiverStreet}">Ulica</h5>
@@ -117,7 +125,12 @@
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Zawartość</small></h6>
                     <h5 class="card-title" th:text="${parcel.content}">Zawartość</h5>
-                    <h6 class="card-text"><small class="text-dark font-italic">Komentach</small></h6>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/comment.png" th:src="@{../img/comment.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Komentarz</small></h6>
                     <h5 class="card-title" th:text="${parcel.additionalComments}">Komentarz</h5>
 
                     <div class="card-img-top d-flex justify-content-center bg-light">

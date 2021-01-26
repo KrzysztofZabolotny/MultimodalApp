@@ -80,6 +80,10 @@ public final class Utilities {
         return dtf.format(now);
     }
 
+    public static LocalDateTime todayDate(){
+        return LocalDateTime.now();
+    }
+
     public static boolean isValidEmailAddress(String email) {
         String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         Pattern pattern = Pattern.compile(emailPattern);

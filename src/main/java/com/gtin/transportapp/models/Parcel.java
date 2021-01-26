@@ -20,6 +20,8 @@ public class Parcel {
     private String inTransportName;
     private String owner;
     private String ownerPhoneNumber;
+    private String driverEmail;
+    private String driverPhoneNumber;
 
     private int weight;
     private int width;
@@ -44,6 +46,12 @@ public class Parcel {
     private String receiverZip;
     private String receiverCountry;
     private String receiverPhoneNumber;
+
+
+    public Parcel() {
+
+    }
+
 
 
     public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
@@ -113,6 +121,21 @@ public class Parcel {
         this.additionalComments = additionalComments;
     }
 
+    public String getDriverEmail() {
+        return driverEmail;
+    }
+
+    public void setDriverEmail(String driverEmail) {
+        this.driverEmail = driverEmail;
+    }
+
+    public String getDriverPhoneNumber() {
+        return driverPhoneNumber;
+    }
+
+    public void setDriverPhoneNumber(String driverPhoneNumber) {
+        this.driverPhoneNumber = driverPhoneNumber;
+    }
 
     public int getWeight() {
         return weight;
@@ -146,10 +169,6 @@ public class Parcel {
         this.height = height;
     }
 
-
-    public Parcel() {
-
-    }
 
     public String getSenderName() {
         return senderName;
@@ -351,7 +370,6 @@ public class Parcel {
                         + receiverZip
                         + "\n"
                         + receiverCountry
-                        + "\n\nZawarość: " + content
                         + "\n\nWymiary:"
                         + "\nwysokosc: " + height + "cm"
                         + "\nszerokosc: " + width + "cm"

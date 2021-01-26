@@ -166,6 +166,12 @@
                         }, 1000);
                     </script>
 
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/status.png" th:src="@{../img/status.png}" alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Status transportu</small></h6>
+                    <p class="card-text" th:text="${transport.status}">Status transportu</p>
+
 
                     <div class="card-img-top d-flex justify-content-center bg-light">
                         <img class="img-fluid" src="../static/img/dollar.png"

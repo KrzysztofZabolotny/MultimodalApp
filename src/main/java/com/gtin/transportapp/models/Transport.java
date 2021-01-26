@@ -29,7 +29,7 @@ public class Transport {
     private int ballast = 0;
     private int value = 0;
     private String pricing;
-    private String status = "none";
+    private String status;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
