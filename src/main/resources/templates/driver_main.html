@@ -92,40 +92,42 @@
     </div>
 </div>
 
-<div class="container">
+<div id="container">
 
     <div class="row">
-
-
-        <div class="col">
-            <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
-                 style=" max-width: fit-content; margin-top: 0px; margin-left: 90px"/>
+        <div class="col"></div>
+        <div class="col justify-content-md-center">
+            <img src="../static/img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}" alt=""/>
         </div>
-        <div class="col">
-            <div id="button_container" style="margin-top: -30px">
-                <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both">
-                    NOWY TRANSPORT
-                </button>
-                <button onclick="window.location.href='/driver_transports';" class="btn" style="clear: both;">
-                    AKTYWNE TRANSPORTY
-                </button>
-                <button onclick="window.location.href='/transports_history';" class="btn" style="clear: both">
-                    HISTORIA
-                </button>
-                <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
-                    PROFIL
-                </button>
-                <!--    <button onclick="window.location.href='/edit_transports';" class="btn" style="clear: both" >
-                        Edit Transports
-                    </button>-->
-                <!--     <button onclick="window.location.href='/client_details';" class="btn" style="clear: both" >
-                         Your stats
-                     </button>-->
-                <div style="clear:both;"></div>
+        <div class="col justify-content-center align-items-center">
+            <div class="col" style="margin-top: -50px">
+                <div class="tile-top">
+                    <button onclick="window.location.href='/register_transport';" class="btn" style="clear: both">
+                        NOWY TRANSPORT
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/driver_transports';" class="btn" style="clear: both;">
+                        AKTYWNE TRANSPORTY
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/transports_history';" class="btn" style="clear: both">
+                        HISTORIA
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
+                        PROFIL
+                    </button>
+                </div>
             </div>
         </div>
+        <div class="col"></div>
     </div>
+
 </div>
+
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
 </footer>

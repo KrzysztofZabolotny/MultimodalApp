@@ -92,41 +92,43 @@
     </div>
 </div>
 
-<div class="container">
+<div id="container">
 
     <div class="row">
-
-
-        <div class="col">
-            <img src="thymeleafDesignPatterns/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}"
-                 style=" margin-top: 0px; margin-left: 90px"/>
+        <div class="col"></div>
+        <div class="col justify-content-md-center">
+            <img src="../static/img/modes_of_transportation.png" th:src="@{img/modes_of_transportation.png}" alt=""/>
         </div>
-        <div class="col">
-            <div id="button_container">
-<!--                <img style="margin-top: 50px" src="../static/img/truck.png" th:src="@{../img/truck.png}">-->
-                <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
-                    Szukaj transportu
-                </button>
-<!--                <img style="margin-top: 30px" src="../static/img/parcels.png" th:src="@{../img/parcels.png}">-->
-                <button onclick="window.location.href='/client_parcels';" class="btn" style="clear: both">
-                    Twoje paczki
-                </button>
-<!--                <img style="margin-top: 30px" src="../static/img/profile.png" th:src="@{../img/profile.png}">-->
-                <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
-                    Profil
-                </button>
-                <button onclick="window.location.href='/parcel_history';" class="btn" style="clear: both">
-                    Historia
-                </button>
-                <div style="clear:both;"></div>
+        <div class="col justify-content-center align-items-center">
+            <div class="col" style="margin-top: -50px">
+                <div class="tile-top">
+                    <button onclick="window.location.href='/choose_transport';" class="btn" style="clear: both">
+                        SZUKAJ TRANSPORTU
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/client_parcels';" class="btn" style="clear: both;">
+                        TWOJE PACZKI
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/client_details';" class="btn" style="clear: both">
+                        PROFIL
+                    </button>
+                </div>
+                <div class="tile-bottom" style="margin-top: 10px">
+                    <button onclick="window.location.href='/parcel_history';" class="btn" style="clear: both">
+                        HISTORIA
+                    </button>
+                </div>
             </div>
         </div>
+        <div class="col"></div>
     </div>
+
 </div>
 <footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
     <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
 </footer>
 </body>
 </html>
-
-
