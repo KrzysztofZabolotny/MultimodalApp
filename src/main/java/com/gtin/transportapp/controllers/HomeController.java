@@ -248,7 +248,7 @@ public class HomeController {
         transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
         transports = transports.stream().filter(transport -> !transport.getStatus().equals("dostarczony")).collect(Collectors.toList());
 
-        if(transports.size()==0){
+        if (transports.size() == 0) {
             return "no_transports_in_repository";
         }
 //        List<Transport> transportsOut = new ArrayList<>();
@@ -283,6 +283,7 @@ public class HomeController {
 
         return "driver_transports";
     }
+
     @GetMapping("/transports_history")
     public String showTransportsHistory(Model model, Parcel parcel, Principal principal) {
 
@@ -304,7 +305,7 @@ public class HomeController {
     }
 
     @GetMapping("parcel_history")
-    public String showParcelHistory(Model model, Principal principal){
+    public String showParcelHistory(Model model, Principal principal) {
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("Client not found"));
 
@@ -314,7 +315,7 @@ public class HomeController {
 
         List<Parcel> clientParcels = parcels.stream().filter(p -> p.getUserName().equals(client.getUserName())).filter(parcel -> parcel.getStatus().equals("DOSTARCZONA")).collect(Collectors.toList());
 
-        if(clientParcels.size()==0){
+        if (clientParcels.size() == 0) {
             return "no_parcels_registered";
         }
         model.addAttribute("parcels", clientParcels);
@@ -442,7 +443,7 @@ public class HomeController {
         List<Parcel> clientParcels = parcels.stream().filter(p -> p.getUserName().equals(client.getUserName())).filter(parcel -> !parcel.getStatus().equals("DOSTARCZONA")).collect(Collectors.toList());
 
 
-        if(clientParcels.size()==0){
+        if (clientParcels.size() == 0) {
             return "no_parcels_registered";
         }
         model.addAttribute("parcels", clientParcels);
@@ -630,32 +631,6 @@ public class HomeController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @GetMapping("/transport_left_notification/{id}")
     public String leftTransport(@PathVariable("id") Integer id, Principal principal) {
 
@@ -677,10 +652,10 @@ public class HomeController {
                     + transport.getDepartureDate()
                     + "\njest już w drodze."
                     + "\n\nKontakt do kierowcy: "
-                    + "\n "+transport.getDriverId()
-                    + "\n "+transport.getDriverPhoneNumber()
-                    + "\nz firmy" + transport.getCompanyName()
-                    +"\n\n W razie pytań skontaktuj się z nim"));
+                    + "\n " + transport.getDriverId()
+                    + "\n " + transport.getDriverPhoneNumber()
+                    + "\nz firmy " + transport.getCompanyName()
+                    + "\n\n W razie pytań skontaktuj się z kierowcą"));
             notifyAboutStatusChange.start();
         }
         invoiceRepository.save(new Invoice().populateAfterDelivery(transport));
@@ -713,10 +688,10 @@ public class HomeController {
                 + "\nz planowanym wyjazdem: \n"
                 + transport.getDepartureDate()
                 + "\nzostała zatwierdzona przez:"
-                + "\n "+transport.getDriverId()
-                + "\n "+transport.getDriverPhoneNumber()
+                + "\n " + transport.getDriverId()
+                + "\n " + transport.getDriverPhoneNumber()
                 + "\nz firmy" + transport.getCompanyName()
-        +"\n\n W razie pytań skontaktuj się z kierowcą"));
+                + "\n\n W razie pytań skontaktuj się z kierowcą"));
         notifyAboutStatusChange.start();
         parcelRepository.save(parcel);
         return "accept_parcel";
@@ -747,7 +722,8 @@ public class HomeController {
                 + transport.getDepartureDate()
                 + "\nzostała odrzucona przez: \n"
                 + transport.getDriverId()
-                + "\nz firmy" + transport.getCompanyName()));
+                + "\nz firmy " + transport.getCompanyName()
+                + "\n\n W razie pytań skontaktuj się z kierowcą"));
         notifyAboutStatusChange.start();
 
 
@@ -774,7 +750,18 @@ public class HomeController {
 
             parcel.setStatus("ZATWIERDZONY");
 
-            notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka została zatwierdzona"));
+            notifyAboutStatusChange = new Thread(new MailSender(parcel.getUserName(), "Twoja paczka na adres:\n"
+                    + parcel.getReceiverStreet()
+                    + "\n" + parcel.getReceiverCity()
+                    + "\n" + parcel.getReceiverZip()
+                    + "\n" + parcel.getReceiverCountry()
+                    + "\nz planowanym wyjazdem: \n"
+                    + transport.getDepartureDate()
+                    + "\nzostała zatwierdzona przez:"
+                    + "\n " + transport.getDriverId()
+                    + "\n " + transport.getDriverPhoneNumber()
+                    + "\nz firmy" + transport.getCompanyName()
+                    + "\n\nW razie pytań skontaktuj się z kierowcą"));
             notifyAboutStatusChange.start();
 
 

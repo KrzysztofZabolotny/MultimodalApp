@@ -173,6 +173,7 @@ public final class Utilities {
                     +"cm\n\n";
             report+="Zawartość: "+parcel.getContent()+"\n";
             report+="Komentarz: "+parcel.getAdditionalComments()+"\n\n";
+            report+="Deklarowana wartość: "+parcel.getDeclaredValue()+"Zł\n";
             report+="Kwota do zapłaty: "+parcel.getValue()+"Nok\n";
             report+="_____________________________________________________________________________________________________________________________________\n";
 

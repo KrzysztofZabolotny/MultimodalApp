@@ -1,0 +1,100 @@
+Dane klienta składającego zamówienie
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +47 92010437
+
+Dane nadawcy
+
+Imie i Nazwisko: 9 89
+Adres: 89, 8, 98, 9
+Numer telefonu: 89
+
+Dane odbiorcy
+
+Imie i Nazwisko: 8 9
+Adres: 89, 8, 98, 988
+Numer telefonu: 9
+
+Dane paczki:
+waga: 1kg, wsokość: 98cm, szerokość: 98cm, długość 98cm
+
+Zawartość: 98
+Komentarz: 98
+
+Deklarowana wartość: 0Zł
+Kwota do zapłaty: 1000Nok
+_____________________________________________________________________________________________________________________________________
+Dane klienta składającego zamówienie
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +47 92010437
+
+Dane nadawcy
+
+Imie i Nazwisko: kh kjh
+Adres: k, hkj, hk, jhk
+Numer telefonu: hkj
+
+Dane odbiorcy
+
+Imie i Nazwisko: hk hk
+Adres: hk, hk, h, kj
+Numer telefonu: khkh
+
+Dane paczki:
+waga: 1kg, wsokość: 10cm, szerokość: 10cm, długość 10cm
+
+Zawartość: khkjv
+Komentarz: kvkjhv
+
+Deklarowana wartość: 900Zł
+Kwota do zapłaty: 1000Nok
+_____________________________________________________________________________________________________________________________________
+Dane klienta składającego zamówienie
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +47 92010437
+
+Dane nadawcy
+
+Imie i Nazwisko: kgh vhg
+Adres: vk, hgv, khgv, kh
+Numer telefonu: gv
+
+Dane odbiorcy
+
+Imie i Nazwisko: khgv khgv
+Adres: kh, gvk, hgv, kv
+Numer telefonu: vkv
+
+Dane paczki:
+waga: 1kg, wsokość: 93cm, szerokość: 29cm, długość 29cm
+
+Zawartość: kh
+Komentarz: khv
+
+Deklarowana wartość: 1920Zł
+Kwota do zapłaty: 1000Nok
+_____________________________________________________________________________________________________________________________________
+Dane klienta składającego zamówienie
+Imie i Nazwisko: Krzysztof Zabolotny
+Numer telefonu: +47 92010437
+
+Dane nadawcy
+
+Imie i Nazwisko: kjgjkg kj
+Adres: g, jkg, kjhg, kjhg
+Numer telefonu: kjg
+
+Dane odbiorcy
+
+Imie i Nazwisko: kj g
+Adres: kjg, jk, g, kjg
+Numer telefonu: kjg
+
+Dane paczki:
+waga: 1kg, wsokość: 98cm, szerokość: 98cm, długość 98cm
+
+Zawartość: kjhg
+Komentarz: kg
+
+Deklarowana wartość: 789Zł
+Kwota do zapłaty: 1000Nok
+_____________________________________________________________________________________________________________________________________

@@ -29,6 +29,7 @@ public class Parcel {
     private int height;
     private int inTransportNumber;
     private int value;
+    private int declaredValue;
     private LocalDate departureDate;
 
     private String senderName;
@@ -51,7 +52,6 @@ public class Parcel {
     public Parcel() {
 
     }
-
 
 
     public Parcel(String userName, String content, int weight, int width, int length, int height, String destination, String status) {
@@ -135,6 +135,14 @@ public class Parcel {
 
     public void setDriverPhoneNumber(String driverPhoneNumber) {
         this.driverPhoneNumber = driverPhoneNumber;
+    }
+
+    public int getDeclaredValue() {
+        return declaredValue;
+    }
+
+    public void setDeclaredValue(int declaredValue) {
+        this.declaredValue = declaredValue;
     }
 
     public int getWeight() {

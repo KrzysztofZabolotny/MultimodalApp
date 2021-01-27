@@ -123,9 +123,16 @@
                     <div th:text="'Kod: '+${parcel.receiverZip}">Zip</div>
                     <div th:text="'Panstwo: '+${parcel.receiverCountry}">Receiver Country</div>
                 </div>
-                <div class="col"><h2 style="margin-bottom: 15px">Cena</h2>
-                    <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Price</div>
+
+
+                <div class="col"><h2 style="margin-bottom: 15px">Wartość</h2>
+                    <div th:text="'Deklarowana wartość: '+${parcel.declaredValue}+ ' Nok'" style="margin-bottom: 20px">Price</div>
+                    <div class="col"><h2 style="margin-bottom: 20px">Cena</h2>
+                        <div th:text="'Cena transportu paczki: '+${parcel.value}+ ' Nok'">Price</div>
+                    </div>
                 </div>
+
+
             </div>
         <div class="row  justify-content-center align-items-center">
             <button type="submit" style="margin-top: 30px" class="btn btn-default">Zamow</button>
