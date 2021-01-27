@@ -30,6 +30,8 @@ public class Transport {
     private int value = 0;
     private String pricing;
     private String status;
+    private String numberOfPassengers;
+    private String numberOfSeats;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -190,6 +192,22 @@ public class Transport {
 
     public void setPricing(String pricing) {
         this.pricing = pricing;
+    }
+
+    public String getNumberOfPassengers() {
+        return numberOfPassengers;
+    }
+
+    public void setNumberOfPassengers(String numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
+    }
+
+    public String getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public void setNumberOfSeats(String numberOfSeats) {
+        this.numberOfSeats = numberOfSeats;
     }
 
     public void increaseParcelCount(){
