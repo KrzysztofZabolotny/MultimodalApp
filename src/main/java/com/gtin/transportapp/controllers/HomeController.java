@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
 import java.security.Principal;
@@ -35,6 +36,7 @@ public class HomeController {
     public static int oneTimeCode;
     public static Transport globalTransport;
     public static Parcel globalParcel;
+    public static Passenger globalPassenger;
 
 
     @Autowired
@@ -50,10 +52,18 @@ public class HomeController {
     @Autowired
     InvoiceRepository invoiceRepository;
     @Autowired
+    PassengerRepository passengerRepository;
+    @Autowired
+    MessageRepository messageRepository;
+    @Autowired
+    ConfirmationTokenRepository confirmationTokenRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Value("${listOfDestinations}")
     private List<String> listOfDestinations;
+    @Value("#{'${possibleNumberOfSeats}'.split(',')}")
+    private List<Integer> possibleNumberOfSeats;
 
 
 
@@ -165,6 +175,62 @@ public class HomeController {
     /* TRANSPORT REGISTRATION*/
 
 
+    @GetMapping("/choose_transport_type")
+    public String chooseTransportType(Model model) {
+
+        return "choose_transport_type";
+    }
+    @GetMapping("/choose_transport_type_driver")
+    public String chooseDriverTransportType(Model model) {
+
+        return "choose_transport_type_driver";
+    }
+    @GetMapping("/choose_transport_type_client")
+    public String chooseClientTransportType(Model model) {
+
+        return "choose_transport_type_client";
+    }
+
+    @GetMapping("/choose_new_transport_type_client")
+    public String chooseNewTransportTypeClient(Model model) {
+
+        return "choose_new_transport_type_client";
+    }
+
+    @GetMapping("/register_passenger_transport")
+    public String registerPassengerTransport(Model model) {
+        Transport transport = new Transport();
+
+        //List<Integer> possibleNumberOfSeats = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15));
+        model.addAttribute("transport", transport);
+        model.addAttribute("destination", transport.getDestination());
+        model.addAttribute("possibleNumberOfSeats", possibleNumberOfSeats);
+        return "register_passenger_transport";
+    }
+
+    @PostMapping("/register_passenger_transport")
+    public String submitPassengerTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
+
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("User not fount with the name: " + principal.getName()));
+        Client client = clientOptional.get();
+        transport.setDriverId(client.getEmail());
+        transport.setCompanyName(client.getCompanyName());
+        transport.setDriverPhoneNumber(client.getCode() + "" + client.getPhone());
+        transport.setStatus("AKTYWNY");
+        transport.setDesignation("passenger");
+        transport.setNumberOfPassengers(0);
+
+        System.out.println("pasazerowie: " + transport.getNumberOfPassengers());
+        System.out.println("siedzenia: " + transport.getNumberOfSeats());
+        transportRepository.save(transport);
+
+
+        return "successful_transport_registration";
+    }
+
+
     @GetMapping("/register_transport")
     public String registerTransport(Model model) {
         Transport transport = new Transport();
@@ -173,7 +239,6 @@ public class HomeController {
         //model.addAttribute("listOfDestinations", listOfDestinations);
         return "register_transport";
     }
-
 
     @PostMapping("/register_transport")
     public String submitTransport(@ModelAttribute("transport") Transport transport, Principal principal) {
@@ -211,6 +276,7 @@ public class HomeController {
         globalTransport.setPriceRanges(transport.getPriceRanges());
         globalTransport.setCapacity(transport.getCapacity());
         globalTransport.setStatus("PRZYJMUJE PACZKI");
+        globalTransport.setDesignation("parcel");
 
 
         globalTransport.getPriceRanges().removeIf(p -> p.getPrice() == 0 && p.getFromWeight() == 0 && p.getToWeight() == 0);
@@ -234,6 +300,70 @@ public class HomeController {
 
     /*CHOOSING EXISTING TRANSPORT*/
 
+
+    @GetMapping("/choose_parcel_transport")
+    public String showAvailableParcelTransports(Model model, Parcel parcel, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
+
+        Client client = clientOptional.get();
+        List<Transport> transports = transportRepository.findAll();
+
+
+        transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
+        transports = transports.stream()
+                .filter(transport -> !transport.getStatus().equals("dostarczony"))
+                .filter(transport -> transport.getDesignation().equals("parcel"))
+                .collect(Collectors.toList());
+
+        if (transports.size() == 0) {
+            return "no_transports_in_repository";
+        }
+//        List<Transport> transportsOut = new ArrayList<>();
+//        for (Transport t: transports){
+//
+//            if(!t.getStatus().equals("dostarczony"))transportsOut.add(t);
+//        }
+        model.addAttribute("transports", transports);
+        model.addAttribute("parcel", parcel);
+        model.addAttribute("client", client);
+
+
+        return "choose_transport";
+    }
+
+    @GetMapping("/choose_passenger_transport")
+    public String showAvailablePassengerTransports(Model model, Parcel parcel, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
+
+        Client client = clientOptional.get();
+        List<Transport> transports = transportRepository.findAll();
+
+
+        transports.sort(Comparator.comparing(Transport::getDestination).thenComparing(Transport::getDepartureDate));
+        transports = transports.stream()
+                .filter(transport -> !transport.getStatus().equals("dostarczony"))
+                .filter(transport -> transport.getDesignation().equals("passenger"))
+                .collect(Collectors.toList());
+
+        if (transports.size() == 0) {
+            return "no_transports_in_repository";
+        }
+//        List<Transport> transportsOut = new ArrayList<>();
+//        for (Transport t: transports){
+//
+//            if(!t.getStatus().equals("dostarczony"))transportsOut.add(t);
+//        }
+        model.addAttribute("transports", transports);
+        model.addAttribute("parcel", parcel);
+        model.addAttribute("client", client);
+
+
+        return "choose_passenger_transport";
+    }
 
     @GetMapping("/choose_transport")
     public String showAvailableTransports(Model model, Parcel parcel, Principal principal) {
@@ -264,15 +394,19 @@ public class HomeController {
         return "choose_transport";
     }
 
-    @GetMapping("/driver_transports")
-    public String showDriverTransports(Model model, Parcel parcel, Principal principal) {
+    @GetMapping("/driver_parcel_transports")
+    public String showDriverParcelTransports(Model model, Parcel parcel, Principal principal) {
 
         Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
         clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
 
         Client client = clientOptional.get();
         List<Transport> transports = transportRepository.findAll();
-        List<Transport> driverTransports = transports.stream().filter(t -> t.getDriverId().equals(client.getUserName())).filter(transport -> !transport.getStatus().equals("dostarczony")).collect(Collectors.toList());
+        List<Transport> driverTransports = transports.stream()
+                .filter(t -> t.getDriverId().equals(client.getUserName()))
+                .filter(transport -> !transport.getStatus().equals("dostarczony"))
+                .filter(transport -> transport.getDesignation().equals("parcel"))
+                .collect(Collectors.toList());
 
         if (driverTransports.size() == 0) {
             return "no_transports_in_repository";
@@ -281,7 +415,32 @@ public class HomeController {
         model.addAttribute("parcel", parcel);
         model.addAttribute("client", client);
 
-        return "driver_transports";
+        return "driver_parcel_transports";
+    }
+
+
+    @GetMapping("/driver_passenger_transports")
+    public String showDriverPassengerTransports(Model model, Parcel parcel, Principal principal) {
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("No client with name: " + principal.getName()));
+
+        Client client = clientOptional.get();
+        List<Transport> transports = transportRepository.findAll();
+        List<Transport> driverTransports = transports.stream()
+                .filter(t -> t.getDriverId().equals(client.getUserName()))
+                .filter(transport -> !transport.getStatus().equals("dostarczony"))
+                .filter(transport -> transport.getDesignation().equals("passenger"))
+                .collect(Collectors.toList());
+
+        if (driverTransports.size() == 0) {
+            return "no_transports_in_repository";
+        }
+        model.addAttribute("transports", driverTransports);
+        model.addAttribute("parcel", parcel);
+        model.addAttribute("client", client);
+
+        return "driver_passenger_transports";
     }
 
     @GetMapping("/transports_history")
@@ -322,6 +481,14 @@ public class HomeController {
         return "client_parcels";
     }
 
+    @GetMapping("show_transport_type_client")
+    public String showTransportTypeClient(){
+
+        return "show_transport_type_client";
+    }
+
+
+
 
 
 
@@ -329,7 +496,7 @@ public class HomeController {
 
 
     @GetMapping("/add_parcel/{id}")
-    public String addParcelTmp(@PathVariable("id") Integer id, Model model) {
+    public String addParcel(@PathVariable("id") Integer id, Model model) {
 
         Parcel parcel = new Parcel();
         transportNumber = id;
@@ -368,6 +535,7 @@ public class HomeController {
         if (transport.permitLoading(parcel.getWeight())) {
             transport.setBallast(transport.getBallast() + parcel.getWeight());
         } else return "error_permit_load";
+        transport.setPassengers(new ArrayList<>());
         globalClient = client;
         globalTransport = transport;
 
@@ -377,6 +545,11 @@ public class HomeController {
 
     @PostMapping("/add_parcel_confirmation")
     public String addParcelConfirmation(@ModelAttribute("parcel") Parcel parcel) {
+
+        System.out.println(globalTransport);
+        System.out.println();
+        System.out.println();
+        System.out.println(parcel);
 
         transportRepository.save(globalTransport);
         try {
@@ -422,6 +595,104 @@ public class HomeController {
 
     }
 
+    @GetMapping("/passenger_details_precise/{id}")
+    public String passengerDetails(@PathVariable("id") int id, Model model) {
+
+        Optional<Passenger> passengerOptional = passengerRepository.findById(id);
+        passengerOptional.orElseThrow(() -> new RuntimeException("Not found"));
+
+
+        Passenger passenger = passengerOptional.get();
+
+        Optional<Transport> transportOptional = transportRepository.findById(passenger.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(transport.getDriverId());
+
+        clientOptional.orElseThrow(() -> new RuntimeException("Driver not found"));
+
+        Client client = clientOptional.get();
+
+
+        model.addAttribute("passenger", passenger);
+        model.addAttribute("client", client);
+        model.addAttribute("transport", transport);
+
+        return "passenger_details_precise";
+
+    }
+
+
+
+
+    /* ADDING PASSENGER*/
+
+
+    @GetMapping("/add_passenger/{id}")
+    public String addPassenger(@PathVariable("id") Integer id, Model model) {
+
+        Passenger passenger = new Passenger();
+        transportNumber = id;
+
+        model.addAttribute("passenger", passenger);
+        return "add_passenger";
+
+    }
+    @PostMapping("/add_passenger")
+    public String postPassenger(@ModelAttribute("passenger") Passenger passenger, Principal principal) {
+
+        Optional<Transport> transportOptional = transportRepository.findById(transportNumber);
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("Client not found"));
+
+        Client client = clientOptional.get();
+
+        Transport transport = transportOptional.get();
+        passenger.setUserName(principal.getName());
+        passenger.setDestination(transport.getDestination());
+        passenger.setDepartureDate(transport.getDepartureDate());
+        passenger.setInTransportNumber(transportNumber);
+        passenger.setInTransportName(transport.getCompanyName());
+        passenger.setDriverEmail(transport.getDriverId());
+        passenger.setDriverPhoneNumber(transport.getDriverPhoneNumber());
+        passenger.setOwner(client.getName() + " " + client.getSurname());
+        passenger.setOwnerPhoneNumber(client.getCode() + " " + client.getPhone());
+        globalPassenger = passenger;
+        transport.getPassengers().add(passenger);
+
+        globalClient = client;
+        globalTransport = transport;
+
+        return "add_passenger_confirmation";
+
+    }
+
+    @PostMapping("/add_passenger_confirmation")
+    public String addPassengerConfirmation(@ModelAttribute("passenger") Passenger passenger) {
+        globalTransport.increasePassengerCount();
+        globalTransport.decreaseNumberOfSeats();
+
+        transportRepository.save(globalTransport);
+//        try {
+//            Thread thread = new Thread(new MailSender(globalClient.getEmail(), "Twoja paczka została dodana do transportu\n"
+//                    + "Dane paczki:\n\n"
+//                    + globalParcel.parcelSummary()));
+//
+//            thread.start();
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+
+        return "successful_passenger_add";
+    }
+
+
 
 
 
@@ -448,6 +719,26 @@ public class HomeController {
         }
         model.addAttribute("parcels", clientParcels);
         return "client_parcels";
+    }
+
+    @GetMapping("/client_passengers")
+    public String showClientPassengers(Model model, Principal principal) {
+
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+        clientOptional.orElseThrow(() -> new RuntimeException("Client not found"));
+
+        Client client = clientOptional.get();
+
+        List<Passenger> passengers = passengerRepository.findAll();
+
+        List<Passenger> clientPassengers = passengers.stream().filter(passenger -> passenger.getUserName().equals(client.getUserName())).filter(passenger -> !passenger.getStatus().equals("DOSTARCZONY")).collect(Collectors.toList());
+
+        if (clientPassengers.size() == 0) {
+            return "no_passengers_registered";
+        }
+        model.addAttribute("passengers", clientPassengers);
+        return "client_passengers";
     }
 
 
@@ -544,8 +835,24 @@ public class HomeController {
         if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
 
         List<Parcel> parcels = transport.getParcels();
+        List<Passenger> passengers = transport.getPassengers();
 
-        if (parcels.size() == 0) {
+        if(passengers.size()!=0){
+
+            int transportValue = 0;
+            for (Passenger passenger: passengers){
+                transportValue+=transport.getTicketValue();
+            }
+
+            double invoice = Utilities.calculateInvoice(transportValue);
+            model.addAttribute("passenger", passengers);
+            model.addAttribute("transportValue", transportValue);
+            model.addAttribute("invoice", invoice);
+            return "transport_details_passenger";
+
+        }
+
+        if (parcels.size() == 0 && passengers.size() == 0 ) {
             return "no_items_in_transport";
         }
 
@@ -698,6 +1005,40 @@ public class HomeController {
 
     }
 
+    @GetMapping("/accept_passenger/{id}")
+    public String acceptPassenger(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Passenger> passengerOptional = passengerRepository.findById(id);
+        passengerOptional.orElseThrow(() -> new RuntimeException("Passenger not found"));
+
+        Passenger passenger = passengerOptional.get();
+        Optional<Transport> transportOptional = transportRepository.findById(passenger.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+        passenger.setStatus("ZATWIERDZONY");
+        Thread notifyAboutStatusChange;
+        notifyAboutStatusChange = new Thread(new MailSender(passenger.getUserName(), "Twój transport na adres:\n"
+                + passenger.getDestinationStreet()
+                + "\n" + passenger.getDestinationCity()
+                + "\n" + passenger.getDestinationZip()
+                + "\n" + passenger.getDestinationCountry()
+                + "\nz planowanym wyjazdem: \n"
+                + transport.getDepartureDate()
+                + "\nzostał zatwierdzony przez:"
+                + "\n " + transport.getDriverId()
+                + "\n " + transport.getDriverPhoneNumber()
+                + "\nz firmy" + transport.getCompanyName()
+                + "\n\n W razie pytań skontaktuj się z kierowcą"));
+        notifyAboutStatusChange.start();
+        passengerRepository.save(passenger);
+        return "accept_passenger";
+
+    }
+
+
     @GetMapping("/deny_parcel/{id}")
     public String denyParcel(@PathVariable("id") Integer id, Principal principal) {
 
@@ -730,6 +1071,42 @@ public class HomeController {
         transport.setNumberOfParcels(transport.getNumberOfParcels() - 1);
         parcelRepository.delete(parcel);
         return "deny_parcel";
+
+    }
+
+    @GetMapping("/deny_passenger/{id}")
+    public String denyPassenger(@PathVariable("id") Integer id, Principal principal) {
+
+        Optional<Passenger> passengerOptional = passengerRepository.findById(id);
+        passengerOptional.orElseThrow(() -> new RuntimeException("Parcel not found"));
+
+        Passenger passenger = passengerOptional.get();
+        Optional<Transport> transportOptional = transportRepository.findById(passenger.getInTransportNumber());
+        transportOptional.orElseThrow(() -> new RuntimeException("Transport not found"));
+
+        Transport transport = transportOptional.get();
+        if (!transport.getDriverId().equals(principal.getName())) return "error_403_unauthorised";
+
+        passenger.setStatus("ODRZUCONY");
+        Thread notifyAboutStatusChange;
+        notifyAboutStatusChange = new Thread(new MailSender(passenger.getUserName(), "Twój transport na adres:\n"
+                + passenger.getDestinationStreet()
+                + "\n" + passenger.getDestinationCity()
+                + "\n" + passenger.getDestinationZip()
+                + "\n" + passenger.getDestinationCountry()
+                + "\nz planowanym wyjazdem: \n"
+                + transport.getDepartureDate()
+                + "\nzostał odrzucony przez:"
+                + "\n " + transport.getDriverId()
+                + "\n " + transport.getDriverPhoneNumber()
+                + "\nz firmy" + transport.getCompanyName()
+                + "\n\n W razie pytań skontaktuj się z kierowcą"));
+        notifyAboutStatusChange.start();
+
+
+        transport.setNumberOfPassengers(transport.getNumberOfPassengers() - 1);
+        passengerRepository.delete(passenger);
+        return "deny_passenger";
 
     }
 
@@ -860,12 +1237,113 @@ public class HomeController {
         return "terms_of_service";
     }
 
+    @GetMapping("/messages")
+    public String showAllMessages(Model model, Principal principal){
+
+
+        List<Message> messages = messageRepository.findAll();
+
+        Optional<Client> clientOptional = clientRepository.findByUserName(principal.getName());
+
+        Client client = clientOptional.get();
+
+        List<Message> clientMessages = messages.stream()
+                .filter(message -> message.getFromUserName()
+                        .equals(client.getUserName())||message.getToUserName()
+                        .equals(client.getUserName()))
+                .collect(Collectors.toList());
+
+
+
+        model.addAttribute("time", Utilities.timeStamp());
+        model.addAttribute("messages", clientMessages);
+        model.addAttribute("client", client);
+
+        return "messages";
+    }
 
 
 
 
-    /*EDIT TRANSPORTS*/
+    /*RESET PASSWORD*/
 
+    // Display the form
+    @RequestMapping(value="/forgot_password", method=RequestMethod.GET)
+    public ModelAndView displayResetPassword(ModelAndView modelAndView, User user) {
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("forgot_password");
+        return modelAndView;
+    }
+
+    // Receive the address and send an email
+    @RequestMapping(value="/forgot_password", method=RequestMethod.POST)
+    public ModelAndView forgotUserPassword(ModelAndView modelAndView, User user) throws Exception {
+        Optional<User> optionalUser = userRepository.findByUserName(user.getUserName());
+        optionalUser.orElseThrow(()-> new RuntimeException("No user found"));
+
+        User existingUser = optionalUser.get();
+        if (existingUser != null) {
+            // Create token
+
+             ConfirmationToken confirmationToken = new ConfirmationToken(existingUser);
+
+            confirmationTokenRepository.save(confirmationToken);
+
+            Thread sendMail = new Thread(new MailSender( existingUser.getUserName(),"W celu zresetowania hasła, kliknij na link: "
+                    + "http://localhost:8080/confirm-reset?token="+confirmationToken.getConfirmationToken()));
+            sendMail.start();
+
+            modelAndView.addObject("message", "Request to reset password received. Check your inbox for the reset link.");
+            modelAndView.setViewName("successForgotPassword");
+
+        } else {
+            modelAndView.addObject("message", "This email address does not exist!");
+            modelAndView.setViewName("error_incorrect_email");
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/confirm-reset", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView validateResetToken(ModelAndView modelAndView, @RequestParam("token")String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+
+            Optional<User> userOptional = userRepository.findByUserName(token.getUser().getUserName());
+
+            User user = userOptional.get();
+            user.setActive(true);
+            userRepository.save(user);
+            modelAndView.addObject("user", user);
+            modelAndView.addObject("emailId", user.getId());
+            modelAndView.setViewName("reset_password");
+        } else {
+            modelAndView.addObject("message", "The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
+
+    // Endpoint to update a user's password
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
+    public ModelAndView resetUserPassword(ModelAndView modelAndView, User user) {
+        if (user.getUserName() != null) {
+            // Use email to find user
+
+            Optional<User> userOptional = userRepository.findByUserName(user.getUserName());
+
+            User tokenUser = userOptional.get();
+
+            tokenUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(tokenUser);
+            modelAndView.addObject("message", "Password successfully reset. You can now log in with the new credentials.");
+            modelAndView.setViewName("password_reset_success");
+        } else {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("error");
+        }
+        return modelAndView;
+    }
 
 
     /*SCHEDUlED TASKS*/

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport Application</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <style>
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+        .btn {
+
+            width: 100%;
+            background-color: #00203f;
+            font-weight: bold;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+
+            background-color: #EA4F45;
+            font-weight: bold;
+
+        }
+
+        .card {
+            max-width: 100%;
+        }
+
+        .card-text {
+            word-wrap: break-word;
+        }
+
+
+        .container {
+
+            margin-bottom: 40px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="col-12 text-right">
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+
+</div>
+
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
+    <div class="container">
+        <h1 class="display-4" style="justify-content: center">Available transports</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div th:each=" transport, iterStat : ${transports}">
+
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary"
+             style="background: #F8F9FA; padding-left: 15px; padding-right: 15px; width: 22rem">
+            <figure>
+                <!--<img class="card-img-top"
+                     th:src="@{'img/'+ ${transport.driverId} + '.png'}" alt="Card image cap">-->
+
+
+                <div class="card-body">
+
+                    <!--<h6 class="card-text"><small class="text-dark font-italic">Company name</small></h6>-->
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/destination.png"
+                             th:src="@{../img/destination.png}" alt="Card image cap">
+                    </div>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <h6 class="card-text"><small class="text-dark font-italic">Cel</small></h6>
+                    </div>
+                    <h3 class="card-text" th:text="${transport.destination}"> Destination</h3>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/driver.png"
+                             th:src="@{../img/driver.png}" alt="Card image cap">
+                    </div>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <h6 class="card-text"><small class="text-dark font-italic">Przewoźnik</small></h6>
+                    </div>
+                    <h5 class="card-text" th:text="${transport.companyName}">Company Name</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/phone.png"
+                             th:src="@{../img/phone.png}" alt="Card image cap">
+                    </div>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <h6 class="card-text"><small class="text-dark font-italic">Kontakt</small></h6>
+                    </div>
+                    <p class="card-text" th:text="${transport.driverId}">Email</p>
+                    <p class="card-text" th:text="${transport.driverPhoneNumber}">Phone number</p>
+
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/date.png"
+                             th:src="@{../img/date.png}" alt="Card image cap">
+                    </div>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <h6 class="card-text"><small class="text-dark font-italic">Data wyjazdu</small></h6>
+                    </div>
+                    <p class="card-text" th:text="${transport.departureDate}">Departure date</p>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/timer.png"
+                             th:src="@{../img/timer.png}" alt="Card image cap">
+                    </div>
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <h6 class="card-text"><small class="text-dark font-italic">Wyjazd za</small></h6>
+                    </div>
+                    <p class="card-text text-danger" th:id="'timer-' + ${iterStat.index}"><small class="text-danger"
+                                                                                                 id="timer">Time till
+                        departure</small></p>
+
+
+                    <script th:inline="javascript">
+
+
+                        var x = setInterval(function () {
+                            var countDownDate = new Date(/*[[${transport.departureDate}]]*/).getTime();
+                            var index = [[${iterStat.index}]];
+
+                            console.log(index);
+
+                            var now = new Date().getTime();
+
+                            var distance = countDownDate - now;
+
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            if (hours < 10) hours = "0" + hours;
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            if (minutes < 10) minutes = "0" + minutes;
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            if (seconds < 10) seconds = "0" + seconds;
+
+                            document.getElementById('timer-' + index).innerHTML = days + "d " + hours + "h "
+                                + minutes + "m " + seconds + "s ";
+                            if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById('timer-' + index).innerHTML = "EXPIRED";
+                            }
+                        }, 1000);
+                    </script>
+
+                    <div class="card-img-top d-flex justify-content-center">
+                        <img class="img-fluid" src="../static/img/status.png" th:src="@{../img/status.png}" alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Status transportu</small></h6>
+                    <p class="card-text" th:text="${transport.status}">Status transportu</p>
+
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/dollar.png"
+                             th:src="@{../img/dollar.png}" alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Cennik</small></h6>
+
+                    <div th:each=" priceRange, iterStat : ${transport.priceRanges}">
+                        <h6 class="card-text"><small style="color: #007bff" class="font-weight-bold" th:text="${priceRange.fromWeight}+'kg - '+${priceRange.toWeight}+'kg  ->'+${priceRange.price}+ 'Nok'">1kg - 10kg -> 500Nok</small></h6>
+
+                    </div>
+
+
+<!--                    <div class="badge badge-success" data-toggle="tooltip" data-placement="top"-->
+<!--                            th:title="-->
+<!--                       ${transport.pricing}" style="width: 150px; height: 40px; font-size: 24px; margin-bottom: 30px; ">-->
+<!--                        Cena-->
+
+<!--                    </div>-->
+
+                    <a class="btn text-white" th:href="@{'/add_parcel/' + ${transport.id}}" style="width: 250px; height: 50px; font-size: 23px; margin-top: 20px">Dodaj paczkę</a>
+
+
+                </div>
+            </figure>
+        </div>
+
+    </div>
+</div>
+<footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Automation App</div>
+</footer>
+</body>
+</html>
+

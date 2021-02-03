@@ -24,14 +24,16 @@ public class Transport {
     private String companyName;
     private String driverPhoneNumber;
     private int numberOfParcels = 0;
+    private int numberOfPassengers = 0;
     private int transportValue = 0;
     private int capacity;
     private int ballast = 0;
     private int value = 0;
     private String pricing;
     private String status;
-    private String numberOfPassengers;
     private String numberOfSeats;
+    private String designation;
+    private int ticketValue;
 
     @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -43,6 +45,10 @@ public class Transport {
     @JoinColumn(name = "parcel_id")
     List<Parcel> parcels = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "passenger_id")
+    List<Passenger> passengers = new ArrayList<>();
 
 
     public Transport() {
@@ -56,7 +62,6 @@ public class Transport {
         this.driverId = driverId;
         this.priceRanges = priceRanges;
     }
-
 
 
 //    public Transport(int id, LocalDate departureDate, String destination, String driverId, List<Parcel> parcels) {
@@ -122,6 +127,7 @@ public class Transport {
         this.numberOfParcels = numberOfParcels;
     }
 
+
     public int getTransportValue() {
         return transportValue;
     }
@@ -152,6 +158,14 @@ public class Transport {
 
     public void setParcels(List<Parcel> parcels) {
         this.parcels = parcels;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(List<Passenger> passengers) {
+        this.passengers = passengers;
     }
 
     public int getBallast() {
@@ -194,11 +208,11 @@ public class Transport {
         this.pricing = pricing;
     }
 
-    public String getNumberOfPassengers() {
+    public int getNumberOfPassengers() {
         return numberOfPassengers;
     }
 
-    public void setNumberOfPassengers(String numberOfPassengers) {
+    public void setNumberOfPassengers(int numberOfPassengers) {
         this.numberOfPassengers = numberOfPassengers;
     }
 
@@ -210,22 +224,47 @@ public class Transport {
         this.numberOfSeats = numberOfSeats;
     }
 
-    public void increaseParcelCount(){
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public int getTicketValue() {
+        return ticketValue;
+    }
+
+    public void setTicketValue(int ticketValue) {
+        this.ticketValue = ticketValue;
+    }
+
+    public void increaseParcelCount() {
         int numberOfParcels = this.getNumberOfParcels();
         numberOfParcels++;
         this.setNumberOfParcels(numberOfParcels);
     }
+    public void increasePassengerCount() {
+        int numberOfPassengers = this.getNumberOfPassengers();
+        numberOfPassengers++;
+        this.setNumberOfPassengers(numberOfPassengers);
+    }
+    public void decreaseNumberOfSeats(){
+        int numberOfSeats = Integer.parseInt(this.getNumberOfSeats());
+        numberOfSeats--;
+        this.numberOfSeats = String.valueOf(numberOfSeats);
+    }
+    public boolean permitLoading(int parcelWeight) {
 
-    public boolean permitLoading(int parcelWeight){
-
-        return this.ballast +parcelWeight<this.capacity;
+        return this.ballast + parcelWeight < this.capacity;
     }
 
-    public String concatenatePrices(){
+    public String concatenatePrices() {
 
         List<PriceRange> priceRanges = this.getPriceRanges();
         StringBuilder result = new StringBuilder();
-        for (PriceRange priceRange: priceRanges){
+        for (PriceRange priceRange : priceRanges) {
             result.append(priceRange).append("\n\n");
         }
 
@@ -247,28 +286,28 @@ public class Transport {
                 ",\n ballast=" + ballast +
                 ",\n value=" + value +
                 ",\n status='" + status + '\'' +
-                ",\n priceRanges=" + priceRanges +
-                ",\n parcels=" + parcels +
+                ",\n passengers=" + passengers +
                 '}';
     }
+
     public String transportSummary() {
 
-        StringBuilder prices= new StringBuilder(new String());
+        StringBuilder prices = new StringBuilder(new String());
 
-        for (PriceRange priceRange: this.getPriceRanges()){
-            if(priceRange!=null)
-            prices.append(priceRange).append("\n");
+        for (PriceRange priceRange : this.getPriceRanges()) {
+            if (priceRange != null)
+                prices.append(priceRange).append("\n");
 
         }
 
 
         return
                 "Data wyjazdu: " + departureDate
-                        + "\nKierunek: "+destination
-                        +"\nNazwa firmy: "+companyName
-                        +"\nŁadowność: "+capacity+"kg"
-                        +"\nCennik: "
-                        +"\n"
-                        +prices;
+                        + "\nKierunek: " + destination
+                        + "\nNazwa firmy: " + companyName
+                        + "\nŁadowność: " + capacity + "kg"
+                        + "\nCennik: "
+                        + "\n"
+                        + prices;
     }
 }

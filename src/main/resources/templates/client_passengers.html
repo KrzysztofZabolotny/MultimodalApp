@@ -30,29 +30,6 @@
             width: 100px;
             height: 30px;
             background-color: #EA4F45;
-
-            font-weight: bold;
-
-        }
-
-
-        .btn-message {
-            width: 100px;
-            height: 50px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            margin-top: 10px;
-            background-color: #00203f;
-            font-weight: bold;
-            font-size: 13px;
-            justify-content: center;
-        }
-
-        .btn-message:hover {
-            width: 100px;
-            height: 50px;
-            margin-top: 10px;
-            background-color: #EA4F45;
             font-weight: bold;
 
         }
@@ -116,7 +93,7 @@
 
 
 <div class="row">
-    <div th:each=" parcel : ${parcels}">
+    <div th:each=" passenger : ${passengers}">
 
         <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary">
             <figure>
@@ -125,52 +102,41 @@
                         <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}" alt="Card image cap">
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Trasa</small></h6>
-                    <h5 class="card-title text-primary font-weight-bold" th:text="${parcel.destination}">Cel</h5>
+                    <h5 class="card-title text-primary font-weight-bold" th:text="${passenger.destination}">Cel</h5>
 
                     <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/driver.png" th:src="@{../img/driver.png}" alt="Card image cap">
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Firma</small></h6>
-                    <h5 class="card-text font-weight-bold" th:text="${parcel.inTransportName}" style="margin-bottom: 15px">Nazwa firmy</h5>
+                    <h5 class="card-text font-weight-bold" th:text="${passenger.inTransportName}" style="margin-bottom: 15px">Nazwa firmy</h5>
                     <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/phone.png" th:src="@{../img/phone.png}" alt="Card image cap">
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Kontakt</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.driverEmail}">Email</small></p>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.driverPhoneNumber}">Numer telefonu</small></p>
-
-
-                    <div class="card-img-top d-flex justify-content-center ">
-                        <img class="img-fluid" src="../static/img/content.png" th:src="@{../img/content.png}" alt="Card image cap">
-                    </div>
-                    <h6 class="card-text"><small class="text-dark font-italic">Zawartość</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.content}">Zawartość</small></p>
+                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${passenger.driverEmail}">Email</small></p>
+                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${passenger.driverPhoneNumber}">Numer telefonu</small></p>
 
 
                     <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/comment.png" th:src="@{../img/comment.png}" alt="Card image cap">
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Komentarz</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.additionalComments}">Komentarz</small></p>
+                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${passenger.additionalComments}">Komentarz</small></p>
 
                     <div class="card-img-top d-flex justify-content-center ">
                         <img class="img-fluid" src="../static/img/date.png" th:src="@{../img/date.png}" alt="Card image cap">
                     </div>
                     <h6 class="card-text"><small class="text-dark font-italic">Data wyjazdu</small></h6>
-                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${parcel.departureDate}">Data wyjazdu</small></p>
+                    <p class="card-text"><small class="font-weight-bold text-dark" th:text="${passenger.departureDate}">Data wyjazdu</small></p>
 
                     <div class="card-img-top d-flex justify-content-center">
                         <img class="img-fluid" src="../static/img/status.png" th:src="@{../img/status.png}" alt="Card image cap">
                     </div>
-                    <h6 class="card-text"><small class="text-dark font-italic">Status paczki</small></h6>
-                    <p class="card-text" th:text="${parcel.status}">Status paczki</p>
+                    <h6 class="card-text"><small class="text-dark font-italic">Status pasażera</small></h6>
+                    <p class="card-text" th:text="${passenger.status}">Status pasażera</p>
 
 
-                    <a class="btn text-white" th:href="@{'/parcel_details_precise/' + ${parcel.id}}">Szczegóły</a>
-                    <div class="row justify-content-center">
-                        <a class="btn btn-message text-white" th:href="@{'/send_message/' + ${parcel.driverEmail}}">Wiadomość do kierowcy</a>
-                    </div>
-
+                    <a class="btn text-white" th:href="@{'/passenger_details_precise/' + ${passenger.id}}">Szczegóły</a>
                 </div>
             </figure>
         </div>

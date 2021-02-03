@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Transport Application</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #03859b;
+            color: whitesmoke;
+            font-family: 'Roboto', sans-serif;
+            font-size: 20px;
+        }
+
+        .btn {
+            width: 100px;
+            height: 30px;
+            padding-bottom: 5px;
+            background-color: #00203f;
+            font-weight: bold;
+            font-size: 13px;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            width: 100px;
+            height: 30px;
+            background-color: #EA4F45;
+            font-weight: bold;
+
+        }
+        .btn-logout{
+            width: 100px;
+            height: 40px;
+            background-color: #ee0938;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+        .btn-logout:hover{
+            width: 100px;
+            height: 40px;
+            background-color: #07ac30;
+            margin-right: 20px;
+            margin-left: 20px;
+            font-weight: bold;
+            color: #f5f5f5;
+        }
+
+
+        .container {
+
+            margin-bottom: 40px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div class="col-12 text-right">
+
+    <div class="card-img-top d-flex justify-content-end" style="margin-top: 20px; margin-right: 20px">
+        <a href="/">
+            <img src="../static/img/home.png" th:src="@{../img/home.png}" style="margin-right: 20px">
+        </a>
+        <a href="/logout">
+            <img src="../static/img/logout.png" th:src="@{../img/logout.png}">
+        </a>
+    </div>
+
+</div>
+
+<div class="jumbotron text-center" style="background-color: #03859b; align-content: center;">
+    <div class="container">
+        <h1 class="display-4" style="justify-content: center">Zarejestrowany transport</h1>
+    </div>
+</div>
+
+<div class="row">
+        <div class="card ml-1 mr-1 mt-3 mb-3 text-center text-primary" style="background: #F8F9FA">
+            <figure>
+                <div class="card-body">
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/owner.png" th:src="@{../img/owner.png}" alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Właściciel</small></h6>
+                    <h5 class="card-title" th:text="${passenger.owner}">Imie Nazwisko</h5>
+                    <h5 class="card-title" th:text="${passenger.ownerPhoneNumber}">Numer telefonu</h5>
+                    <h5 class="card-title" th:text="${passenger.userName}">Adres email</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/pickup.png" th:src="@{../img/pickup.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Dane odbioru</small></h6>
+                    <h5 class="card-title" th:text="${passenger.passengerName}+' '+${passenger.passengerSurname}">Imie Nazwisko</h5>
+                    <h5 class="card-title" th:text="${passenger.passengerStreet}">Ulica</h5>
+                    <h5 class="card-title" th:text="${passenger.passengerCity}">Miasto</h5>
+                    <h5 class="card-title" th:text="${passenger.passengerCountry}">Zip</h5>
+                    <h5 class="card-title" th:text="${passenger.passengerZip}">Kraj</h5>
+                    <h5 class="card-title" th:text="${passenger.passengerPhoneNumber}">Numer telefonu</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/destination.png" th:src="@{../img/destination.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Adres celu</small></h6>
+                    <h5 class="card-title" th:text="${passenger.destinationStreet}">Ulica</h5>
+                    <h5 class="card-title" th:text="${passenger.destinationCity}">Miasto</h5>
+                    <h5 class="card-title" th:text="${passenger.destinationZip}">Zip</h5>
+                    <h5 class="card-title" th:text="${passenger.destinationCountry}">Kraj</h5>
+
+                    <div class="card-img-top d-flex justify-content-center bg-light">
+                        <img class="img-fluid" src="../static/img/comment.png" th:src="@{../img/comment.png}"
+                             alt="Card image cap">
+                    </div>
+                    <h6 class="card-text"><small class="text-dark font-italic">Komentarz</small></h6>
+                    <h5 class="card-title" th:text="${passenger.additionalComments}">Komentarz</h5>
+
+                    <div class="row">
+
+                        <!--<a class="btn text-white" th:href="@{'/parcel_details/' + ${transport.id}}" style=" background-color: blue;">Accept</a>
+                        <a class="btn text-white" th:href="@{'/delete_parcel/' + ${transport.id}}" style=" background-color: red;">Delete</a>
+                        <a class="btn text-white" th:href="@{'/delete_parcel/' + ${transport.id}}" style=" background-color: green;">Devivered</a>-->
+                    </div>
+                </div>
+            </figure>
+        </div>
+</div>
+<footer class="page-footer font-small blue" style="bottom: 0; width: 100%">
+    <div class="footer-copyright text-center py-4">2020&copy Transport Terminal</div>
+</footer>
+</body>
+</html>
